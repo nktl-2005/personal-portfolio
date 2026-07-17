@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Keep anchored sections clear of the fixed navbar */
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+::selection {
+  background-color: var(--color-blue-100);
+  color: var(--color-blue-900);
+}
+
+/* Subtle engineering-grid backdrop used in the hero */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(226 232 240 / 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(226 232 240 / 0.55) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+}
