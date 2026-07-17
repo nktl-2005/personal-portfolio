@@ -1,23 +1,1327 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Nicholas Lee — Mechatronics Engineering student at the University of Waterloo. Mechanical design, additive manufacturing research, and hands-on prototyping."
-    />
-    <meta property="og:title" content="Nicholas Lee | Engineering Portfolio" />
-    <meta
-      property="og:description"
-      content="Mechatronics Engineering student at the University of Waterloo — mechanical design, additive manufacturing, and prototyping."
-    />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Nicholas Lee | Engineering Portfolio</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nicholas Lee — Mechatronics Engineering student at the University of Waterloo. Mechanical design, additive manufacturing research, and hands-on prototyping." />
+  <meta property="og:title" content="Nicholas Lee | Engineering Portfolio" />
+  <meta property="og:description" content="Mechatronics Engineering student at the University of Waterloo — mechanical design, additive manufacturing, and prototyping." />
+  <meta property="og:type" content="website" />
+  <title>Nicholas Lee | Engineering Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232563eb'/%3E%3Ctext x='32' y='42' font-family='sans-serif' font-size='26' font-weight='700' fill='white' text-anchor='middle'%3ENL%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ------------------------------------------------------------------ */
+    /* Design tokens                                                       */
+    /* ------------------------------------------------------------------ */
+    :root {
+      --bg: #f8fafc;            /* slate-50  */
+      --card: #ffffff;
+      --border: #e2e8f0;        /* slate-200 */
+      --heading: #0f172a;       /* slate-900 */
+      --text: #475569;          /* slate-600 */
+      --muted: #64748b;         /* slate-500 */
+      --accent: #2563eb;        /* blue-600  */
+      --accent-dark: #1d4ed8;   /* blue-700  */
+      --accent-bg: #eff6ff;     /* blue-50   */
+      --accent-border: #bfdbfe; /* blue-200  */
+      --accent-text: #1d4ed8;   /* blue-700  */
+      --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.05);
+      --shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
+      --shadow-lg: 0 12px 28px rgb(15 23 42 / 0.12);
+      --radius: 1rem;
+      --font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Base                                                                */
+    /* ------------------------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      /* Single anchor-offset mechanism: keeps sections clear of the fixed navbar */
+      scroll-padding-top: 5.5rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection { background: #dbeafe; color: #1e3a8a; }
+
+    img, svg { display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+
+    .icon { width: 1.05em; height: 1.05em; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; flex-shrink: 0; }
+
+    .container { max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+
+    /* ------------------------------------------------------------------ */
+    /* Reveal-on-scroll animation (respects prefers-reduced-motion in JS)  */
+    /* ------------------------------------------------------------------ */
+    .reveal { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Buttons & chips                                                     */
+    /* ------------------------------------------------------------------ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border-radius: 0.75rem; padding: 0.75rem 1.25rem;
+      font-size: 0.875rem; font-weight: 600; cursor: pointer;
+      border: 1px solid transparent; transition: all 0.2s ease;
+    }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: var(--accent-dark); box-shadow: var(--shadow-md); }
+    .btn-secondary { background: var(--card); color: var(--heading); border-color: #cbd5e1; box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { border-color: var(--accent-border); color: var(--accent); box-shadow: var(--shadow-md); }
+    .btn-ghost { color: var(--text); }
+    .btn-ghost:hover { background: #f1f5f9; color: var(--heading); }
+
+    .tag {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--accent-border); background: var(--accent-bg); color: var(--accent-text);
+      border-radius: 999px; padding: 0.25rem 0.75rem;
+      font-size: 0.75rem; font-weight: 500; transition: background 0.2s ease;
+    }
+    .tag:hover { background: #dbeafe; }
+
+    /* ------------------------------------------------------------------ */
+    /* Header / nav                                                        */
+    /* ------------------------------------------------------------------ */
+    header {
+      position: fixed; inset-inline: 0; top: 0; z-index: 50;
+      transition: all 0.3s ease; background: transparent;
+    }
+    header.scrolled, header.menu-open {
+      background: rgb(255 255 255 / 0.85);
+      -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgb(226 232 240 / 0.7);
+      box-shadow: var(--shadow-sm);
+    }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+    .brand { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.02em; color: var(--heading); transition: color 0.2s; }
+    .brand:hover { color: var(--accent); }
+    .brand span { color: var(--accent); }
+
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; }
+    .nav-links a {
+      padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+      font-size: 0.875rem; font-weight: 500; color: var(--text);
+      transition: all 0.2s ease;
+    }
+    .nav-links a:hover { background: #f1f5f9; color: var(--heading); }
+    .nav-links a.active { background: var(--accent-bg); color: var(--accent); }
+
+    .nav-cta { display: inline-flex; }
+    #menu-btn {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 0.5rem; border-radius: 0.5rem; color: var(--heading);
+    }
+    #menu-btn:hover { background: #f1f5f9; }
+    #menu-btn .i-close { display: none; }
+    #menu-btn.open .i-close { display: block; }
+    #menu-btn.open .i-menu { display: none; }
+
+    #mobile-menu { display: none; border-top: 1px solid rgb(226 232 240 / 0.7); }
+    #mobile-menu.open { display: block; }
+    #mobile-menu ul { padding-block: 1rem; display: grid; gap: 0.25rem; }
+    #mobile-menu a {
+      display: block; padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+      font-size: 0.875rem; font-weight: 500; color: var(--text);
+    }
+    #mobile-menu a:hover { background: #f1f5f9; color: var(--heading); }
+    #mobile-menu a.active { background: var(--accent-bg); color: var(--accent); }
+    #mobile-menu .btn { margin-top: 0.5rem; }
+
+    @media (max-width: 767px) {
+      .nav-links, .nav-cta { display: none; }
+      #menu-btn { display: inline-flex; }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Hero                                                                */
+    /* ------------------------------------------------------------------ */
+    #top { position: relative; overflow: hidden; }
+    .hero-grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(to right, rgb(226 232 240 / 0.55) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(226 232 240 / 0.55) 1px, transparent 1px);
+      background-size: 36px 36px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 40%, transparent 100%);
+    }
+    .hero-blob { position: absolute; border-radius: 999px; filter: blur(64px); pointer-events: none; }
+    .hero-blob-1 { top: -8rem; right: -8rem; width: 24rem; height: 24rem; background: rgb(219 234 254 / 0.6); }
+    .hero-blob-2 { top: 16rem; left: -10rem; width: 20rem; height: 20rem; background: rgb(224 231 255 / 0.5); }
+
+    .hero-inner {
+      position: relative;
+      display: grid; grid-template-columns: 1.2fr 1fr; gap: 3.5rem; align-items: center;
+      padding-top: 10rem; padding-bottom: 7rem;
+    }
+    @media (max-width: 1023px) {
+      .hero-inner { grid-template-columns: 1fr; padding-top: 8rem; padding-bottom: 5rem; }
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--accent-border); background: var(--accent-bg); color: var(--accent-text);
+      border-radius: 999px; padding: 0.375rem 0.875rem;
+      font-size: 0.75rem; font-weight: 600;
+    }
+    .pulse-dot { position: relative; display: flex; width: 0.5rem; height: 0.5rem; }
+    .pulse-dot::before {
+      content: ''; position: absolute; inset: 0; border-radius: 999px;
+      background: #60a5fa; animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+    .pulse-dot::after { content: ''; position: relative; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: #3b82f6; }
+    @keyframes ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .pulse-dot::before { animation: none; } }
+
+    .hero-text h1 {
+      margin-top: 1.5rem; color: var(--heading);
+      font-size: clamp(2.25rem, 6vw, 3.75rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05;
+    }
+    .hero-title { margin-top: 0.75rem; color: var(--accent); font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; }
+    .hero-tagline { margin-top: 1.25rem; max-width: 36rem; font-size: 1.125rem; }
+
+    .hero-meta { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.875rem; color: var(--muted); }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 0.375rem; }
+    .hero-meta .icon { color: #3b82f6; }
+
+    .hero-ctas { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .hero-ctas .arrow { transition: transform 0.2s ease; }
+    .hero-ctas .btn-primary:hover .arrow { transform: translateX(2px); }
+
+    .hero-stats { margin-top: 3rem; display: flex; gap: 2.5rem; max-width: 28rem; }
+    .hero-stats > div { display: flex; flex-direction: column; }
+    .hero-stats dd { order: -1; font-size: 1.5rem; font-weight: 700; color: var(--heading); }
+    .hero-stats dt { margin-top: 0.25rem; font-size: 0.75rem; color: var(--muted); }
+
+    .hero-visual { position: relative; max-width: 24rem; width: 100%; margin-inline: auto; }
+    .avatar-card {
+      position: relative; overflow: hidden; border-radius: 1.5rem;
+      border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+      background: linear-gradient(135deg, #2563eb, #3b82f6 50%, #4f46e5);
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    }
+    /* Replace this initials block with a real headshot:
+       <img src="headshot.jpg" alt="Nicholas Lee" style="width:100%;height:100%;object-fit:cover"> */
+    .avatar-card .initials { font-size: 6rem; font-weight: 800; letter-spacing: -0.02em; color: rgb(255 255 255 / 0.95); }
+    .avatar-caption {
+      position: absolute; inset-inline: 0; bottom: 0; padding: 1.25rem; text-align: center;
+      background: linear-gradient(to top, rgb(23 37 84 / 0.6), transparent);
+      color: rgb(255 255 255 / 0.9); font-size: 0.875rem; font-weight: 500;
+    }
+    .float-chip {
+      position: absolute; z-index: 1;
+      border: 1px solid var(--border); background: var(--card); color: var(--heading);
+      border-radius: 0.75rem; padding: 0.5rem 0.875rem;
+      font-size: 0.75rem; font-weight: 600; box-shadow: var(--shadow-md);
+    }
+    .float-chip-1 { top: -1rem; left: -1.5rem; }
+    .float-chip-2 { top: 33%; right: -2rem; }
+    .float-chip-3 { bottom: -1.25rem; left: 2rem; }
+    @media (max-width: 639px) { .float-chip { display: none; } }
+
+    /* ------------------------------------------------------------------ */
+    /* Sections                                                            */
+    /* ------------------------------------------------------------------ */
+    section { padding-block: 5rem; }
+    @media (min-width: 768px) { section { padding-block: 7rem; } }
+    .section-alt { background: var(--card); }
+
+    .section-header { margin-bottom: 3rem; }
+    @media (min-width: 768px) { .section-header { margin-bottom: 4rem; } }
+    .eyebrow {
+      margin-bottom: 0.75rem; color: var(--accent);
+      font-size: 0.875rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .section-header h2 { color: var(--heading); font-size: clamp(1.875rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; }
+    .section-sub { margin-top: 1rem; max-width: 42rem; font-size: 1.125rem; }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow-sm); transition: all 0.3s ease;
+    }
+    .card-hover:hover { transform: translateY(-4px); border-color: var(--accent-border); box-shadow: var(--shadow-lg); }
+
+    /* ------------------------------------------------------------------ */
+    /* About                                                               */
+    /* ------------------------------------------------------------------ */
+    .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; }
+    @media (max-width: 1023px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-bio p { font-size: 1.125rem; }
+    .about-bio p + p { margin-top: 1.25rem; }
+
+    .focus-title { margin: 2rem 0 1rem; display: flex; align-items: center; gap: 0.5rem; color: var(--heading); font-size: 1rem; font-weight: 600; }
+    .focus-title .icon { color: var(--accent); width: 1.25rem; height: 1.25rem; }
+    .focus-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 639px) { .focus-list { grid-template-columns: 1fr; } }
+    .focus-list li {
+      display: flex; align-items: flex-start; gap: 0.625rem;
+      border: 1px solid var(--border); background: var(--bg); border-radius: 0.75rem;
+      padding: 0.75rem 1rem; font-size: 0.875rem; font-weight: 500; color: var(--heading);
+    }
+    .focus-list li::before {
+      content: ''; margin-top: 0.5rem; width: 0.375rem; height: 0.375rem; flex-shrink: 0;
+      border-radius: 999px; background: #3b82f6;
+    }
+
+    .snapshot { display: grid; gap: 1rem; }
+    .snapshot .card { padding: 1.5rem; }
+    .snapshot .card:hover { box-shadow: var(--shadow-md); }
+    .card-head { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .icon-tile {
+      display: inline-flex; padding: 0.625rem; border-radius: 0.75rem;
+      background: var(--accent-bg); color: var(--accent);
+    }
+    .icon-tile .icon { width: 1.25rem; height: 1.25rem; }
+    .card-head h3 { color: var(--heading); font-size: 1rem; font-weight: 600; }
+    .snapshot p, .snapshot li { font-size: 0.875rem; }
+    .snapshot .strong { color: var(--heading); font-weight: 500; font-size: 1rem; }
+    .snapshot .dim { color: var(--muted); }
+    .snapshot ul { display: grid; gap: 0.5rem; }
+
+    /* ------------------------------------------------------------------ */
+    /* Projects                                                            */
+    /* ------------------------------------------------------------------ */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    @media (max-width: 767px) { .projects-grid { grid-template-columns: 1fr; } }
+
+    .project { display: flex; flex-direction: column; height: 100%; padding: 1.75rem; }
+    .project-top { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
+    .project-aff { color: var(--accent); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .project-period { flex-shrink: 0; color: var(--muted); font-size: 0.75rem; }
+    .project h3 { margin-top: 0.5rem; margin-bottom: 1.25rem; color: var(--heading); font-size: 1.25rem; font-weight: 700; transition: color 0.3s; }
+    .project:hover h3 { color: var(--accent-dark); }
+
+    .project-body { flex: 1; display: grid; gap: 1rem; font-size: 0.875rem; }
+    .project-label {
+      display: flex; align-items: center; gap: 0.375rem; margin-bottom: 0.25rem;
+      color: var(--heading); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .project-label .icon { width: 0.875rem; height: 0.875rem; }
+    .c-amber { color: #f59e0b; } .c-blue { color: #3b82f6; } .c-green { color: #10b981; }
+
+    .project-tags { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .project-links { margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid #f1f5f9; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .project-links a {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      border: 1px solid var(--border); border-radius: 0.5rem; padding: 0.375rem 0.75rem;
+      font-size: 0.75rem; font-weight: 600; color: var(--text); transition: all 0.2s ease;
+    }
+    .project-links a:hover { border-color: var(--accent-border); background: var(--accent-bg); color: var(--accent-text); }
+    .project-links .icon { width: 0.875rem; height: 0.875rem; }
+
+    /* ------------------------------------------------------------------ */
+    /* Research                                                            */
+    /* ------------------------------------------------------------------ */
+    .research-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; }
+    @media (max-width: 1023px) { .research-grid { grid-template-columns: 1fr; } }
+
+    .lab-card {
+      display: flex; flex-direction: column; height: 100%; padding: 1.75rem;
+      border: 1px solid #dbeafe; border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      background: linear-gradient(135deg, var(--accent-bg), rgb(238 242 255 / 0.6));
+    }
+    .lab-card .icon-tile { width: fit-content; background: var(--card); box-shadow: var(--shadow-sm); margin-bottom: 1rem; padding: 0.75rem; }
+    .lab-card .icon-tile .icon { width: 1.5rem; height: 1.5rem; }
+    .lab-card h3 { color: var(--heading); font-size: 1.125rem; font-weight: 700; }
+    .lab-inst { margin-top: 0.25rem; color: var(--accent-text); font-size: 0.875rem; font-weight: 500; }
+    .lab-role { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; }
+    .lab-desc { margin-top: 1rem; font-size: 0.875rem; }
+    .lab-methods { margin-top: auto; padding-top: 1.5rem; }
+    .lab-methods h4 { margin-bottom: 0.75rem; color: var(--heading); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .lab-methods div { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .research-right { display: grid; gap: 1.5rem; align-content: start; }
+    .interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 639px) { .interests-grid { grid-template-columns: 1fr; } }
+    .interest { padding: 1.5rem; }
+    .interest:hover { transform: translateY(-2px); border-color: var(--accent-border); box-shadow: var(--shadow-md); }
+    .interest-head { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 0.625rem; }
+    .interest-head .icon { color: var(--accent); }
+    .interest-head h3 { color: var(--heading); font-size: 1rem; font-weight: 600; }
+    .interest p { font-size: 0.875rem; }
+
+    .pubs { padding: 1.75rem; }
+    .pubs-head { display: flex; align-items: center; gap: 0.625rem; margin-bottom: 1rem; }
+    .pubs-head .icon { color: var(--accent); width: 1.25rem; height: 1.25rem; }
+    .pubs-head h3 { color: var(--heading); font-size: 1rem; font-weight: 600; }
+    .pubs-empty {
+      border: 1px dashed #cbd5e1; background: var(--bg); border-radius: 0.75rem;
+      padding: 2rem 1.5rem; text-align: center; font-size: 0.875rem;
+    }
+    .pubs-empty .strong { color: var(--heading); font-weight: 500; }
+    .pubs-empty p + p { margin-top: 0.25rem; color: var(--muted); }
+
+    /* ------------------------------------------------------------------ */
+    /* Skills                                                              */
+    /* ------------------------------------------------------------------ */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    @media (max-width: 1023px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 767px) { .skills-grid { grid-template-columns: 1fr; } }
+    .skill-group { height: 100%; padding: 1.75rem; }
+    .skill-group .card-head { margin-bottom: 1.25rem; }
+    .skill-group ul { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-group li {
+      border: 1px solid var(--border); background: var(--bg); border-radius: 0.5rem;
+      padding: 0.375rem 0.75rem; font-size: 0.875rem; font-weight: 500; color: var(--heading);
+      transition: all 0.2s ease;
+    }
+    .skill-group li:hover { border-color: var(--accent-border); background: var(--accent-bg); color: var(--accent-text); }
+
+    /* ------------------------------------------------------------------ */
+    /* Experience timeline                                                 */
+    /* ------------------------------------------------------------------ */
+    .timeline { position: relative; margin-left: 0.75rem; border-left: 2px solid var(--border); display: grid; gap: 2.5rem; }
+    @media (min-width: 768px) { .timeline { margin-left: 1.5rem; } }
+    .timeline li { position: relative; padding-left: 2rem; }
+    @media (min-width: 768px) { .timeline li { padding-left: 3rem; } }
+    .timeline-dot {
+      position: absolute; top: 0.25rem; left: -1.3125rem;
+      display: flex; align-items: center; justify-content: center;
+      width: 2.5rem; height: 2.5rem; border-radius: 999px;
+      background: var(--accent); border: 4px solid var(--card); box-shadow: var(--shadow-sm);
+      color: #fff;
+    }
+    .timeline-dot .icon { width: 1rem; height: 1rem; }
+    .xp-card { padding: 1.5rem; }
+    @media (min-width: 768px) { .xp-card { padding: 1.75rem; } }
+    .xp-card:hover { transform: translateY(-2px); border-color: var(--accent-border); box-shadow: var(--shadow-md); }
+    .xp-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin-bottom: 0.25rem; }
+    .xp-top h3 { color: var(--heading); font-size: 1.125rem; font-weight: 700; }
+    .xp-type { border: 1px solid; border-radius: 999px; padding: 0.125rem 0.625rem; font-size: 0.75rem; font-weight: 600; }
+    .xp-type.research   { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+    .xp-type.leadership { background: #fffbeb; color: #b45309; border-color: #fde68a; }
+    .xp-type.team       { background: var(--accent-bg); color: var(--accent-text); border-color: var(--accent-border); }
+    .xp-type.internship { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
+    .xp-org { color: var(--accent-text); font-weight: 500; }
+    .xp-meta { margin-top: 0.125rem; color: var(--muted); font-size: 0.875rem; }
+    .xp-card ul { margin-top: 1rem; display: grid; gap: 0.625rem; }
+    .xp-card ul li { display: flex; gap: 0.625rem; font-size: 0.875rem; }
+    .xp-card ul li::before {
+      content: ''; margin-top: 0.5rem; width: 0.375rem; height: 0.375rem; flex-shrink: 0;
+      border-radius: 999px; background: #60a5fa;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Resume                                                              */
+    /* ------------------------------------------------------------------ */
+    .resume-shell { overflow: hidden; }
+    .resume-bar {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); background: rgb(248 250 252 / 0.7);
+    }
+    .resume-bar-info { display: flex; align-items: center; gap: 0.75rem; }
+    .resume-bar-info .strong { color: var(--heading); font-weight: 600; }
+    .resume-bar-info .dim { color: var(--muted); font-size: 0.75rem; }
+    .resume-embed { display: none; }
+    .resume-embed object { width: 100%; height: 42rem; }
+    @media (min-width: 768px) {
+      .resume-embed { display: block; }
+      .resume-fallback-mobile { display: none; }
+    }
+    .resume-fallback { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 4rem 1.5rem; text-align: center; }
+    .resume-fallback .icon-tile { padding: 1rem; border-radius: 1rem; }
+    .resume-fallback .icon-tile .icon { width: 2rem; height: 2rem; }
+    .resume-fallback .strong { color: var(--heading); font-weight: 600; }
+    .resume-fallback .dim { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; }
+
+    /* ------------------------------------------------------------------ */
+    /* Contact                                                             */
+    /* ------------------------------------------------------------------ */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1.5rem; }
+    @media (max-width: 1023px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    .channels { display: grid; gap: 1rem; align-content: start; }
+    .channel { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; }
+    .channel:hover { transform: translateY(-2px); border-color: var(--accent-border); box-shadow: var(--shadow-md); }
+    .channel:hover .icon-tile { background: #dbeafe; }
+    .channel-label { display: block; color: var(--heading); font-size: 0.875rem; font-weight: 600; }
+    .channel-value { display: block; color: var(--muted); font-size: 0.875rem; transition: color 0.2s; }
+    .channel:hover .channel-value { color: var(--accent); }
+    .channels-note {
+      border: 1px solid #dbeafe; background: rgb(239 246 255 / 0.6); border-radius: var(--radius);
+      padding: 1.25rem; font-size: 0.875rem;
+    }
+
+    .contact-form { padding: 1.75rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 639px) { .form-row { grid-template-columns: 1fr; } }
+    .field label { display: block; margin-bottom: 0.375rem; color: var(--heading); font-size: 0.875rem; font-weight: 500; }
+    .field input, .field textarea {
+      width: 100%; border: 1px solid #cbd5e1; border-radius: 0.75rem;
+      padding: 0.625rem 1rem; font-family: inherit; font-size: 0.875rem; color: var(--heading);
+      background: var(--card); transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: #94a3b8; }
+    .field input:focus, .field textarea:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px #dbeafe;
+    }
+    .field textarea { resize: vertical; min-height: 8rem; }
+    .field + .field, .form-row + .field { margin-top: 1.25rem; }
+    .contact-form .btn { margin-top: 1.5rem; }
+    .form-note { margin-top: 0.75rem; color: var(--muted); font-size: 0.75rem; }
+
+    /* ------------------------------------------------------------------ */
+    /* Footer                                                              */
+    /* ------------------------------------------------------------------ */
+    footer { border-top: 1px solid var(--border); background: var(--card); padding-block: 2.5rem; }
+    .footer-row { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 1.5rem; }
+    @media (min-width: 768px) { .footer-row { flex-direction: row; } }
+    .footer-id { text-align: center; }
+    @media (min-width: 768px) { .footer-id { text-align: left; } }
+    .footer-id .brand { font-size: 1rem; }
+    .footer-id p { margin-top: 0.25rem; color: var(--muted); font-size: 0.875rem; }
+    .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.25rem; font-size: 0.875rem; }
+    .footer-nav a { color: var(--muted); transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--accent); }
+    .footer-social { display: flex; gap: 0.5rem; }
+    .footer-social a {
+      display: inline-flex; padding: 0.5rem; border-radius: 0.5rem; color: var(--muted);
+      transition: all 0.2s ease;
+    }
+    .footer-social a:hover { background: var(--accent-bg); color: var(--accent); }
+    .footer-social .icon { width: 1.25rem; height: 1.25rem; }
+    .copyright { margin-top: 2rem; text-align: center; color: var(--muted); font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+
+  <!-- ================= SVG icon sprite ================= -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></symbol>
+    <symbol id="i-present" viewBox="0 0 24 24"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M14 2v6a2 2 0 0 0 .25.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.76-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.45 15h11.1"/><path d="M8.5 2h7"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-microscope" viewBox="0 0 24 24"><path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.02.94l7.93 3.18a2 2 0 0 1 1.11 1.11z"/><path d="m21.85 2.15-10.94 10.94"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  </svg>
+
+  <!-- ================= Header ================= -->
+  <header id="site-header">
+    <nav aria-label="Primary" class="container">
+      <div class="nav-bar">
+        <a href="#top" class="brand">Nicholas <span>Lee</span></a>
+
+        <ul class="nav-links">
+          <li><a href="#about" data-spy>About</a></li>
+          <li><a href="#projects" data-spy>Projects</a></li>
+          <li><a href="#research" data-spy>Research</a></li>
+          <li><a href="#skills" data-spy>Skills</a></li>
+          <li><a href="#experience" data-spy>Experience</a></li>
+          <li><a href="#resume" data-spy>Resume</a></li>
+          <li><a href="#contact" data-spy>Contact</a></li>
+        </ul>
+
+        <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-primary nav-cta" style="padding:0.5rem 1rem">
+          <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+          Resume
+        </a>
+
+        <button id="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle navigation menu">
+          <svg class="icon i-menu" style="width:1.25rem;height:1.25rem" aria-hidden="true"><use href="#i-menu"/></svg>
+          <svg class="icon i-close" style="width:1.25rem;height:1.25rem" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <div id="mobile-menu">
+        <ul class="container">
+          <li><a href="#about" data-spy>About</a></li>
+          <li><a href="#projects" data-spy>Projects</a></li>
+          <li><a href="#research" data-spy>Research</a></li>
+          <li><a href="#skills" data-spy>Skills</a></li>
+          <li><a href="#experience" data-spy>Experience</a></li>
+          <li><a href="#resume" data-spy>Resume</a></li>
+          <li><a href="#contact" data-spy>Contact</a></li>
+          <li>
+            <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-primary" style="padding:0.5rem 1rem">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+              Download Resume
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================= Hero ================= -->
+    <section id="top" style="padding-block:0">
+      <div class="hero-grid-bg" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+      <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <div class="hero-text reveal">
+          <span class="badge"><span class="pulse-dot" aria-hidden="true"></span>Open to co-op &amp; internship opportunities</span>
+          <h1>Nicholas Lee</h1>
+          <p class="hero-title">Mechatronics Engineering Student</p>
+          <p class="hero-tagline">I design manufacturable hardware — from solar car structures and additive-manufactured gear systems to production-line fixes that cut downtime.</p>
+
+          <div class="hero-meta">
+            <span><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg>University of Waterloo</span>
+            <span><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg>Waterloo, ON</span>
+          </div>
+
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">View Projects <svg class="icon arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a href="#contact" class="btn btn-secondary"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> Contact Me</a>
+            <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-ghost"><svg class="icon" aria-hidden="true"><use href="#i-download"/></svg> Download Resume</a>
+          </div>
+
+          <dl class="hero-stats">
+            <div><dt>GPA — Dean’s Honours</dt><dd>3.85</dd></div>
+            <div><dt>Class of</dt><dd>2028</dd></div>
+            <div><dt>Featured Projects</dt><dd>6</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual reveal">
+          <div class="avatar-card">
+            <span class="initials">NL</span>
+            <p class="avatar-caption">Mechanical Design · Additive Manufacturing · Mechatronics</p>
+          </div>
+          <span class="float-chip float-chip-1" aria-hidden="true">SolidWorks · FEA</span>
+          <span class="float-chip float-chip-2" aria-hidden="true">C++ · Python</span>
+          <span class="float-chip float-chip-3" aria-hidden="true">3D Printing · nTop</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= About ================= -->
+    <section id="about" class="section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">About</p>
+          <h2>Engineering that survives contact with reality</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-bio reveal">
+            <p>I am a Mechatronics Engineering student at the University of Waterloo (BASc 2028, GPA 3.85, Dean’s Honours) who likes working where CAD meets the shop floor. My favourite projects start with a messy physical constraint — a weight budget, a syrup-covered piston, a weeks-long lead time — and end with hardware that survives contact with reality.</p>
+            <p>Right now I split my time between the Midnight Sun Solar Car Team, where I design sheet-metal and 3D-printed vehicle components, the Multi-Scale Additive Manufacturing (MSAM) Lab, where I build parametric gearbox models for research and teaching, and the Waterloo Automation Collective, where I am a founding member developing the university’s first desktop injection molder.</p>
+
+            <h3 class="focus-title"><svg class="icon" aria-hidden="true"><use href="#i-target"/></svg>Areas of Focus</h3>
+            <ul class="focus-list">
+              <li>Mechanical design for manufacturing (DFM/DFA, GD&amp;T)</li>
+              <li>Additive manufacturing — FDM and metal AM workflows</li>
+              <li>FEA-driven lightweight structural design</li>
+              <li>Mechatronic integration — motors, sensors, embedded C++</li>
+            </ul>
+          </div>
+
+          <div class="snapshot reveal">
+            <div class="card">
+              <div class="card-head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-cap"/></svg></span>
+                <h3>Education</h3>
+              </div>
+              <p class="strong">BASc, Mechatronics Engineering</p>
+              <p>University of Waterloo</p>
+              <p class="dim">Sept 2023 – May 2028 · 3.85 GPA · Dean’s Honours</p>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span>
+                <h3>Currently</h3>
+              </div>
+              <ul>
+                <li>Mechanical Designer — Midnight Sun Solar Car Team</li>
+                <li>Undergraduate Research Assistant — MSAM Lab</li>
+                <li>Founding Member — Waterloo Automation Collective</li>
+              </ul>
+            </div>
+
+            <div class="card">
+              <div class="card-head">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-book"/></svg></span>
+                <h3>Key Coursework</h3>
+              </div>
+              <ul>
+                <li>Mechanics of Deformable Solids</li>
+                <li>Thermodynamics and Heat Transfer</li>
+                <li>Design and Dynamics of Machines</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Projects ================= -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Featured Projects</p>
+          <h2>From CAD model to manufactured part</h2>
+          <p class="section-sub">A selection of design, research, and prototyping work — each framed by the problem it solves, the technical approach, and the measured result.</p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">Midnight Sun Solar Car Team</p>
+                <p class="project-period">2025 – Present</p>
+              </div>
+              <h3>Solar Car Ballast Box</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>The competition vehicle must carry a minimum of 20 kg of steel-shot ballast that stays secure under driving load cases — including emergency-braking impact — without blowing the chassis weight budget.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>Designed an aluminum sheet-metal enclosure in SolidWorks using DFM/A principles, then ran static FEA across driving load cases to iteratively thin and reshape the geometry while holding safety margins.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Achieved a 20% weight reduction with structural integrity maintained; the design is validated for manufacturing and is being integrated into the competition vehicle chassis.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">SolidWorks</span><span class="tag">Sheet Metal</span><span class="tag">Static FEA</span><span class="tag">DFM/A</span>
+            </div>
+            <div class="project-links">
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Build Photos</a>
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-present"/></svg>Design Review</a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">MSAM Lab · University of Waterloo</p>
+                <p class="project-period">2026 – Present</p>
+              </div>
+              <h3>Two-Stage Educational Gearboxes</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>Undergraduate lectures needed motorized gearbox demonstrations that are robust enough for live teaching, cheap to produce, and fast to redesign as course content evolves.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>Built parametric helical-gear and gearbox models in SolidWorks for rapid iteration, optimized components for FDM 3D printing, introduced metal additive manufacturing techniques for the housing using nTop, and integrated DC motors for automated actuation.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Cut the gear design cycle time, delivered reliably operating gearbox assemblies, and enabled live motorized demonstrations in undergraduate lectures.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">SolidWorks</span><span class="tag">nTop</span><span class="tag">FDM 3D Printing</span><span class="tag">DC Motors</span>
+            </div>
+            <div class="project-links">
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg>Lab Overview</a>
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Demo Video</a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">Refresco Beverages</p>
+                <p class="project-period">2025</p>
+              </div>
+              <h3>Pneumatic Piston Mounting Assembly</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>Syrup buildup on a production-line pneumatic piston caused mistimed can kickouts, frequent failures, and recurring unplanned downtime.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>Reverse-engineered the assembly in SolidWorks, redesigned the mounting plate to accept a more durable replacement piston from another vendor, and added a protective cover to block syrup splash — documented with full technical drawings.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Extended the expected service life of the assembly by 200%, significantly reducing maintenance frequency and line downtime.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">SolidWorks</span><span class="tag">Technical Drawings</span><span class="tag">Reverse Engineering</span>
+            </div>
+            <div class="project-links">
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-present"/></svg>Case Study</a>
+            </div>
+          </article>
+
+          <!-- Project 4 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">Waterloo Automation Collective</p>
+                <p class="project-period">2026 – Present</p>
+              </div>
+              <h3>WAC-A-MOLD Desktop Injection Molder</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>Students have no accessible way to prototype injection-molded parts on campus — the Waterloo Automation Collective set out to build the university’s first desktop injection molder.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>As a founding member, drove early-stage design and prototyping of key subsystems: parametrically modeled the clamping-unit linkages in SolidWorks/OnShape for fast iteration and machined the links on a mill.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Established the clamping-unit architecture and centralized parametric CAD management, accelerating design iteration across the team.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">OnShape</span><span class="tag">SolidWorks</span><span class="tag">Milling</span><span class="tag">Parametric Design</span>
+            </div>
+            <div class="project-links">
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>Team CAD</a>
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Prototype</a>
+            </div>
+          </article>
+
+          <!-- Project 5 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">Midnight Sun Solar Car Team</p>
+                <p class="project-period">2025 – Present</p>
+              </div>
+              <h3>Rapid-Turnaround Vehicle Fixtures</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>Wheel cover installation suffered from alignment errors, and camera mounts carried multi-week lead times that stalled vehicle integration.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>Modeled wheel-cover cutting stencils referenced to vehicle datum features for repeatable alignment, and designed a press-fit camera mount system engineered specifically for FDM 3D printing.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Improved wheel cover assembly accuracy, reduced installation errors, and cut component lead time from weeks to hours.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">SolidWorks</span><span class="tag">3D Printing</span><span class="tag">GD&amp;T</span><span class="tag">Press-Fit Design</span>
+            </div>
+            <div class="project-links">
+              <a href="#top"><svg class="icon" aria-hidden="true"><use href="#i-external"/></svg>Photos</a>
+            </div>
+          </article>
+
+          <!-- Project 6 -->
+          <article class="card card-hover project reveal">
+            <div>
+              <div class="project-top">
+                <p class="project-aff">Personal Project</p>
+              </div>
+              <h3>Arduino Path-Following RoboCar</h3>
+            </div>
+            <div class="project-body">
+              <div>
+                <h4 class="project-label"><svg class="icon c-amber" aria-hidden="true"><use href="#i-bulb"/></svg>Problem</h4>
+                <p>Build a robot that can autonomously navigate a figure-eight course and climb an inclined ramp using only low-cost light sensors.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-blue" aria-hidden="true"><use href="#i-wrench"/></svg>Approach</h4>
+                <p>Programmed the control logic in C++ (Arduino IDE), using light-sensor distance logic to track the line and manage speed through curves and the ramp transition.</p>
+              </div>
+              <div>
+                <h4 class="project-label"><svg class="icon c-green" aria-hidden="true"><use href="#i-trend"/></svg>Impact</h4>
+                <p>Achieved stable, repeatable navigation through the full figure-eight path and inclined ramp.</p>
+              </div>
+            </div>
+            <div class="project-tags">
+              <span class="tag">C++</span><span class="tag">Arduino</span><span class="tag">Light Sensors</span><span class="tag">Control Logic</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/nktl-2005" target="_blank" rel="noopener noreferrer"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>Source Code</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Research ================= -->
+    <section id="research" class="section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Research</p>
+          <h2>Additive manufacturing, from lab to lecture hall</h2>
+          <p class="section-sub">Undergraduate research at the intersection of parametric design, 3D printing, and hands-on engineering education.</p>
+        </div>
+
+        <div class="research-grid">
+          <div class="reveal">
+            <div class="lab-card">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-microscope"/></svg></span>
+              <h3>Multi-Scale Additive Manufacturing (MSAM) Lab</h3>
+              <p class="lab-inst">University of Waterloo</p>
+              <p class="lab-role">Undergraduate Research Assistant · Jan 2026 – Present</p>
+              <p class="lab-desc">Developing parametric gearbox systems that bridge additive manufacturing research and undergraduate teaching — from FDM-optimized components to metal AM housings designed in nTop.</p>
+              <div class="lab-methods">
+                <h4>Methods &amp; Tools</h4>
+                <div>
+                  <span class="tag">SolidWorks (parametric modeling)</span>
+                  <span class="tag">nTop (implicit modeling for metal AM)</span>
+                  <span class="tag">FDM 3D printing</span>
+                  <span class="tag">Static FEA</span>
+                  <span class="tag">DC motor integration</span>
+                  <span class="tag">Design for Additive Manufacturing</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="research-right">
+            <div class="interests-grid reveal">
+              <div class="card interest">
+                <div class="interest-head"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg><h3>Additive Manufacturing</h3></div>
+                <p>Design for FDM and metal AM — exploiting the geometric freedom of 3D printing while respecting its process constraints.</p>
+              </div>
+              <div class="card interest">
+                <div class="interest-head"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg><h3>Parametric Design Automation</h3></div>
+                <p>Fully parametric CAD models that shorten design cycle times for entire families of mechanical components.</p>
+              </div>
+              <div class="card interest">
+                <div class="interest-head"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg><h3>Lightweight Structural Design</h3></div>
+                <p>FEA-driven geometry optimization that removes material without sacrificing stiffness or safety margins.</p>
+              </div>
+              <div class="card interest">
+                <div class="interest-head"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg><h3>Mechatronic Integration</h3></div>
+                <p>Combining motors, sensors, and embedded control with mechanical systems to build demonstrable, actuated hardware.</p>
+              </div>
+            </div>
+
+            <div class="card pubs reveal">
+              <div class="pubs-head"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg><h3>Publications, Posters &amp; Presentations</h3></div>
+              <div class="pubs-empty">
+                <p class="strong">Publications and conference posters will be listed here.</p>
+                <p>Research contributions from the MSAM Lab are currently in progress — check back soon.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Skills ================= -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Skills</p>
+          <h2>A toolbox that spans design, code, and the shop floor</h2>
+          <p class="section-sub">Grouped by how the work actually gets done — from CAD and simulation through prototyping, research, and communication.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="card card-hover skill-group reveal">
+            <div class="card-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-box"/></svg></span>
+              <h3>CAD &amp; Simulation</h3>
+            </div>
+            <ul>
+              <li>SolidWorks</li><li>AutoCAD</li><li>OnShape</li><li>nTop</li><li>Static FEA</li><li>Surface Modeling</li><li>GD&amp;T</li><li>DFM / DFA</li>
+            </ul>
+          </div>
+          <div class="card card-hover skill-group reveal">
+            <div class="card-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-code"/></svg></span>
+              <h3>Programming &amp; Data</h3>
+            </div>
+            <ul>
+              <li>C++</li><li>Python</li><li>MATLAB / Simulink</li><li>RTOS</li><li>Git</li><li>Ladder Logic (Siemens TIA Portal)</li><li>Excel Data Analysis</li>
+            </ul>
+          </div>
+          <div class="card card-hover skill-group reveal">
+            <div class="card-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-cpu"/></svg></span>
+              <h3>Hardware &amp; Prototyping</h3>
+            </div>
+            <ul>
+              <li>FDM 3D Printing</li><li>Milling</li><li>Sheet Metal</li><li>Arduino</li><li>DC Motors &amp; Actuation</li><li>Press-Fit Design</li>
+            </ul>
+          </div>
+          <div class="card card-hover skill-group reveal">
+            <div class="card-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-flask"/></svg></span>
+              <h3>Lab &amp; Research</h3>
+            </div>
+            <ul>
+              <li>Additive Manufacturing (Polymer &amp; Metal)</li><li>Parametric Modeling</li><li>Root Cause Analysis</li><li>Preventative Maintenance</li><li>BOM Management</li><li>CMMS Integration</li>
+            </ul>
+          </div>
+          <div class="card card-hover skill-group reveal">
+            <div class="card-head">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></span>
+              <h3>Communication &amp; Leadership</h3>
+            </div>
+            <ul>
+              <li>Technical Documentation</li><li>Engineering Drawings</li><li>Design Reviews</li><li>Founding Team Member (WAC)</li><li>Live Teaching Demonstrations</li><li>Cross-Functional Collaboration</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Experience ================= -->
+    <section id="experience" class="section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Experience</p>
+          <h2>Internships, research, and student teams</h2>
+          <p class="section-sub">A timeline of the roles where the engineering happened — production floors, research labs, and competition bays.</p>
+        </div>
+
+        <ol class="timeline">
+          <li>
+            <span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="#i-flask"/></svg></span>
+            <div class="card xp-card reveal">
+              <div class="xp-top">
+                <h3>Undergraduate Research Assistant</h3>
+                <span class="xp-type research">Research</span>
+              </div>
+              <p class="xp-org">Multi-Scale Additive Manufacturing (MSAM) Lab</p>
+              <p class="xp-meta">Waterloo, ON · Jan 2026 – Present</p>
+              <ul>
+                <li>Decreased gear design cycle time through the development of parametric CAD models in SolidWorks.</li>
+                <li>Ensured reliable operation of educational gearbox assemblies by iteratively designing components optimized for FDM 3D printing.</li>
+                <li>Integrated DC motors into gearbox systems to enable automated actuation for hands-on educational demonstrations.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="#i-users"/></svg></span>
+            <div class="card xp-card reveal">
+              <div class="xp-top">
+                <h3>Mechanical Team Member — Founding Member</h3>
+                <span class="xp-type leadership">Leadership</span>
+              </div>
+              <p class="xp-org">Waterloo Automation Collective</p>
+              <p class="xp-meta">Waterloo, ON · Jan 2026 – Present</p>
+              <ul>
+                <li>Pioneered the development of the university’s first desktop injection molder, driving early-stage design and prototyping of key subsystems.</li>
+                <li>Accelerated design iteration speed and centralized CAD management by developing parametrically driven clamping linkages in OnShape.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="#i-rocket"/></svg></span>
+            <div class="card xp-card reveal">
+              <div class="xp-top">
+                <h3>Mechanical Designer</h3>
+                <span class="xp-type team">Design Team</span>
+              </div>
+              <p class="xp-org">Midnight Sun Solar Car Team</p>
+              <p class="xp-meta">Waterloo, ON · Sept 2025 – Present</p>
+              <ul>
+                <li>Reduced component weight by 20% while maintaining structural integrity by designing an aluminum sheet-metal ballast box using DFM/A principles and static FEA.</li>
+                <li>Improved wheel cover assembly accuracy and reduced installation errors by modeling cutting stencils referenced to vehicle datum features.</li>
+                <li>Accelerated component lead time from weeks to hours by designing and prototyping a press-fit camera mount system for 3D printing.</li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="#i-briefcase"/></svg></span>
+            <div class="card xp-card reveal">
+              <div class="xp-top">
+                <h3>Engineering Intern</h3>
+                <span class="xp-type internship">Internship</span>
+              </div>
+              <p class="xp-org">Refresco Beverages</p>
+              <p class="xp-meta">Mississauga, ON · Jan 2025 – Aug 2025</p>
+              <ul>
+                <li>Reduced bottle fill errors by 50% by performing root cause analysis on production datasets in Excel to identify and mitigate filling-level variances.</li>
+                <li>Extended the expected service life of a pneumatic piston assembly by 200% by reverse-engineering components in SolidWorks to mitigate sugar buildup.</li>
+                <li>Reduced unplanned downtime by creating comprehensive technical documentation and BOMs for integration into the CMMS.</li>
+                <li>Resolved spatial conflicts for a production-line reformat by drafting precise platform locations in AutoCAD.</li>
+              </ul>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ================= Resume ================= -->
+    <section id="resume">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Resume</p>
+          <h2>The one-page version</h2>
+          <p class="section-sub">Preview the resume below, or grab the PDF for the full document.</p>
+        </div>
+
+        <div class="card resume-shell reveal">
+          <div class="resume-bar">
+            <div class="resume-bar-info">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+              <div>
+                <p class="strong">Nicholas Lee — Resume</p>
+                <p class="dim">PDF · updated for current term</p>
+              </div>
+            </div>
+            <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-primary" style="padding:0.625rem 1rem">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+              Download PDF
+            </a>
+          </div>
+
+          <!-- Embedded preview (desktop) — mobile browsers get the download fallback -->
+          <div class="resume-embed">
+            <object data="Nicholas_Lee_Resume.pdf" type="application/pdf" aria-label="Embedded resume PDF preview">
+              <div class="resume-fallback">
+                <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+                <div>
+                  <p class="strong">Inline preview unavailable</p>
+                  <p class="dim">Your browser can’t display the PDF here — download it instead.</p>
+                </div>
+                <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-secondary">
+                  <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+                  Download Resume
+                </a>
+              </div>
+            </object>
+          </div>
+          <div class="resume-fallback resume-fallback-mobile">
+            <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-file"/></svg></span>
+            <div>
+              <p class="strong">Preview on a larger screen</p>
+              <p class="dim">On mobile, download the PDF to read the full resume.</p>
+            </div>
+            <a href="Nicholas_Lee_Resume.pdf" download class="btn btn-secondary">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+              Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Contact ================= -->
+    <section id="contact" class="section-alt">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="eyebrow">Contact</p>
+          <h2>Let’s build something</h2>
+          <p class="section-sub">Whether it’s a co-op opportunity, a research question, or a design team collaboration — my inbox is open.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="channels reveal">
+            <a href="mailto:n9lee@uwaterloo.ca" class="card channel">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg></span>
+              <span>
+                <span class="channel-label">Email</span>
+                <span class="channel-value">n9lee@uwaterloo.ca</span>
+              </span>
+            </a>
+            <a href="https://www.linkedin.com/in/nicholaslee---/" target="_blank" rel="noopener noreferrer" class="card channel">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></span>
+              <span>
+                <span class="channel-label">LinkedIn</span>
+                <span class="channel-value">Connect on LinkedIn</span>
+              </span>
+            </a>
+            <a href="https://github.com/nktl-2005" target="_blank" rel="noopener noreferrer" class="card channel">
+              <span class="icon-tile"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg></span>
+              <span>
+                <span class="channel-label">GitHub</span>
+                <span class="channel-value">Browse my repositories</span>
+              </span>
+            </a>
+            <div class="channels-note">
+              Based in Waterloo, ON — open to co-op &amp; internship opportunities.
+            </div>
+          </div>
+
+          <form id="contact-form" class="card contact-form reveal">
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-name">Name</label>
+                <input id="cf-name" type="text" required placeholder="Jane Doe" />
+              </div>
+              <div class="field">
+                <label for="cf-email">Email</label>
+                <input id="cf-email" type="email" required placeholder="jane@company.com" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" required placeholder="Tell me about the role, project, or idea…"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              <svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>
+              Send Message
+            </button>
+            <p class="form-note">This form opens your email client — no data is stored or sent to a server.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-row">
+        <div class="footer-id">
+          <p class="brand">Nicholas <span>Lee</span></p>
+          <p>Mechatronics Engineering Student · University of Waterloo</p>
+        </div>
+        <nav aria-label="Footer">
+          <ul class="footer-nav">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#research">Research</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="footer-social">
+          <a href="mailto:n9lee@uwaterloo.ca" aria-label="Email"><svg class="icon"><use href="#i-mail"/></svg></a>
+          <a href="https://www.linkedin.com/in/nicholaslee---/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+          <a href="https://github.com/nktl-2005" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+        </div>
+      </div>
+      <p class="copyright">© <span id="year">2026</span> Nicholas Lee. Built with a single HTML file.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+      var $ = function (s, c) { return (c || document).querySelector(s); };
+      var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+
+      // Footer year
+      $('#year').textContent = new Date().getFullYear();
+
+      // Header elevation on scroll
+      var header = $('#site-header');
+      var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 8); };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      // Mobile menu
+      var menuBtn = $('#menu-btn');
+      var mobileMenu = $('#mobile-menu');
+      menuBtn.addEventListener('click', function () {
+        var open = mobileMenu.classList.toggle('open');
+        menuBtn.classList.toggle('open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        header.classList.toggle('menu-open', open);
+      });
+      $$('#mobile-menu a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          mobileMenu.classList.remove('open');
+          menuBtn.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded', 'false');
+          header.classList.remove('menu-open');
+        });
+      });
+
+      // Reveal on scroll (falls back to visible for reduced motion / old browsers)
+      var revealEls = $$('.reveal');
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced || !('IntersectionObserver' in window)) {
+        revealEls.forEach(function (el) { el.classList.add('visible'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+
+      // Scroll-spy: highlight the section in the upper-middle viewport band,
+      // clearing the highlight when none is there (e.g. back at the hero).
+      var ids = ['about', 'projects', 'research', 'skills', 'experience', 'resume', 'contact'];
+      var spyLinks = $$('a[data-spy]');
+      var setActive = function (id) {
+        spyLinks.forEach(function (a) {
+          a.classList.toggle('active', id !== '' && a.getAttribute('href') === '#' + id);
+        });
+      };
+      if ('IntersectionObserver' in window) {
+        var inBand = new Set();
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) inBand.add(e.target.id); else inBand.delete(e.target.id);
+          });
+          var current = '';
+          for (var i = 0; i < ids.length; i++) { if (inBand.has(ids[i])) { current = ids[i]; break; } }
+          setActive(current);
+        }, { rootMargin: '-30% 0px -60% 0px' });
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el) spy.observe(el);
+        });
+      }
+
+      // Contact form → compose an email (no backend)
+      $('#contact-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = $('#cf-name').value.trim();
+        var email = $('#cf-email').value.trim();
+        var msg = $('#cf-message').value.trim();
+        var subject = encodeURIComponent('Portfolio inquiry from ' + (name || 'your website'));
+        var body = encodeURIComponent(msg + '\n\n— ' + name + (email ? ' (' + email + ')' : ''));
+        window.location.href = 'mailto:n9lee@uwaterloo.ca?subject=' + subject + '&body=' + body;
+      });
+    })();
+  </script>
+</body>
 </html>
