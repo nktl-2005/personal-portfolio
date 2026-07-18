@@ -15,6 +15,8 @@ export const site = {
   email: 'n9lee@uwaterloo.ca',
   linkedin: 'https://www.linkedin.com/in/nicholaslee---/',
   github: 'https://github.com/nktl-2005',
+  /** File lives in /public — replace it to update the resume everywhere it's linked */
+  resumeFile: 'Nicholas_Lee_Resume.pdf',
 
   /** Base URL of the deployed site (used for sitemap/canonical metadata) */
   url: 'https://nktl-2005.github.io/personal-portfolio/',

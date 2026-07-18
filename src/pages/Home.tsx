@@ -9,6 +9,7 @@ import { usePageMeta } from '../lib/usePageMeta'
 export default function Home() {
   usePageMeta('', site.descriptor)
   const featured = projects.filter((p) => p.featured)
+  const resumeUrl = `${import.meta.env.BASE_URL}${site.resumeFile}`
 
   return (
     <div className="mx-auto max-w-[1160px] px-6">
@@ -35,6 +36,14 @@ export default function Home() {
                   →
                 </span>
               </Link>
+              <a
+                href={resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center border border-line-strong px-6 py-3 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-surface"
+              >
+                Resume
+              </a>
               <Link to="/about" className="u-link inline-flex min-h-11 items-center py-2 text-sm font-medium text-ink">
                 About Me
               </Link>
