@@ -1,6 +1,5 @@
 export type FigureId =
   | 'enose'
-  | 'methane'
   | 'ballast'
   | 'fixtures'
   | 'molder'
@@ -8,28 +7,10 @@ export type FigureId =
   | 'piston'
   | 'robocar'
 
-export interface SpecRow {
-  parameter: string
-  value: string
-}
-
-export interface ProcessStep {
+/** One engineering challenge / decision / tradeoff in the "How" section. */
+export interface HowItem {
   title: string
   body: string
-}
-
-export interface Decision {
-  title: string
-  alternatives: string
-  chosen: string
-  reasoning: string
-  tradeoffs: string
-}
-
-export interface ResultRow {
-  metric: string
-  value: string
-  note?: string
 }
 
 export interface Project {
@@ -45,10 +26,13 @@ export interface Project {
   featured: boolean
   /** One-sentence outcome under the project-page title */
   outcome: string
+
+  // --- Metadata strip (kept from the original case-study format) ---
   role: string
   team: string
   duration: string
   tools: string[]
+
   /** Built-in technical illustration used when no real image is provided */
   figure: FigureId
   /**
@@ -57,26 +41,17 @@ export interface Project {
    */
   image?: string
   imageAlt?: string
-  overview: string
-  problem: {
-    statement: string
-    limitations: string
-    requirements: string
-    difficulty: string
+
+  // --- Why / What / How case study ---
+  /** Why — the problem, who it affects, and why it is worth solving. */
+  why: string
+  /** What — what I built, led by concrete technical evidence. */
+  what: {
+    /** Short lead paragraph. */
+    lead: string
+    /** Concrete deliverables / evidence, shown as a scannable list. */
+    build: string[]
   }
-  specs: SpecRow[]
-  process: ProcessStep[]
-  decisions: Decision[]
-  solution: {
-    description: string
-    components: string[]
-    operation: string
-  }
-  results: ResultRow[]
-  reflection: {
-    worked: string
-    didnt: string
-    learned: string
-    next: string
-  }
+  /** How — the main engineering challenges, decisions, and tradeoffs. */
+  how: HowItem[]
 }

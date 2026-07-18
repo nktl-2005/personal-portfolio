@@ -36,7 +36,7 @@ public/
 ## Editing content
 
 - **Site copy** (hero, about, links): [src/data/site.ts](src/data/site.ts)
-- **Projects**: [src/data/projects.ts](src/data/projects.ts) — one object per project, following the case-study structure in [src/data/types.ts](src/data/types.ts) (overview → problem → specs → process → decisions → solution → results → reflection).
+- **Projects**: [src/data/projects.ts](src/data/projects.ts) — one object per project, following the structure in [src/data/types.ts](src/data/types.ts): metadata (year, role, team, duration, tools) plus a short **Why → What → How** body (`why` string; `what` = a lead paragraph + a `build` list of concrete evidence; `how` = a list of challenge/decision/tradeoff blocks).
 - **Placeholders**: text in `[square brackets]` (e.g. `[Add measured result]`) renders as a visibly-unfinished chip. Replace placeholders with real information as it becomes available — never invent details.
 
 ## Adding a new project

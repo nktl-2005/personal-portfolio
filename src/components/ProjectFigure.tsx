@@ -10,7 +10,6 @@ import type { FigureId } from '../data/types'
 
 const LABELS: Record<FigureId, string> = {
   enose: 'Stylized line illustration: airflow streamlines through a nasal-cavity profile (placeholder for CFD imagery)',
-  methane: 'Stylized line illustration: gas sensor module and signal trace (placeholder for field-test photos)',
   ballast: 'Stylized line illustration: isometric sheet-metal enclosure with exploded lid (placeholder for CAD render)',
   fixtures: 'Stylized line illustration: wheel cover with stencil arc and bracket fixture (placeholder for build photos)',
   molder: 'Stylized line illustration: toggle-clamp linkage and platens of an injection molder (placeholder for CAD render)',
@@ -58,7 +57,6 @@ export default function ProjectFigure({ id, className = '' }: ProjectFigureProps
         {id === 'molder' && <Molder />}
         {id === 'fixtures' && <Fixtures />}
         {id === 'enose' && <Enose />}
-        {id === 'methane' && <Methane />}
         {id === 'robocar' && <Robocar />}
       </g>
     </svg>
@@ -232,34 +230,6 @@ function Enose() {
       </g>
       {/* Sampling plane ticks */}
       <path d="M452,180 V300 M520,176 V286" strokeWidth="1" strokeDasharray="3 7" stroke="var(--color-ink-faint)" />
-    </>
-  )
-}
-
-function Methane() {
-  return (
-    <>
-      {/* CH4 molecule */}
-      <circle cx="255" cy="185" r="22" />
-      <circle cx="192" cy="128" r="12" strokeWidth="1.25" />
-      <circle cx="322" cy="132" r="12" strokeWidth="1.25" />
-      <circle cx="196" cy="248" r="12" strokeWidth="1.25" />
-      <circle cx="318" cy="244" r="12" strokeWidth="1.25" />
-      <path d="M239,169 L201,137 M271,169 L312,141 M241,202 L206,239 M269,201 L308,236" strokeWidth="1.25" />
-      {/* Sensor module */}
-      <rect x="200" y="330" width="180" height="130" rx="6" />
-      <circle cx="290" cy="395" r="38" />
-      <circle cx="290" cy="395" r="24" strokeWidth="1" stroke="var(--color-ink-faint)" />
-      {Array.from({ length: 6 }, (_, i) => (
-        <line key={i} x1={252 + i * 15} y1={330} x2={252 + i * 15} y2={318} strokeWidth="1.25" />
-      ))}
-      {/* Signal trace to logger (accent waveform) */}
-      <path d="M380,395 H444" strokeWidth="1.25" />
-      <g stroke="var(--color-accent)" strokeWidth="2">
-        <path d="M444,395 h22 l10,-52 l16,96 l14,-72 l12,44 l10,-16 h84" />
-      </g>
-      {/* Reference band (benchmark envelope) */}
-      <path d="M466,330 H612 M466,452 H612" strokeWidth="1" strokeDasharray="5 6" stroke="var(--color-ink-faint)" />
     </>
   )
 }

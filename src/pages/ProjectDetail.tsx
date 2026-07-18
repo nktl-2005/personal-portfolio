@@ -4,7 +4,6 @@ import CaseSection from '../components/CaseSection'
 import ProjectFigure from '../components/ProjectFigure'
 import RichText from '../components/RichText'
 import Reveal from '../components/Reveal'
-import SpecTable from '../components/SpecTable'
 import TiltFrame from '../components/TiltFrame'
 import NotFound from './NotFound'
 import { usePageMeta } from '../lib/usePageMeta'
@@ -79,112 +78,44 @@ export default function ProjectDetail() {
         </Reveal>
       </header>
 
-      {/* ------------------------------------------------- Case study ---- */}
-      <CaseSection number="01" title="Overview">
-        <p className="max-w-[68ch] leading-relaxed text-ink-soft">
-          <RichText text={project.overview} />
+      {/* --------------------------------------------------- Why / What / How -- */}
+      <CaseSection number="01" title="Why">
+        <p className="max-w-[68ch] text-lg leading-relaxed text-ink-soft">
+          <RichText text={project.why} />
         </p>
       </CaseSection>
 
-      <CaseSection number="02" title="Problem">
-        <div className="max-w-[68ch] space-y-6">
-          <LabeledBlock label="The problem" text={project.problem.statement} />
-          <LabeledBlock label="Existing limitations" text={project.problem.limitations} />
-          <LabeledBlock label="Requirements" text={project.problem.requirements} />
-          <LabeledBlock label="Why it was hard" text={project.problem.difficulty} />
-        </div>
-      </CaseSection>
-
-      <CaseSection number="03" title="Requirements & constraints">
-        <div className="max-w-[68ch]">
-          <SpecTable rows={project.specs} />
-        </div>
-      </CaseSection>
-
-      <CaseSection number="04" title="Engineering process">
-        <ol className="max-w-[68ch] space-y-8">
-          {project.process.map((step, i) => (
-            <li key={step.title} className="grid grid-cols-[2.75rem_1fr] gap-x-4">
-              <span className="meta-label pt-1" aria-hidden="true">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div>
-                <h3 className="font-display font-semibold tracking-tight text-ink">{step.title}</h3>
-                <p className="mt-2 leading-relaxed text-ink-soft">
-                  <RichText text={step.body} />
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </CaseSection>
-
-      <CaseSection number="05" title="Key decisions">
-        <div className="max-w-[68ch] space-y-10">
-          {project.decisions.map((d) => (
-            <div key={d.title} className="border-l-2 border-accent pl-5">
-              <h3 className="font-display font-semibold tracking-tight text-ink">{d.title}</h3>
-              <dl className="mt-3 space-y-3 text-sm leading-relaxed">
-                <DecisionRow label="Alternatives" text={d.alternatives} />
-                <DecisionRow label="Selected" text={d.chosen} />
-                <DecisionRow label="Reasoning" text={d.reasoning} />
-                <DecisionRow label="Trade-offs" text={d.tradeoffs} />
-              </dl>
-            </div>
-          ))}
-        </div>
-      </CaseSection>
-
-      <CaseSection number="06" title="Final solution">
-        <div className="max-w-[68ch] space-y-6">
+      <CaseSection number="02" title="What">
+        <div className="max-w-[68ch] space-y-8">
           <p className="leading-relaxed text-ink-soft">
-            <RichText text={project.solution.description} />
+            <RichText text={project.what.lead} />
           </p>
           <div>
-            <h3 className="meta-label">Major components</h3>
-            <ul className="mt-3 space-y-2">
-              {project.solution.components.map((c) => (
-                <li key={c} className="flex gap-3 leading-relaxed text-ink-soft">
-                  <span className="mt-[0.7em] h-px w-4 shrink-0 bg-ink-faint" aria-hidden="true" />
+            <h3 className="meta-label">What I built</h3>
+            <ul className="mt-4 divide-y divide-line border-y border-line">
+              {project.what.build.map((item) => (
+                <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
+                  <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
                   <span>
-                    <RichText text={c} />
+                    <RichText text={item} />
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-          <LabeledBlock label="How it operates" text={project.solution.operation} />
         </div>
       </CaseSection>
 
-      <CaseSection number="07" title="Results">
-        <div className="max-w-[68ch]">
-          <dl className="divide-y divide-line border-y border-line">
-            {project.results.map((r) => (
-              <div key={r.metric} className="grid gap-1 py-5 sm:grid-cols-[1fr_auto] sm:gap-6">
-                <dt>
-                  <span className="block font-medium text-ink">{r.metric}</span>
-                  {r.note && (
-                    <span className="mt-1 block text-sm font-normal leading-relaxed text-ink-faint">
-                      <RichText text={r.note} />
-                    </span>
-                  )}
-                </dt>
-                <dd className="font-mono text-[0.9375rem] text-accent sm:text-right">
-                  <RichText text={r.value} />
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </CaseSection>
-
-      <CaseSection number="08" title="Reflection">
-        <div className="max-w-[68ch] space-y-6">
-          <LabeledBlock label="What worked" text={project.reflection.worked} />
-          <LabeledBlock label="What didn’t" text={project.reflection.didnt} />
-          <LabeledBlock label="What I learned" text={project.reflection.learned} />
-          <LabeledBlock label="What I’d improve next" text={project.reflection.next} />
+      <CaseSection number="03" title="How">
+        <div className="max-w-[68ch] space-y-8">
+          {project.how.map((item) => (
+            <div key={item.title} className="border-l-2 border-accent pl-5">
+              <h3 className="font-display font-semibold tracking-tight text-ink">{item.title}</h3>
+              <p className="mt-2 leading-relaxed text-ink-soft">
+                <RichText text={item.body} />
+              </p>
+            </div>
+          ))}
         </div>
       </CaseSection>
 
@@ -232,28 +163,6 @@ function MetaItem({ label, value }: { label: string; value: string }) {
       <dt className="meta-label">{label}</dt>
       <dd className="mt-2 text-sm leading-relaxed text-ink">
         <RichText text={value} />
-      </dd>
-    </div>
-  )
-}
-
-function LabeledBlock({ label, text }: { label: string; text: string }) {
-  return (
-    <div>
-      <h3 className="meta-label">{label}</h3>
-      <p className="mt-2 leading-relaxed text-ink-soft">
-        <RichText text={text} />
-      </p>
-    </div>
-  )
-}
-
-function DecisionRow({ label, text }: { label: string; text: string }) {
-  return (
-    <div className="grid gap-1 sm:grid-cols-[7.5rem_1fr] sm:gap-4">
-      <dt className="meta-label pt-0.5">{label}</dt>
-      <dd className="text-[0.9375rem] leading-relaxed text-ink-soft">
-        <RichText text={text} />
       </dd>
     </div>
   )
