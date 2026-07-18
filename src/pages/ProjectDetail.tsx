@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { projects } from '../data/projects'
 import CaseSection from '../components/CaseSection'
+import ImageSlot from '../components/ImageSlot'
 import ProjectFigure from '../components/ProjectFigure'
 import RichText from '../components/RichText'
 import Reveal from '../components/Reveal'
@@ -118,6 +119,16 @@ export default function ProjectDetail() {
           ))}
         </div>
       </CaseSection>
+
+      {project.gallery && project.gallery.length > 0 && (
+        <CaseSection number="04" title="Gallery">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {project.gallery.map((img) => (
+              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} />
+            ))}
+          </div>
+        </CaseSection>
+      )}
 
       {/* -------------------------------------------- Project navigation -- */}
       <nav aria-label="Project navigation" className="grid gap-px border-t border-line py-10 sm:grid-cols-3">

@@ -36,6 +36,13 @@ export const projects: Project[] = [
     duration: 'May 2026 - Present',
     tools: ['COMSOL Multiphysics', 'Python', 'Pandas', 'NumPy', 'Matplotlib'],
     figure: 'enose',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/electronic-nose-cfd-1.webp', alt: 'Airflow streamlines from a COMSOL run' },
+      { src: 'images/electronic-nose-cfd-2.webp', alt: 'Nasal-cavity geometry or mesh' },
+      { src: 'images/electronic-nose-cfd-3.webp', alt: 'Mass-transfer / concentration field' },
+      { src: 'images/electronic-nose-cfd-4.webp', alt: 'Matplotlib cross-geometry comparison plot' },
+    ],
     why: 'The Aizenberg Lab is developing a universal adaptive electronic nose — a sensor system meant to detect and discriminate odors across varied conditions. In a biological nose, cavity anatomy governs how air and odorant molecules reach the olfactory receptors, and that anatomy varies between individuals, so no single geometry represents the design space. For the artificial nose to generalize, the lab needed to understand how geometry drives airflow and mass transport — quantities that are impractical to measure directly inside physical anatomy.',
     what: {
       lead: 'I built a reproducible COMSOL-to-Python workflow that simulates coupled airflow and odorant mass transport across multiple nasal-cavity geometries and reduces each run to comparable metrics. The study is ongoing; [Add current headline finding].',
@@ -82,6 +89,13 @@ export const projects: Project[] = [
       'Aluminum sheet-metal construction',
     ],
     figure: 'ballast',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/solar-car-ballast-box-1.webp', alt: 'SolidWorks model of the enclosure' },
+      { src: 'images/solar-car-ballast-box-2.webp', alt: 'Static FEA stress result' },
+      { src: 'images/solar-car-ballast-box-3.webp', alt: 'Manufactured sheet-metal assembly' },
+      { src: 'images/solar-car-ballast-box-4.webp', alt: 'Chassis integration or mounting' },
+    ],
     why: "Midnight Sun's competition solar car must carry a minimum of 20 kg of steel-shot ballast, held secure and structurally intact through every driving load case — including emergency-braking impact. The ballast is mandated mass, but the enclosure around it is pure overhead, so its weight was worth driving down without compromising retention under those loads.",
     what: {
       lead: 'I designed the ballast box as an aluminum sheet-metal enclosure in SolidWorks to DFM/DFA principles and optimized its geometry with static FEA. The final design is 20% lighter with structural integrity maintained; it has passed manufacturing validation, a physical assembly has been built, and it is being integrated into the chassis.',
@@ -129,6 +143,13 @@ export const projects: Project[] = [
       'Rapid prototyping',
     ],
     figure: 'fixtures',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/vehicle-fixtures-1.webp', alt: 'Wheel-cover cutting stencil (CAD)' },
+      { src: 'images/vehicle-fixtures-2.webp', alt: 'Stencil registered on the vehicle' },
+      { src: 'images/vehicle-fixtures-3.webp', alt: 'Press-fit camera mount (CAD)' },
+      { src: 'images/vehicle-fixtures-4.webp', alt: 'Printed mount installed' },
+    ],
     why: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and camera mounts carried lead times of weeks. Both are cheap parts — the cost was in the process around them: rework from misaligned covers, and vehicle integration stalled waiting on mounts.',
     what: {
       lead: "I treated both as fixture problems built for fast turnaround. I modeled wheel-cover cutting stencils referenced to the vehicle's datum features, and designed a press-fit camera mount system for FDM 3D printing. Installation accuracy improved and camera-mount lead time dropped from weeks to hours.",
@@ -169,6 +190,13 @@ export const projects: Project[] = [
     duration: 'Jan 2026 – Present',
     tools: ['Onshape', 'Parametric CAD (variable-driven models)', 'Linkage design', 'Milling'],
     figure: 'molder',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/desktop-injection-molder-1.webp', alt: 'Clamping linkage CAD (Onshape)' },
+      { src: 'images/desktop-injection-molder-2.webp', alt: 'Milled link parts' },
+      { src: 'images/desktop-injection-molder-3.webp', alt: 'Clamp assembly or prototype' },
+      { src: 'images/desktop-injection-molder-4.webp', alt: 'Full machine bring-up' },
+    ],
     why: 'Students at the university lacked accessible injection molding; WAC-A-MOLD will be the first desktop injection molder on campus. As a founding member of the Waterloo Automation Collective I own the clamping subsystem — the mechanism that closes the mold and holds it shut against injection pressure — which had to be designed while the rest of the machine was still taking shape.',
     what: {
       lead: "I drove the clamp's early-stage design and prototyping. I developed the clamping linkages in Onshape as fully parametric, variable-driven models — which accelerated iteration and centralized CAD management for the team — and machined the links on a mill to carry the design into hardware. The machine is early-stage; performance numbers will follow prototype testing.",
@@ -215,6 +243,13 @@ export const projects: Project[] = [
       'DC motors',
     ],
     figure: 'gearbox',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/educational-gearboxes-1.webp', alt: 'Parametric gearbox CAD' },
+      { src: 'images/educational-gearboxes-2.webp', alt: 'Parametrically modeled helical gear' },
+      { src: 'images/educational-gearboxes-3.webp', alt: 'FDM-printed gearbox assembly' },
+      { src: 'images/educational-gearboxes-4.webp', alt: 'nTop metal-AM housing' },
+    ],
     why: "The University of Waterloo's MSAM Lab needed two-stage gearbox demonstrators for undergraduate lectures: physical assemblies that operate reliably and actuate on their own in front of a class. The work had to fit a single four-month term, and every component was FDM 3D printed — a process that constrains how parts must be designed before they run reliably.",
     what: {
       lead: 'Over the Jan–Apr 2026 term I designed and prototyped multiple motor-driven two-stage gearboxes as live lecture hardware. I built the CAD as fully parametric SolidWorks models (including a parametrically modeled helical gear), iterated the FDM-printed components until the assemblies ran reliably, introduced metal AM techniques into the housing via nTop, and integrated DC motors for automated actuation.',
@@ -256,6 +291,13 @@ export const projects: Project[] = [
     duration: '2025 (within Jan–Aug 2025 internship)',
     tools: ['SolidWorks', 'Reverse engineering', 'Technical drawings', 'Vendor component integration'],
     figure: 'piston',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/pneumatic-piston-assembly-1.webp', alt: 'Reverse-engineered SolidWorks model' },
+      { src: 'images/pneumatic-piston-assembly-2.webp', alt: 'Redesigned mounting plate' },
+      { src: 'images/pneumatic-piston-assembly-3.webp', alt: 'Protective splash cover' },
+      { src: 'images/pneumatic-piston-assembly-4.webp', alt: 'Technical drawing sheet' },
+    ],
     why: "On Refresco's Mississauga beverage line, syrup and sugar buildup on a pneumatic piston caused mistimed can kickouts and frequent failures — each one a maintenance intervention and line downtime. The mechanism sat directly in the path of syrup splash, so the environment itself, not just the worn part, was the problem to design against.",
     what: {
       lead: "During my internship I redesigned the piston's mounting assembly. I reverse-engineered the existing components in SolidWorks, redesigned the mounting plate to integrate a replacement piston from a different vendor, designed a protective cover to block syrup splash, and documented the redesign in technical drawings. The redesign extended the assembly's expected service life by 200%, significantly cutting maintenance frequency and downtime.",
@@ -296,6 +338,13 @@ export const projects: Project[] = [
     duration: '[Add duration] ([Add year])',
     tools: ['C++', 'Arduino IDE', 'Light sensors', 'Distance-logic line tracking'],
     figure: 'robocar',
+    // Drop files at /public/images/… to fill these slots (see README).
+    gallery: [
+      { src: 'images/arduino-robocar-1.webp', alt: 'The assembled car' },
+      { src: 'images/arduino-robocar-2.webp', alt: 'Light-sensor array / underside' },
+      { src: 'images/arduino-robocar-3.webp', alt: 'Figure-eight run' },
+      { src: 'images/arduino-robocar-4.webp', alt: 'Ramp climb' },
+    ],
     why: 'A personal project to make a robot car follow a line fully autonomously and prove it on two courses that expose unstable tracking: a figure-eight — which bends in both directions and crosses itself — and an inclined ramp that adds grade on top of tracking.',
     what: {
       lead: 'I built and programmed the car solo. The control software is C++ in the Arduino IDE and steers from light-sensor distance logic with no manual control. It achieved stable navigation on both courses — completing the full figure-eight and climbing the ramp while holding the line.',

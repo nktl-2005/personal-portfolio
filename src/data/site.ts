@@ -7,10 +7,10 @@ export const site = {
   name: 'Nicholas Lee',
   /** One-line professional descriptor under the name in the hero */
   descriptor:
-    'Mechatronics engineering student designing sensing, fluid, and electromechanical systems.',
+    'Research Intern at Harvard.  Junior Mechatronics engineering student at the University of Waterloo.',
   /** Short hero introduction (1–2 sentences) */
   intro:
-    'I work where CAD meets the shop floor and the lab bench — currently running nasal-airflow CFD for an adaptive electronic nose at Harvard, after seasons of solar car structures, production-line fixes, and a student-built injection molder.',
+    'Welcome to my site! I am passionate about designing and building electromechanical systems that sense, actuate, and move.',
 
   email: 'n9lee@uwaterloo.ca',
   linkedin: 'https://www.linkedin.com/in/nicholaslee---/',
@@ -25,30 +25,30 @@ export const site = {
     // Short framing line — used on the home About preview and the top of the
     // About page. The project pages already cover the engineering; this is the rest.
     blurb:
-      'Engineering is most of what’s on this site — but it isn’t all of what I do. Here’s a quick look at the rest.',
+      'Learn more about me :)',
 
     // Life outside engineering. Fill each category with your real activities;
     // text in [square brackets] renders as a visible "replace me" chip until you do.
     life: [
       {
         label: 'Engineering Society',
-        items: ['[Add your EngSoc involvement — committees, events, or a rep / exec role]'],
+        items: ['LinkedIn Headshot events for engineering students', 'Puppies on Campus for mental health relief', 'Job Fair for engineering students'],
       },
       {
         label: 'Intramural sports',
-        items: ['[Add the sports you play and the team or league]'],
+        items: ['Basketball', 'Soccer', 'Volleyball', 'Flag Football'],
       },
       {
-        label: 'Student organizations',
-        items: ['[Add clubs or communities you’re part of beyond your design teams]'],
+        label: 'Design Teams & Clubs',
+        items: ['Midnight Sun Solar Car Team', 'Waterloo Automation Collective', 'UW Cooking Club'],
       },
       {
         label: 'Leadership & community',
-        items: ['[Add volunteering, mentorship, outreach, or leadership roles]'],
+        items: ['Engineering Orientation Leader'],
       },
       {
         label: 'Interests & hobbies',
-        items: ['[Add personal interests and hobbies — what you do to unplug]'],
+        items: ['Sports, fitness, cars, and cooking'],
       },
     ],
   },

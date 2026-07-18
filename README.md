@@ -48,15 +48,27 @@ public/
 
 Category filters on the Projects page appear automatically for any category with at least two projects.
 
-## Replacing illustrations with real images
+## Adding photos
 
-Every project currently uses a built-in line illustration (`figure`). To use a real photo or CAD render instead:
+All images live in [public/images/](public/images/) — see the README there for
+the exact filenames each slot expects. The rule everywhere: **a slot shows a
+dashed placeholder with its target path until you add that file, then the image
+appears automatically** on the next deploy (no code change needed).
 
-1. Export as WebP (or AVIF) around 1600px wide; put it in `public/images/`, e.g. `public/images/ballast.webp`.
-2. In the project's entry set `image: 'images/ballast.webp'` and a descriptive `imageAlt`.
-3. The image replaces the illustration in previews and on the project page (lazy-loaded automatically).
+Three kinds of image slot:
 
-The About-page photo slot is marked in [src/pages/About.tsx](src/pages/About.tsx).
+1. **Project galleries** — each project detail page has a 4-image "Gallery"
+   section. Add files like `public/images/solar-car-ballast-box-1.webp`. To
+   change what a slot expects, edit the `gallery` array on that project in
+   [src/data/projects.ts](src/data/projects.ts) (`src`, `alt`, optional `caption`).
+2. **About photo** — add `public/images/portrait.webp`.
+3. **Project hero image** (optional) — to replace a project's built-in line
+   illustration at the top of its page, set `image: 'images/ballast.webp'` and
+   `imageAlt` on that project. This also replaces the illustration in the
+   project cards.
+
+Export as **WebP** (or JPG) around 1600 px wide; keep filenames lowercase with
+no spaces.
 
 ## Deploying to GitHub Pages
 

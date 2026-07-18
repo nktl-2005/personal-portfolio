@@ -13,6 +13,16 @@ export interface HowItem {
   body: string
 }
 
+/** One image in a project's gallery. */
+export interface GalleryItem {
+  /** Path under /public, e.g. "images/ballast-1.webp". */
+  src: string
+  /** What the image shows — guidance while the slot is empty, alt text once added. */
+  alt: string
+  /** Optional caption shown under the image. */
+  caption?: string
+}
+
 export interface Project {
   /** URL segment: /projects/<slug>/ */
   slug: string
@@ -54,4 +64,9 @@ export interface Project {
   }
   /** How — the main engineering challenges, decisions, and tradeoffs. */
   how: HowItem[]
+  /**
+   * Optional image gallery shown on the project detail page. Each slot shows
+   * its target path until you drop the file into /public and redeploy.
+   */
+  gallery?: GalleryItem[]
 }

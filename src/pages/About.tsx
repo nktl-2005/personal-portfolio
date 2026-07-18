@@ -1,4 +1,5 @@
 import { site } from '../data/site'
+import ImageSlot from '../components/ImageSlot'
 import Reveal from '../components/Reveal'
 import RichText from '../components/RichText'
 import { usePageMeta } from '../lib/usePageMeta'
@@ -72,26 +73,14 @@ export default function About() {
           </Reveal>
         </div>
 
-        {/* Portrait / candid photo slot */}
+        {/* Portrait / candid photo slot — drop the file at public/images/portrait.webp */}
         <div className="lg:col-span-5">
           <Reveal delay={120}>
-            <figure>
-              {/*
-                Drop a real photo at public/images/portrait.webp and replace
-                this placeholder frame with:
-                <img src={`${import.meta.env.BASE_URL}images/portrait.webp`}
-                     alt="Nicholas Lee" ... />
-              */}
-              <div
-                className="flex aspect-[4/5] w-full items-center justify-center border border-line bg-surface"
-                role="img"
-                aria-label="Placeholder frame for a photograph"
-              >
-                <p className="px-8 text-center text-sm text-ink-faint">
-                  <RichText text="[Add a candid or portrait photo]" />
-                </p>
-              </div>
-            </figure>
+            <ImageSlot
+              src="images/portrait.webp"
+              alt="a candid or portrait photo"
+              aspect="aspect-[4/5]"
+            />
           </Reveal>
         </div>
       </div>
