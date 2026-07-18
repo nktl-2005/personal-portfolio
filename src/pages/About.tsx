@@ -4,58 +4,75 @@ import RichText from '../components/RichText'
 import { usePageMeta } from '../lib/usePageMeta'
 
 export default function About() {
-  usePageMeta('About', 'About Nicholas Lee — Mechatronics Engineering student at the University of Waterloo, currently a research intern in the Aizenberg Lab at Harvard University.')
+  usePageMeta(
+    'About',
+    'Beyond the projects — the activities, teams, and interests of Nicholas Lee outside of engineering at the University of Waterloo.',
+  )
 
   return (
     <div className="mx-auto max-w-[1160px] px-6">
       <header className="py-14 md:py-20">
         <Reveal>
           <p className="meta-label">About</p>
-          <h1 className="mt-4 max-w-[22ch] font-display text-[clamp(2rem,5vw,3.25rem)] leading-tight font-semibold tracking-tight text-ink">
-            Physical systems, built to be manufactured
+          <h1 className="mt-4 max-w-[20ch] font-display text-[clamp(2rem,5vw,3.25rem)] leading-tight font-semibold tracking-tight text-ink">
+            Beyond the projects
           </h1>
+          <p className="mt-5 max-w-[54ch] text-lg leading-relaxed text-ink-soft">
+            {site.about.blurb}
+          </p>
         </Reveal>
       </header>
 
       <div className="grid gap-12 border-t border-line py-14 md:py-16 lg:grid-cols-12 lg:gap-16">
-        <div className="space-y-10 lg:col-span-7">
-          <Reveal>
-            <AboutBlock label="Now" text={site.about.now} />
-          </Reveal>
-          <Reveal>
-            <AboutBlock label="What I work on" text={site.about.interests} />
-          </Reveal>
-          <Reveal>
-            <AboutBlock label="How I work" text={site.about.approach} />
-          </Reveal>
-          <Reveal>
-            <AboutBlock label="Teams" text={site.about.teams} />
-          </Reveal>
+        {/* Life outside engineering — condensed, category by category */}
+        <div className="lg:col-span-7">
+          <dl className="divide-y divide-line border-y border-line">
+            {site.about.life.map((group, i) => (
+              <Reveal
+                key={group.label}
+                delay={i * 60}
+                className="grid gap-2 py-6 sm:grid-cols-[12rem_1fr] sm:gap-8"
+              >
+                <dt className="font-display font-semibold tracking-tight text-ink">
+                  {group.label}
+                </dt>
+                <dd>
+                  <ul className="space-y-2">
+                    {group.items.map((item) => (
+                      <li key={item} className="flex gap-3 leading-relaxed text-ink-soft">
+                        <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
+                        <span>
+                          <RichText text={item} />
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
 
           <Reveal>
-            <div className="border-t border-line pt-8">
-              <p className="text-sm leading-relaxed text-ink-soft">
-                The work itself is the best introduction — every project on this site is written as
-                a full case study. For everything else:{' '}
-                <a href={`mailto:${site.email}`} className="u-link font-medium text-accent">
-                  {site.email}
-                </a>{' '}
-                or{' '}
-                <a
-                  href={site.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="u-link font-medium text-accent"
-                >
-                  LinkedIn
-                </a>
-                .
-              </p>
-            </div>
+            <p className="mt-8 text-sm leading-relaxed text-ink-faint">
+              Say hi:{' '}
+              <a href={`mailto:${site.email}`} className="u-link font-medium text-accent">
+                {site.email}
+              </a>{' '}
+              or{' '}
+              <a
+                href={site.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="u-link font-medium text-accent"
+              >
+                LinkedIn
+              </a>
+              .
+            </p>
           </Reveal>
         </div>
 
-        {/* Portrait / workshop image slot */}
+        {/* Portrait / candid photo slot */}
         <div className="lg:col-span-5">
           <Reveal delay={120}>
             <figure>
@@ -63,7 +80,7 @@ export default function About() {
                 Drop a real photo at public/images/portrait.webp and replace
                 this placeholder frame with:
                 <img src={`${import.meta.env.BASE_URL}images/portrait.webp`}
-                     alt="Nicholas Lee in the shop" ... />
+                     alt="Nicholas Lee" ... />
               */}
               <div
                 className="flex aspect-[4/5] w-full items-center justify-center border border-line bg-surface"
@@ -71,25 +88,13 @@ export default function About() {
                 aria-label="Placeholder frame for a photograph"
               >
                 <p className="px-8 text-center text-sm text-ink-faint">
-                  <RichText text="[Add a professional photo or workshop image]" />
+                  <RichText text="[Add a candid or portrait photo]" />
                 </p>
               </div>
-              <figcaption className="meta-label mt-3">
-                Waterloo, ON · currently Cambridge, MA
-              </figcaption>
             </figure>
           </Reveal>
         </div>
       </div>
-    </div>
-  )
-}
-
-function AboutBlock({ label, text }: { label: string; text: string }) {
-  return (
-    <div>
-      <h2 className="meta-label">{label}</h2>
-      <p className="mt-3 max-w-[62ch] leading-relaxed text-ink-soft">{text}</p>
     </div>
   )
 }

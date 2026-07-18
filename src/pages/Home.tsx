@@ -63,7 +63,7 @@ export default function Home() {
             <div>
               <p className="meta-label">Selected work</p>
               <h2 id="selected-work" className="mt-3 font-display text-[clamp(1.75rem,4vw,2.5rem)] font-semibold tracking-tight text-ink">
-                Engineering case studies
+                Projects
               </h2>
             </div>
             <Link
@@ -107,7 +107,7 @@ export default function Home() {
               About Nicholas Lee
             </h2>
             <p className="mt-4 font-display text-[clamp(1.25rem,2.6vw,1.75rem)] leading-snug font-medium tracking-tight text-ink">
-              {site.about.interests}
+              {site.about.blurb}
             </p>
             <Link
               to="/about"

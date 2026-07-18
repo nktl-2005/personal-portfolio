@@ -22,13 +22,35 @@ export const site = {
   url: 'https://nktl-2005.github.io/personal-portfolio/',
 
   about: {
-    now: 'I am a Mechatronics Engineering student at the University of Waterloo (BASc 2023–2028, Dean’s Honours), currently a research intern in the Aizenberg Lab at Harvard University, where I run COMSOL CFD studies of nasal-cavity airflow and build Python pipelines that turn large simulation datasets into comparable metrics for an adaptive electronic nose.',
-    interests:
-      'The common thread in my work is physical systems that have to sense or move something real: airflow and mass transport around sensors, structures that carry impact loads, mechanisms that survive production lines. I gravitate to problems where the constraint set is physical — a weight budget, a syrup-covered piston, a lead time measured in weeks — and the answer has to be manufactured, not just modeled.',
-    approach:
-      'I like to parameterize early and iterate fast: parametric CAD so a family of designs changes in minutes, simulation to kill weak concepts before they reach a printer or a mill, and design-for-manufacturing decisions made at the sketch stage rather than after the first failed build. Then I validate against reality — FEA against load cases, sensors against reference instruments, prototypes against the people who use them.',
-    teams:
-      'Alongside research, I design vehicle structures and fixtures for the Midnight Sun Solar Car Team and I am a founding member of the Waterloo Automation Collective, where I own the clamping subsystem of the university’s first desktop injection molder.',
+    // Short framing line — used on the home About preview and the top of the
+    // About page. The project pages already cover the engineering; this is the rest.
+    blurb:
+      'Engineering is most of what’s on this site — but it isn’t all of what I do. Here’s a quick look at the rest.',
+
+    // Life outside engineering. Fill each category with your real activities;
+    // text in [square brackets] renders as a visible "replace me" chip until you do.
+    life: [
+      {
+        label: 'Engineering Society',
+        items: ['[Add your EngSoc involvement — committees, events, or a rep / exec role]'],
+      },
+      {
+        label: 'Intramural sports',
+        items: ['[Add the sports you play and the team or league]'],
+      },
+      {
+        label: 'Student organizations',
+        items: ['[Add clubs or communities you’re part of beyond your design teams]'],
+      },
+      {
+        label: 'Leadership & community',
+        items: ['[Add volunteering, mentorship, outreach, or leadership roles]'],
+      },
+      {
+        label: 'Interests & hobbies',
+        items: ['[Add personal interests and hobbies — what you do to unplug]'],
+      },
+    ],
   },
 } as const
 
