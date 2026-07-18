@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nktl-2005.github.io/personal-portfolio/sitemap.xml

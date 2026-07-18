@@ -5,16 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Nicholas Lee — Mechatronics Engineering student at the University of Waterloo. Mechanical design, additive manufacturing research, and hands-on prototyping."
+      content="Nicholas Lee — Mechatronics Engineering student at the University of Waterloo designing sensing, fluid, and electromechanical systems. Engineering case studies in mechanical design, simulation, and product development."
     />
     <meta property="og:title" content="Nicholas Lee | Engineering Portfolio" />
     <meta
       property="og:description"
-      content="Mechatronics Engineering student at the University of Waterloo — mechanical design, additive manufacturing, and prototyping."
+      content="Engineering case studies in mechanical design, sensing and simulation, and product development."
     />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://nktl-2005.github.io/personal-portfolio/" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Nicholas Lee | Engineering Portfolio</title>
+    <script>
+      // GitHub Pages SPA redirect (paired with public/404.html).
+      // Restores the deep-link path that 404.html encoded into the query
+      // string, so direct navigation and refresh work on project routes.
+      // See https://github.com/rafgraph/spa-github-pages
+      (function (l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&')
+            })
+            .join('?')
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
+        }
+      })(window.location)
+    </script>
   </head>
   <body>
     <div id="root"></div>
