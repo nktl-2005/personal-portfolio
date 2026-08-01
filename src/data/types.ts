@@ -10,7 +10,7 @@ export type FigureId =
 /** One engineering challenge / decision / tradeoff in the "How" section. */
 export interface HowItem {
   title: string
-  body: string
+  body: string | string[]
 }
 
 /** One image in a project's gallery. */

@@ -307,10 +307,10 @@ export const projects: Project[] = [
     },
     // Drop files at /public/images/… to fill these slots (see README).
     gallery: [
-      { src: 'images/pneumatic-piston-assembly-1.webp', alt: 'Reverse-engineered SolidWorks model' },
-      { src: 'images/pneumatic-piston-assembly-2.webp', alt: 'Redesigned mounting plate' },
-      { src: 'images/pneumatic-piston-assembly-3.webp', alt: 'Protective splash cover' },
-      { src: 'images/pneumatic-piston-assembly-4.webp', alt: 'Technical drawing sheet' },
+      { src: 'images/pneumatic-piston-plate.png', alt: 'SolidWorks Piston Plate' },
+      { src: 'images/pneumatic-piston-cover.png', alt: 'SolidWorks Cover' },
+      { src: 'images/pneumatic-piston-plate-drawing.png', alt: 'Drawing of Plate' },
+      { src: 'images/pneumatic-piston-cover-drawing.png', alt: 'Drawing of Cover' },
     ],
     why: 'A pneumatic piston rejected cans at a specific point on the can production line, kicking out underfilled or knocked over cans. The piston rod was exposed to syrup splash, so sugar residue accumulated on it and delayed its actuation. This led to mistimed can kickouts resulting in necessary maintenance cleanup once a month. A replacement piston was sourced from another vendor, but its dimensions did not match the original assembly, and swapping the component alone would leave it exposed to the same contamination that affected the original. So, I was asked to redesign the mounting plate and a protective cover so the replacement piston could be integrated while addressing the recurring syrup-buildup problem.',
     what: {
@@ -332,7 +332,10 @@ export const projects: Project[] = [
       },
       {
         title: 'Designing for fabrication and assembly',
-        body: 'I designed the mounting plate to support three distinct mechanical interfaces. Countersunk fasteners secured the piston to the plate while keeping the heads flush. The plate connected to the conveyor’s existing bracket arm through slotted mounting holes, allowing the piston position to be adjusted before the connection was tightened. Separate fasteners passed through the cover and threaded into tapped holes in the plate, clamping the cover securely against the assembly. I defined the countersunk and tapped features using SolidWorks Hole Wizard and documented their thread and countersink specifications in the fabrication drawings. I produced detailed 2D drawings for the plate and cover, including datum-based hole locations, critical dimensions, tolerances, slot geometry, materials, and manufacturing callouts.',
+        body: [
+          'I designed the mounting plate to support three distinct mechanical interfaces. Countersunk fasteners secured the piston to the plate while keeping the heads flush. The plate connected to the conveyor’s existing bracket arm through slotted mounting holes, allowing the piston position to be adjusted before the connection was tightened. Separate fasteners passed through the cover and threaded into tapped holes in the plate, clamping the cover securely against the assembly.', 
+          'I defined the countersunk and tapped features using SolidWorks Hole Wizard and documented their thread and countersink specifications in the fabrication drawings. I produced detailed 2D drawings for the plate and cover, including datum-based hole locations, critical dimensions, tolerances, slot geometry, materials, and manufacturing callouts.',
+        ],
       },
     ],
     results: {
