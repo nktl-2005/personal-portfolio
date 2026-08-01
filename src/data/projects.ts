@@ -281,15 +281,15 @@ export const projects: Project[] = [
     slug: 'pneumatic-piston-assembly',
     title: 'Pneumatic Piston Mounting Assembly Redesign',
     summary:
-      'Redesigned a syrup-fouled pneumatic piston mount on a beverage line, extending expected service life by 200%.',
+      'Redesigned a production-line pneumatic piston assembly to integrate a replacement component and protect it from syrup contamination.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
     outcome:
       "The redesign extended the assembly's expected service life by 200%, significantly reducing maintenance frequency and line downtime.",
     role: 'Engineering Intern',
-    team: 'Refresco Beverages — maintenance/engineering, Mississauga ON',
-    duration: '2025 (within Jan–Aug 2025 internship)',
+    team: 'Refresco Beverages — production/maintenance/engineering, Mississauga ON',
+    duration: 'June 2025, during internship',
     tools: ['SolidWorks', 'Reverse engineering', 'Technical drawings', 'Vendor component integration'],
     figure: 'piston',
     // Drop files at /public/images/… to fill these slots (see README).
