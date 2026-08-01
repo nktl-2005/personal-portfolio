@@ -65,6 +65,28 @@ export interface Project {
   /** How — the main engineering challenges, decisions, and tradeoffs. */
   how: HowItem[]
   /**
+   * Optional overrides for the case-study section headings, per project.
+   * Defaults: why "Why", what "What" (list "What I built"), how "How".
+   * Example (pneumatic piston): Problem → Design requirements → Design solution.
+   */
+  sectionTitles?: {
+    why?: string
+    what?: string
+    /** Heading shown above the `what.build` list */
+    whatList?: string
+    how?: string
+  }
+  /**
+   * Optional Results section rendered after How — use it when a project has
+   * an honest outcome story to tell (delivered items + status paragraphs).
+   */
+  results?: {
+    /** Paragraphs — what was delivered, what was validated, what remains. */
+    body: string[]
+    /** Optional list of concrete deliverables. */
+    delivered?: string[]
+  }
+  /**
    * Optional image gallery shown on the project detail page. Each slot shows
    * its target path until you drop the file into /public and redeploy.
    */

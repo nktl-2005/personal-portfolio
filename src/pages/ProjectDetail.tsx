@@ -22,6 +22,17 @@ export default function ProjectDetail() {
   const prev = index > 0 ? projects[index - 1] : undefined
   const next = index < projects.length - 1 ? projects[index + 1] : undefined
 
+  // Section headings default to Why / What / How; projects can override them
+  // (e.g. Problem → Design requirements → Design solution → Results).
+  const titles = {
+    why: 'Why',
+    what: 'What',
+    whatList: 'What I built',
+    how: 'How',
+    ...project.sectionTitles,
+  }
+  const galleryNumber = project.results ? '05' : '04'
+
   return (
     <article className="mx-auto max-w-[1160px] px-6">
       {/* ------------------------------------------------------ Hero ---- */}
@@ -80,19 +91,19 @@ export default function ProjectDetail() {
       </header>
 
       {/* --------------------------------------------------- Why / What / How -- */}
-      <CaseSection number="01" title="Why">
+      <CaseSection number="01" title={titles.why}>
         <p className="max-w-[68ch] text-lg leading-relaxed text-ink-soft">
           <RichText text={project.why} />
         </p>
       </CaseSection>
 
-      <CaseSection number="02" title="What">
+      <CaseSection number="02" title={titles.what}>
         <div className="max-w-[68ch] space-y-8">
           <p className="leading-relaxed text-ink-soft">
             <RichText text={project.what.lead} />
           </p>
           <div>
-            <h3 className="meta-label">What I built</h3>
+            <h3 className="meta-label">{titles.whatList}</h3>
             <ul className="mt-4 divide-y divide-line border-y border-line">
               {project.what.build.map((item) => (
                 <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
@@ -107,7 +118,7 @@ export default function ProjectDetail() {
         </div>
       </CaseSection>
 
-      <CaseSection number="03" title="How">
+      <CaseSection number="03" title={titles.how}>
         <div className="max-w-[68ch] space-y-8">
           {project.how.map((item) => (
             <div key={item.title} className="border-l-2 border-accent pl-5">
@@ -120,8 +131,35 @@ export default function ProjectDetail() {
         </div>
       </CaseSection>
 
+      {project.results && (
+        <CaseSection number="04" title="Results">
+          <div className="max-w-[68ch] space-y-8">
+            {project.results.delivered && project.results.delivered.length > 0 && (
+              <div>
+                <h3 className="meta-label">Delivered</h3>
+                <ul className="mt-4 divide-y divide-line border-y border-line">
+                  {project.results.delivered.map((item) => (
+                    <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
+                      <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
+                      <span>
+                        <RichText text={item} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {project.results.body.map((paragraph) => (
+              <p key={paragraph.slice(0, 40)} className="leading-relaxed text-ink-soft">
+                <RichText text={paragraph} />
+              </p>
+            ))}
+          </div>
+        </CaseSection>
+      )}
+
       {project.gallery && project.gallery.length > 0 && (
-        <CaseSection number="04" title="Gallery">
+        <CaseSection number={galleryNumber} title="Gallery">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {project.gallery.map((img) => (
               <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} />

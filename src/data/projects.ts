@@ -281,17 +281,30 @@ export const projects: Project[] = [
     slug: 'pneumatic-piston-assembly',
     title: 'Pneumatic Piston Mounting Assembly Redesign',
     summary:
-      'Redesigned a production-line pneumatic piston assembly to integrate a replacement component and protect it from syrup contamination.',
+      'Redesigned a production-line piston mount to integrate a vendor-replacement piston and shield it from the syrup splash behind monthly maintenance.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
     outcome:
-      "The redesign extended the assembly's expected service life by 200%, significantly reducing maintenance frequency and line downtime.",
+      'Delivered SolidWorks assembly models and a fabrication drawing package integrating the replacement piston and cutting off the contamination path.',
     role: 'Engineering Intern',
     team: 'Refresco Beverages — production/maintenance/engineering, Mississauga ON',
     duration: 'June 2025, during internship',
-    tools: ['SolidWorks', 'Reverse engineering', 'Technical drawings', 'Vendor component integration'],
+    tools: [
+      'SolidWorks (incl. Hole Wizard)',
+      'Reverse engineering',
+      '2D manufacturing drawings',
+      'Vendor component integration',
+    ],
     figure: 'piston',
+    // Section headings for this project follow problem → requirements →
+    // solution → results (the Results section is the optional `results` field).
+    sectionTitles: {
+      why: 'Problem',
+      what: 'Design requirements',
+      whatList: 'The redesign needed to',
+      how: 'Design solution',
+    },
     // Drop files at /public/images/… to fill these slots (see README).
     gallery: [
       { src: 'images/pneumatic-piston-assembly-1.webp', alt: 'Reverse-engineered SolidWorks model' },
@@ -299,30 +312,42 @@ export const projects: Project[] = [
       { src: 'images/pneumatic-piston-assembly-3.webp', alt: 'Protective splash cover' },
       { src: 'images/pneumatic-piston-assembly-4.webp', alt: 'Technical drawing sheet' },
     ],
-    why: "On Refresco's Mississauga beverage line, syrup and sugar buildup on a pneumatic piston caused mistimed can kickouts and frequent failures — each one a maintenance intervention and line downtime. The mechanism sat directly in the path of syrup splash, so the environment itself, not just the worn part, was the problem to design against.",
+    why: 'A pneumatic piston controlled the mechanism that rejects cans at a specific point on a beverage production line. The piston sat exposed to syrup splash, so sugar residue accumulated around the mechanism and delayed its actuation — contributing to mistimed can kickouts and maintenance roughly once per month. A replacement piston was sourced from another vendor, but its mounting dimensions did not match the existing assembly, and swapping the component alone would leave it exposed to the same contamination that affected the original. I was asked to redesign the mounting plate and protective cover so the replacement piston could be integrated while addressing the recurring syrup-buildup problem.',
     what: {
-      lead: "During my internship I redesigned the piston's mounting assembly. I reverse-engineered the existing components in SolidWorks, redesigned the mounting plate to integrate a replacement piston from a different vendor, designed a protective cover to block syrup splash, and documented the redesign in technical drawings. The redesign extended the assembly's expected service life by 200%, significantly cutting maintenance frequency and downtime.",
+      lead: 'Integrating a different vendor’s piston into a running production line meant working inside fixed constraints on every side — the machine interface, the new component’s geometry, the equipment envelope, and the contamination environment.',
       build: [
-        'Reverse-engineered SolidWorks model of the original assembly',
-        'Adapted mounting plate — redesigned to integrate the replacement vendor piston [Add vendor and model]',
-        'Protective splash cover — blocks syrup from reaching the mechanism [Add material]',
-        'Technical drawing package for the redesigned parts',
+        'Preserve the existing machine-side mounting interface',
+        'Integrate the replacement piston while maintaining its required position and alignment',
+        'Fit within the available equipment envelope and retain service access',
+        'Shield the piston from direct syrup splash',
       ],
     },
     how: [
       {
-        title: 'Rebuilding the assembly in CAD first',
-        body: 'Nothing could be designed until the existing hardware was captured, so I reverse-engineered the components in SolidWorks. The as-built model became the common reference every deliverable depended on — the adapted plate had to mate with it, the cover to fit around it, the drawings to describe it — at the cost of capture time before redesign could start. [Add measurement and verification approach.]',
+        title: 'Adapting the mounting interface',
+        body: 'I measured the critical geometry of the original mounting plate and cover — hole locations, mating features, and the available installation envelope — and recreated it in SolidWorks to establish a reference for the redesign. Because the replacement piston had a different mounting pattern, the original plate could not be reused directly, so I redesigned the plate around the new piston’s interface while retaining the existing machine-side attachment points. That let the replacement component be incorporated without broader modifications to the surrounding equipment.',
       },
       {
-        title: "Adapting the plate to another vendor's piston",
-        body: 'The replacement piston came from a different vendor with its own mounting interface, so the original plate could not accept it. I redesigned the plate around the new piston so it took over the kickout function inside the existing assembly — which makes the plate a custom part tied to that interface. [Add the specific interface changes and how fit was verified.]',
+        title: 'Protecting the piston from contamination',
+        body: 'Adapting the mounting plate addressed the compatibility problem but not the recurring cause of delayed actuation. I therefore designed a protective cover to shield the piston from direct syrup splash, shaped around the redesigned assembly while accounting for installation clearance and maintenance access. Its purpose is to reduce the sugar-residue buildup that had affected the original mechanism.',
       },
       {
-        title: 'Attacking the root cause, not the symptom',
-        body: 'Replacing the piston alone would leave it exposed to the same syrup splash that failed the original. I added a protective cover to cut off the contamination path — an extra part to fabricate and install, but it targets the buildup that caused the mistimed kickouts rather than treating the wear after the fact. [Add maintenance-access considerations.]',
+        title: 'Designing for fabrication and assembly',
+        body: 'I incorporated standardized countersunk and tapped holes based on assembly clearance and installation access — countersinks let the selected fasteners sit flush, and tapped holes supported installation without separate nuts where rear access was limited. I defined these features using SolidWorks Hole Wizard and documented the thread and countersink specifications in the manufacturing drawings. After completing the models, I produced detailed 2D drawings for the plate and cover, communicating the geometry, dimensions, hole locations, and thread and countersink requirements a machine shop needs.',
       },
     ],
+    results: {
+      delivered: [
+        'SolidWorks assembly models of the redesigned mounting arrangement',
+        'Redesigned mounting plate integrating the vendor-replacement piston',
+        'Protective syrup-splash cover',
+        'Fabrication drawing package — geometry, dimensions, hole locations, thread and countersink specifications',
+      ],
+      body: [
+        'I completed the CAD models and technical drawings before the end of my internship. The components had not yet been fabricated or installed while I was at the company, so I was unable to perform a physical fit check or evaluate the design under production conditions.',
+        'The delivered design addressed both the replacement piston’s mounting incompatibility and the contamination path responsible for the recurring maintenance issue. Fabrication, installation, and production validation remained the next stages of the project — no improvement in service life or maintenance frequency is claimed.',
+      ],
+    },
   },
   // {
   //   slug: 'arduino-robocar',
