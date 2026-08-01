@@ -307,6 +307,7 @@ export const projects: Project[] = [
     },
     // Drop files at /public/images/… to fill these slots (see README).
     gallery: [
+      { src: 'images/pneumatic-piston-full-assembly.png', alt: 'SolidWorks Full Assembly' },
       { src: 'images/pneumatic-piston-plate.png', alt: 'SolidWorks Piston Plate' },
       { src: 'images/pneumatic-piston-cover.png', alt: 'SolidWorks Cover' },
       { src: 'images/pneumatic-piston-plate-drawing.png', alt: 'Drawing of Plate' },

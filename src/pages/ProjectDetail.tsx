@@ -123,9 +123,12 @@ export default function ProjectDetail() {
           {project.how.map((item) => (
             <div key={item.title} className="border-l-2 border-accent pl-5">
               <h3 className="font-display font-semibold tracking-tight text-ink">{item.title}</h3>
-              <p className="mt-2 leading-relaxed text-ink-soft">
-                <RichText text={item.body} />
-              </p>
+              {/* body accepts a single string or an array of paragraphs */}
+              {(Array.isArray(item.body) ? item.body : [item.body]).map((paragraph) => (
+                <p key={paragraph.slice(0, 40)} className="mt-2 leading-relaxed text-ink-soft">
+                  <RichText text={paragraph} />
+                </p>
+              ))}
             </div>
           ))}
         </div>
