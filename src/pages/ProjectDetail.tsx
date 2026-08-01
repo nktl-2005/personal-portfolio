@@ -165,7 +165,7 @@ export default function ProjectDetail() {
         <CaseSection number={galleryNumber} title="Gallery">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {project.gallery.map((img) => (
-              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} />
+              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} fit={img.fit} />
             ))}
           </div>
         </CaseSection>

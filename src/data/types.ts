@@ -21,6 +21,11 @@ export interface GalleryItem {
   alt: string
   /** Optional caption shown under the image. */
   caption?: string
+  /**
+   * How the image fills its 4:3 frame. 'cover' (default) crops to fill;
+   * use 'contain' for tall/portrait renders so the whole part stays visible.
+   */
+  fit?: 'cover' | 'contain'
 }
 
 export interface Project {

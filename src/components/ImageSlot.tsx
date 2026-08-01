@@ -10,6 +10,8 @@ interface ImageSlotProps {
   caption?: string
   /** Tailwind aspect-ratio class. */
   aspect?: string
+  /** 'cover' (default) crops to fill the frame; 'contain' shows the whole image. */
+  fit?: 'cover' | 'contain'
 }
 
 /**
@@ -20,7 +22,13 @@ interface ImageSlotProps {
  * code change needed. (A missing file makes one harmless 404 request until
  * you add it; nothing is shown broken.)
  */
-export default function ImageSlot({ src, alt, caption, aspect = 'aspect-[4/3]' }: ImageSlotProps) {
+export default function ImageSlot({
+  src,
+  alt,
+  caption,
+  aspect = 'aspect-[4/3]',
+  fit = 'cover',
+}: ImageSlotProps) {
   const [loaded, setLoaded] = useState(false)
   const url = import.meta.env.BASE_URL + src
 
@@ -56,9 +64,9 @@ export default function ImageSlot({ src, alt, caption, aspect = 'aspect-[4/3]' }
           loading="lazy"
           onLoad={() => setLoaded(true)}
           onError={() => setLoaded(false)}
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
-            loaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 h-full w-full ${
+            fit === 'contain' ? 'object-contain' : 'object-cover'
+          } transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         />
       </div>
       {caption && (

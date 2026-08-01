@@ -297,6 +297,9 @@ export const projects: Project[] = [
       'Vendor component integration',
     ],
     figure: 'piston',
+    // Hero + preview-card image (replaces the built-in line illustration).
+    image: 'images/pneumatic-piston-full-assembly.png',
+    imageAlt: 'SolidWorks model of the full piston mounting assembly — plate, cover, and piston',
     // Section headings for this project follow problem → requirements →
     // solution → results (the Results section is the optional `results` field).
     sectionTitles: {
@@ -307,8 +310,7 @@ export const projects: Project[] = [
     },
     // Drop files at /public/images/… to fill these slots (see README).
     gallery: [
-      { src: 'images/pneumatic-piston-full-assembly.png', alt: 'SolidWorks Full Assembly' },
-      { src: 'images/pneumatic-piston-plate.png', alt: 'SolidWorks Piston Plate' },
+      { src: 'images/pneumatic-piston-plate.png', alt: 'SolidWorks Piston Plate', fit: 'contain' },
       { src: 'images/pneumatic-piston-cover.png', alt: 'SolidWorks Cover' },
       { src: 'images/pneumatic-piston-plate-drawing.png', alt: 'Drawing of Plate' },
       { src: 'images/pneumatic-piston-cover-drawing.png', alt: 'Drawing of Cover' },
