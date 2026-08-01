@@ -25,11 +25,10 @@ export default function Projects() {
         <Reveal>
           <p className="meta-label">Projects</p>
           <h1 className="mt-4 max-w-[24ch] font-display text-[clamp(2rem,5vw,3.25rem)] leading-tight font-semibold tracking-tight text-ink">
-            Case studies, from problem to measured result
+            Full Project Breakdowns
           </h1>
           <p className="mt-5 max-w-[56ch] leading-relaxed text-ink-soft">
-            Each project is written the way the work actually went: the problem, the constraints,
-            the decisions, and what the design achieved.
+            The problem, the constraints, the decisions, the solutions, and the results.
           </p>
         </Reveal>
 
