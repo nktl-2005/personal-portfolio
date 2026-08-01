@@ -77,8 +77,8 @@ export default function About() {
         <div className="lg:col-span-5">
           <Reveal delay={120}>
             <ImageSlot
-              src="images/portrait.webp"
-              alt="a candid or portrait photo"
+              src="images/portrait.jpg"
+              alt="NICK SKIING"
               aspect="aspect-[4/5]"
             />
           </Reveal>

@@ -7,10 +7,10 @@ export const site = {
   name: 'Nicholas Lee',
   /** One-line professional descriptor under the name in the hero */
   descriptor:
-    'Research Intern at Harvard.  Junior Mechatronics engineering student at the University of Waterloo.',
+    'Research Intern @ Harvard.  Junior Mechatronics engineering student @ the University of Waterloo.',
   /** Short hero introduction (1–2 sentences) */
   intro:
-    'Welcome to my site! I am passionate about designing and building electromechanical systems that sense, actuate, and move.',
+    'Welcome to my site! I enjoy combining mechanical design, electronics, programming, and data-driven thinking to develop practical, user-focused solutions.',
 
   email: 'n9lee@uwaterloo.ca',
   linkedin: 'https://www.linkedin.com/in/nicholaslee---/',
@@ -25,7 +25,7 @@ export const site = {
     // Short framing line — used on the home About preview and the top of the
     // About page. The project pages already cover the engineering; this is the rest.
     blurb:
-      'Learn more about me :)',
+      'more than just an engineer',
 
     // Life outside engineering. Fill each category with your real activities;
     // text in [square brackets] renders as a visible "replace me" chip until you do.

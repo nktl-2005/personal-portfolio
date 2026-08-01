@@ -26,7 +26,7 @@ export const projects: Project[] = [
     title: 'CFD Study of Nasal-Cavity Geometries for a Universal Adaptive Electronic Nose',
     summary:
       'CFD simulations across nasal-cavity geometries to quantify how anatomy shapes airflow, mass transport, and odor detection.',
-    category: 'Sensing & Simulation',
+    category: 'Simulation & Analysis',
     year: '2026',
     featured: true,
     outcome:
@@ -34,7 +34,7 @@ export const projects: Project[] = [
     role: 'Research Intern',
     team: 'Aizenberg Lab, Harvard University (Cambridge, MA)',
     duration: 'May 2026 - Present',
-    tools: ['COMSOL Multiphysics', 'Python', 'Pandas', 'NumPy', 'Matplotlib'],
+    tools: ['COMSOL Multiphysics', 'Python (Pandas, NumPy, Matplotlib)', 'CFD', 'Mass transport modeling', 'ITK-SNAP', 'MeshMixer'],
     figure: 'enose',
     // Drop files at /public/images/… to fill these slots (see README).
     gallery: [
@@ -43,14 +43,15 @@ export const projects: Project[] = [
       { src: 'images/electronic-nose-cfd-3.webp', alt: 'Mass-transfer / concentration field' },
       { src: 'images/electronic-nose-cfd-4.webp', alt: 'Matplotlib cross-geometry comparison plot' },
     ],
-    why: 'The Aizenberg Lab is developing a universal adaptive electronic nose — a sensor system meant to detect and discriminate odors across varied conditions. In a biological nose, cavity anatomy governs how air and odorant molecules reach the olfactory receptors, and that anatomy varies between individuals, so no single geometry represents the design space. For the artificial nose to generalize, the lab needed to understand how geometry drives airflow and mass transport — quantities that are impractical to measure directly inside physical anatomy.',
+    why: 'The Aizenberg Lab is developing a universal adaptive electronic nose, a sensor system meant to detect and discriminate odors across varied conditions. In a biological nose, cavity anatomy governs how air and odorant molecules reach the olfactory receptors, and that anatomy varies between individuals, so no single geometry represents the design space. For the artificial nose to generalize, the lab needed to understand how geometry drives airflow and mass transport — quantities that are impractical to measure directly inside physical anatomy.',
     what: {
       lead: 'I built a reproducible COMSOL-to-Python workflow that simulates coupled airflow and odorant mass transport across multiple nasal-cavity geometries and reduces each run to comparable metrics. The study is ongoing; [Add current headline finding].',
       build: [
-        'Coupled airflow + mass-transport CFD models in COMSOL Multiphysics',
+        'Multiple parametric sweep studies to isolate bend angle, inlet velocity, sniff period, and analyte type changes',
+        'Coupled airflow + mass-transport CFD models in COMSOL Multiphysics',        
         'A set of multiple nasal-cavity geometries analyzed under identical physics',
-        'Automated Python (Pandas, NumPy) pipeline extracting airflow and mass-transfer metrics from raw field output',
-        'Matplotlib visualizations comparing metrics across geometries',
+        'Automated transient simulation analysis using Python, Pandas, NumPy, and Matplotlib to extract flow and detection metrics and generate meaningful plots across all studies',
+        'Matplotlib visualizations for easycomparing metrics across geometries',
         '[Add: mapping from CFD metrics to electronic-nose design parameters]',
       ],
     },
@@ -64,16 +65,16 @@ export const projects: Project[] = [
         body: 'Each run produces large field datasets that must collapse to a few comparable metrics. I scripted the extraction in Python up front instead of post-processing by hand, which made every cross-geometry comparison reproducible and let the analysis scale as geometries were added — at the cost of building the pipeline before any result could be compared.',
       },
       {
-        title: 'Generalizing across anatomy, not one case',
+        title: 'Parametric Sweeps across bend angle, inlet velocity, sniff period, and different analytes',
         body: 'A universal nose must generalize across anatomy, so I simulated multiple geometries under identical physics to isolate the effect of geometry itself rather than optimizing around a single representative cavity. That means more simulations and more data to manage, but it is the only way to capture the anatomical variation the device has to handle.',
       },
     ],
   },
   {
     slug: 'solar-car-ballast-box',
-    title: 'Solar Car Ballast Box',
+    title: 'Midnight Sun Solar Car Ballast Box',
     summary:
-      'Aluminum sheet-metal ballast enclosure for a competition solar car, FEA-optimized to cut 20% of its weight while meeting braking load cases.',
+      'Aluminum sheet-metal ballast box for Midnight Sun Solar Car Team (MS16), FEA-optimized to cut 20% of its weight while meeting various load cases.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
@@ -323,51 +324,51 @@ export const projects: Project[] = [
       },
     ],
   },
-  {
-    slug: 'arduino-robocar',
-    title: 'Autonomous Line-Following Robot Car',
-    summary:
-      'A C++/Arduino robot car that follows a line with light sensors — stable through a figure-eight course and up an inclined ramp.',
-    category: 'Mechatronics',
-    year: '[Add year]',
-    featured: false,
-    outcome:
-      'The car navigated a figure-eight course and climbed an inclined ramp autonomously, tracking the line with light-sensor distance logic.',
-    role: 'Sole builder and programmer (personal project)',
-    team: 'None — personal project',
-    duration: '[Add duration] ([Add year])',
-    tools: ['C++', 'Arduino IDE', 'Light sensors', 'Distance-logic line tracking'],
-    figure: 'robocar',
-    // Drop files at /public/images/… to fill these slots (see README).
-    gallery: [
-      { src: 'images/arduino-robocar-1.webp', alt: 'The assembled car' },
-      { src: 'images/arduino-robocar-2.webp', alt: 'Light-sensor array / underside' },
-      { src: 'images/arduino-robocar-3.webp', alt: 'Figure-eight run' },
-      { src: 'images/arduino-robocar-4.webp', alt: 'Ramp climb' },
-    ],
-    why: 'A personal project to make a robot car follow a line fully autonomously and prove it on two courses that expose unstable tracking: a figure-eight — which bends in both directions and crosses itself — and an inclined ramp that adds grade on top of tracking.',
-    what: {
-      lead: 'I built and programmed the car solo. The control software is C++ in the Arduino IDE and steers from light-sensor distance logic with no manual control. It achieved stable navigation on both courses — completing the full figure-eight and climbing the ramp while holding the line.',
-      build: [
-        'Wheeled car platform with light sensors for path detection [Add chassis, motors, driver]',
-        'C++ control program (Arduino IDE) implementing light-sensor distance logic',
-        'Arduino board running the program [Add board model]',
-        'Validation runs on a figure-eight course and an inclined ramp',
-      ],
-    },
-    how: [
-      {
-        title: 'Light sensors + distance logic for tracking',
-        body: 'A simple sensing input suited a solo build, with the distance logic in software carrying the rest of the work — reading the sensors and deciding the steering corrections that keep the car on the line. Tracking quality is bounded by what the sensors report; anything that degrades the readings degrades the tracking. [Add how readings map to steering — thresholds/gains, loop timing.]',
-      },
-      {
-        title: 'Holding the line through the figure-eight',
-        body: 'The figure-eight is the hard tracking test: curvature reverses and the path crosses itself, so the logic has to stay stable through changing turns and take the correct branch at the intersection. The car completed it autonomously. [Add what failed on early attempts and what changed.]',
-      },
-      {
-        title: 'Adding grade with the ramp',
-        body: 'The ramp moved the test off flat ground, checking that tracking and drive both hold on an incline; the car climbed it with stable line tracking. [Add ramp angle and any changes needed for the climb.]',
-      },
-    ],
-  },
+  // {
+  //   slug: 'arduino-robocar',
+  //   title: 'Autonomous Line-Following Robot Car',
+  //   summary:
+  //     'A C++/Arduino robot car that follows a line with light sensors — stable through a figure-eight course and up an inclined ramp.',
+  //   category: 'Mechatronics',
+  //   year: '[Add year]',
+  //   featured: false,
+  //   outcome:
+  //     'The car navigated a figure-eight course and climbed an inclined ramp autonomously, tracking the line with light-sensor distance logic.',
+  //   role: 'Sole builder and programmer (personal project)',
+  //   team: 'None — personal project',
+  //   duration: '[Add duration] ([Add year])',
+  //   tools: ['C++', 'Arduino IDE', 'Light sensors', 'Distance-logic line tracking'],
+  //   figure: 'robocar',
+  //   // Drop files at /public/images/… to fill these slots (see README).
+  //   gallery: [
+  //     { src: 'images/arduino-robocar-1.webp', alt: 'The assembled car' },
+  //     { src: 'images/arduino-robocar-2.webp', alt: 'Light-sensor array / underside' },
+  //     { src: 'images/arduino-robocar-3.webp', alt: 'Figure-eight run' },
+  //     { src: 'images/arduino-robocar-4.webp', alt: 'Ramp climb' },
+  //   ],
+  //   why: 'A personal project to make a robot car follow a line fully autonomously and prove it on two courses that expose unstable tracking: a figure-eight — which bends in both directions and crosses itself — and an inclined ramp that adds grade on top of tracking.',
+  //   what: {
+  //     lead: 'I built and programmed the car solo. The control software is C++ in the Arduino IDE and steers from light-sensor distance logic with no manual control. It achieved stable navigation on both courses — completing the full figure-eight and climbing the ramp while holding the line.',
+  //     build: [
+  //       'Wheeled car platform with light sensors for path detection [Add chassis, motors, driver]',
+  //       'C++ control program (Arduino IDE) implementing light-sensor distance logic',
+  //       'Arduino board running the program [Add board model]',
+  //       'Validation runs on a figure-eight course and an inclined ramp',
+  //     ],
+  //   },
+  //   how: [
+  //     {
+  //       title: 'Light sensors + distance logic for tracking',
+  //       body: 'A simple sensing input suited a solo build, with the distance logic in software carrying the rest of the work — reading the sensors and deciding the steering corrections that keep the car on the line. Tracking quality is bounded by what the sensors report; anything that degrades the readings degrades the tracking. [Add how readings map to steering — thresholds/gains, loop timing.]',
+  //     },
+  //     {
+  //       title: 'Holding the line through the figure-eight',
+  //       body: 'The figure-eight is the hard tracking test: curvature reverses and the path crosses itself, so the logic has to stay stable through changing turns and take the correct branch at the intersection. The car completed it autonomously. [Add what failed on early attempts and what changed.]',
+  //     },
+  //     {
+  //       title: 'Adding grade with the ramp',
+  //       body: 'The ramp moved the test off flat ground, checking that tracking and drive both hold on an incline; the car climbed it with stable line tracking. [Add ramp angle and any changes needed for the climb.]',
+  //     },
+  //   ],
+  // },
 ]
