@@ -308,13 +308,8 @@ export const projects: Project[] = [
       whatList: 'The redesign needed to',
       how: 'Design solution',
     },
-    // Drop files at /public/images/… to fill these slots (see README).
-    gallery: [
-      { src: 'images/pneumatic-piston-plate.png', alt: 'SolidWorks Piston Plate', fit: 'contain' },
-      { src: 'images/pneumatic-piston-cover.png', alt: 'SolidWorks Cover' },
-      { src: 'images/pneumatic-piston-plate-drawing.png', alt: 'Drawing of Plate' },
-      { src: 'images/pneumatic-piston-cover-drawing.png', alt: 'Drawing of Cover' },
-    ],
+    // Figures live inline with the sections they illustrate — see the `media`
+    // fields on the how/results blocks below.
     why: 'A pneumatic piston rejected cans at a specific point on the can production line, kicking out underfilled or knocked over cans. The piston rod was exposed to syrup splash, so sugar residue accumulated on it and delayed its actuation. This led to mistimed can kickouts resulting in necessary maintenance cleanup once a month. A replacement piston was sourced from another vendor, but its dimensions did not match the original assembly, and swapping the component alone would leave it exposed to the same contamination that affected the original. So, I was asked to redesign the mounting plate and a protective cover so the replacement piston could be integrated while addressing the recurring syrup-buildup problem.',
     what: {
       lead: 'Integrating a different vendor’s piston into a running production line meant working with fixed constraints on every side. I had to consider the existing machine interface, ease of installation and maintenance, the new component’s geometry, and the operating environment.',
@@ -328,16 +323,43 @@ export const projects: Project[] = [
       {
         title: 'Adapting the mounting plate',
         body: 'I measured the critical geometry of the original mounting plate and cover: hole locations, mating features, and the available installation envelope. I recreated the exact plate in SolidWorks to establish what changes needed to be made. Since the replacement piston had a different mounting hole arrangement, the original plate could not be reused directly, so I measured the new piston’s mounting interface and incorporated the necessary holes from the original plate for the airlines. That let the replacement component be incorporated without broader modifications to the surrounding equipment.',
+        media: [
+          {
+            src: 'images/pneumatic-piston-plate.png',
+            alt: 'SolidWorks model of the redesigned mounting plate',
+            caption: 'Redesigned plate — the new piston’s mounting pattern plus the original airline holes, so the assembly drops into the existing equipment.',
+            fit: 'contain',
+          },
+        ],
       },
       {
         title: 'Protecting the piston from contamination with a cover',
         body: 'Adapting the mounting plate addressed the compatibility problem but not the recurring cause of delayed actuation. So, I designed a protective cover to shield the piston from direct syrup splash, shaped around the redesigned assembly. I accounted for installation and maintenance access by adding side holes on the plate for the cover to attach to. This protects the piston rod from syrup splashes that affected the original mechanism. ',
+        media: [
+          {
+            src: 'images/pneumatic-piston-cover.png',
+            alt: 'SolidWorks model of the protective cover',
+            caption: 'Protective cover, shaped around the assembly — it attaches to side holes in the plate and shields the piston rod from syrup splash.',
+          },
+        ],
       },
       {
         title: 'Designing for fabrication and assembly',
         body: [
-          'I designed the mounting plate to support three distinct mechanical interfaces. Countersunk fasteners secured the piston to the plate while keeping the heads flush. The plate connected to the conveyor’s existing bracket arm through slotted mounting holes, allowing the piston position to be adjusted before the connection was tightened. Separate fasteners passed through the cover and threaded into tapped holes in the plate, clamping the cover securely against the assembly.', 
+          'I designed the mounting plate to support three distinct mechanical interfaces. Countersunk fasteners secured the piston to the plate while keeping the heads flush. The plate connected to the conveyor’s existing bracket arm through slotted mounting holes, allowing the piston position to be adjusted before the connection was tightened. Separate fasteners passed through the cover and threaded into tapped holes in the plate, clamping the cover securely against the assembly.',
           'I defined the countersunk and tapped features using SolidWorks Hole Wizard and documented their thread and countersink specifications in the fabrication drawings. I produced detailed 2D drawings for the plate and cover, including datum-based hole locations, critical dimensions, tolerances, slot geometry, materials, and manufacturing callouts.',
+        ],
+        media: [
+          {
+            src: 'images/pneumatic-piston-plate-drawing.png',
+            alt: 'Fabrication drawing of the mounting plate',
+            caption: 'Plate drawing — datum-based hole locations, slot geometry, and thread callouts.',
+          },
+          {
+            src: 'images/pneumatic-piston-cover-drawing.png',
+            alt: 'Fabrication drawing of the protective cover',
+            caption: 'Cover drawing — critical dimensions and manufacturing callouts for the shop.',
+          },
         ],
       },
     ],
@@ -349,7 +371,7 @@ export const projects: Project[] = [
         'Fabrication package — geometry, dimensions, hole locations, thread and countersink specifications',
       ],
       body: [
-        'I completed the CAD models and technical drawings before the end of my internship. The components were not fabricated or installed before I completed my internsip, so I was unable to perform a physical fit check validation or evaluate the design further.',
+        'I completed the CAD models and technical drawings before the end of my internship. The components were not fabricated or installed before I completed my internship, so I was unable to perform a physical fit check validation or evaluate the design further.',
         'The delivered design addressed both the replacement piston’s mounting incompatibility and the recurring syrup buildup issue.',
       ],
     },

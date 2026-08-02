@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { projects } from '../data/projects'
+import type { GalleryItem } from '../data/types'
 import CaseSection from '../components/CaseSection'
 import ImageSlot from '../components/ImageSlot'
 import ProjectFigure from '../components/ProjectFigure'
@@ -115,11 +116,12 @@ export default function ProjectDetail() {
               ))}
             </ul>
           </div>
+          {project.what.media && <MediaRow items={project.what.media} />}
         </div>
       </CaseSection>
 
       <CaseSection number="03" title={titles.how}>
-        <div className="max-w-[68ch] space-y-8">
+        <div className="max-w-[68ch] space-y-10">
           {project.how.map((item) => (
             <div key={item.title} className="border-l-2 border-accent pl-5">
               <h3 className="font-display font-semibold tracking-tight text-ink">{item.title}</h3>
@@ -129,6 +131,7 @@ export default function ProjectDetail() {
                   <RichText text={paragraph} />
                 </p>
               ))}
+              {item.media && <MediaRow items={item.media} />}
             </div>
           ))}
         </div>
@@ -157,6 +160,7 @@ export default function ProjectDetail() {
                 <RichText text={paragraph} />
               </p>
             ))}
+            {project.results.media && <MediaRow items={project.results.media} />}
           </div>
         </CaseSection>
       )}
@@ -206,6 +210,20 @@ export default function ProjectDetail() {
         </div>
       </nav>
     </article>
+  )
+}
+
+/**
+ * Inline section figures: one image renders full content width, two render
+ * side by side (stacking on mobile). Captions come from the data.
+ */
+function MediaRow({ items }: { items: GalleryItem[] }) {
+  return (
+    <div className={`mt-6 grid grid-cols-1 gap-5 ${items.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+      {items.map((m) => (
+        <ImageSlot key={m.src} src={m.src} alt={m.alt} caption={m.caption} fit={m.fit} />
+      ))}
+    </div>
   )
 }
 

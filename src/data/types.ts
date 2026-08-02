@@ -11,6 +11,8 @@ export type FigureId =
 export interface HowItem {
   title: string
   body: string | string[]
+  /** Figures shown inline right after this block's text (1 = full width, 2 = side by side). */
+  media?: GalleryItem[]
 }
 
 /** One image in a project's gallery. */
@@ -66,6 +68,8 @@ export interface Project {
     lead: string
     /** Concrete deliverables / evidence, shown as a scannable list. */
     build: string[]
+    /** Figures shown inline after the list (1 = full width, 2 = side by side). */
+    media?: GalleryItem[]
   }
   /** How — the main engineering challenges, decisions, and tradeoffs. */
   how: HowItem[]
@@ -90,6 +94,8 @@ export interface Project {
     body: string[]
     /** Optional list of concrete deliverables. */
     delivered?: string[]
+    /** Figures shown inline after the paragraphs (1 = full width, 2 = side by side). */
+    media?: GalleryItem[]
   }
   /**
    * Optional image gallery shown on the project detail page. Each slot shows

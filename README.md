@@ -54,17 +54,27 @@ the exact filenames each slot expects. The rule everywhere: **a slot shows a
 dashed placeholder with its target path until you add that file, then the image
 appears automatically** on the next deploy (no code change needed).
 
-Three kinds of image slot:
+Four kinds of image slot:
 
-1. **Project galleries** — each project detail page has a 4-image "Gallery"
-   section. Add files like `public/images/solar-car-ballast-box-1.webp`. To
-   change what a slot expects, edit the `gallery` array on that project in
-   [src/data/projects.ts](src/data/projects.ts) (`src`, `alt`, optional `caption`).
-2. **About photo** — add `public/images/portrait.webp`.
-3. **Project hero image** (optional) — to replace a project's built-in line
-   illustration at the top of its page, set `image: 'images/ballast.webp'` and
-   `imageAlt` on that project. This also replaces the illustration in the
-   project cards.
+1. **Inline section figures (preferred)** — attach photos with captions directly
+   to the section they illustrate, so readers see evidence next to the text
+   (see the pneumatic piston project for the pattern). Add a `media` array to a
+   `how` block, to `what`, or to `results` in
+   [src/data/projects.ts](src/data/projects.ts):
+   `media: [{ src: 'images/…png', alt: '…', caption: 'One-line takeaway.', fit: 'contain' }]`
+   — one item renders full width, two render side by side; `fit: 'contain'` is
+   for tall renders that would otherwise crop.
+2. **Project galleries** — a "Gallery" section at the bottom of a project page,
+   from that project's `gallery` array. Good overflow for extra shots that
+   don't belong to a specific section.
+3. **About photo** — add `public/images/portrait.jpg`.
+4. **Project hero image** — to replace a project's built-in line illustration
+   at the top of its page, set `image: 'images/….png'` and `imageAlt` on that
+   project. This also replaces the illustration in the project cards.
+
+Caption tip (from the MIT MechE portfolio guide): write captions as one-line
+takeaways that say what the reader should notice — "Redesigned plate — slotted
+holes mate to the existing bracket arm" — not just what the object is.
 
 Export as **WebP** (or JPG) around 1600 px wide; keep filenames lowercase with
 no spaces.
