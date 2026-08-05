@@ -15,9 +15,9 @@ export interface HowItem {
   media?: GalleryItem[]
 }
 
-/** One image in a project's gallery. */
+/** One figure in a project — an image, or an .mp4/.webm animation. */
 export interface GalleryItem {
-  /** Path under /public, e.g. "images/ballast-1.webp". */
+  /** Path under /public, e.g. "images/ballast-1.webp" or "images/clip.mp4". */
   src: string
   /** What the image shows — guidance while the slot is empty, alt text once added. */
   alt: string
@@ -28,6 +28,11 @@ export interface GalleryItem {
    * use 'contain' for tall/portrait renders so the whole part stays visible.
    */
   fit?: 'cover' | 'contain'
+  /**
+   * Still frame for a video `src` (.mp4/.webm). Shown while the video loads,
+   * and shown *instead* of it when the visitor prefers reduced motion.
+   */
+  poster?: string
 }
 
 export interface Project {

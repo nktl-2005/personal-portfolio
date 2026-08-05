@@ -169,7 +169,7 @@ export default function ProjectDetail() {
         <CaseSection number={galleryNumber} title="Gallery">
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {project.gallery.map((img) => (
-              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} fit={img.fit} />
+              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} fit={img.fit} poster={img.poster} />
             ))}
           </div>
         </CaseSection>
@@ -221,7 +221,7 @@ function MediaRow({ items }: { items: GalleryItem[] }) {
   return (
     <div className={`mt-6 grid grid-cols-1 gap-5 ${items.length > 1 ? 'sm:grid-cols-2' : ''}`}>
       {items.map((m) => (
-        <ImageSlot key={m.src} src={m.src} alt={m.alt} caption={m.caption} fit={m.fit} />
+        <ImageSlot key={m.src} src={m.src} alt={m.alt} caption={m.caption} fit={m.fit} poster={m.poster} />
       ))}
     </div>
   )

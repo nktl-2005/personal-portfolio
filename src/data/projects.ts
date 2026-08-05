@@ -23,52 +23,238 @@ import type { Project } from './types'
 export const projects: Project[] = [
   {
     slug: 'electronic-nose-cfd',
-    title: 'CFD Study of Nasal-Cavity Geometries for a Universal Adaptive Electronic Nose',
+    title: 'Separating Odors by Sensor Position, Not Sensor Chemistry',
     summary:
-      'CFD simulations across nasal-cavity geometries to quantify how anatomy shapes airflow, mass transport, and odor detection.',
+      'Parametric CFD across 19 channel geometries, 6 flow speeds, and 10 hydrocarbons, testing whether the shape of a channel can do part of a chemical sensor’s job.',
     category: 'Simulation & Analysis',
     year: '2026',
     featured: true,
     outcome:
-      'Built a reproducible COMSOL-to-Python pipeline linking nasal anatomy to airflow and mass-transfer metrics; study ongoing.',
-    role: 'Research Intern',
+      'Bend angle moves the flow strongly and the sensor signal by only ~4%, ruling out shape as a sensitivity lever — but the lightest alkanes peak at measurably different positions along the channel, pointing at sensor placement rather than sensor chemistry.',
+    role: 'Research Intern — computational subgroup',
     team: 'Aizenberg Lab, Harvard University (Cambridge, MA)',
-    duration: 'May 2026 - Present',
-    tools: ['COMSOL Multiphysics', 'Python (Pandas, NumPy, Matplotlib)', 'CFD', 'Mass transport modeling', 'ITK-SNAP', 'MeshMixer'],
-    figure: 'enose',
-    // Drop files at /public/images/… to fill these slots (see README).
-    gallery: [
-      { src: 'images/electronic-nose-cfd-1.webp', alt: 'Airflow streamlines from a COMSOL run' },
-      { src: 'images/electronic-nose-cfd-2.webp', alt: 'Nasal-cavity geometry or mesh' },
-      { src: 'images/electronic-nose-cfd-3.webp', alt: 'Mass-transfer / concentration field' },
-      { src: 'images/electronic-nose-cfd-4.webp', alt: 'Matplotlib cross-geometry comparison plot' },
+    duration: 'May 2026 – Present',
+    tools: [
+      'COMSOL Multiphysics',
+      'Python (Pandas, NumPy, Matplotlib)',
+      'CFD (k-ε turbulence)',
+      'Dilute-species mass transport',
+      'ITK-SNAP',
+      'FDM 3D printing',
     ],
-    why: 'The Aizenberg Lab is developing a universal adaptive electronic nose, a sensor system meant to detect and discriminate odors across varied conditions. In a biological nose, cavity anatomy governs how air and odorant molecules reach the olfactory receptors, and that anatomy varies between individuals, so no single geometry represents the design space. For the artificial nose to generalize, the lab needed to understand how geometry drives airflow and mass transport — quantities that are impractical to measure directly inside physical anatomy.',
+    figure: 'enose',
+    image: 'images/enose-hero.png',
+    imageAlt:
+      'Signal linger time along the channel centreline for methane through decane, and the resulting place map of peak position against carbon number',
+    sectionTitles: {
+      why: 'Problem',
+      what: 'Approach',
+      whatList: 'What I built',
+      how: 'Studies',
+    },
+    why: 'The Aizenberg Lab is developing a universal adaptive electronic nose — a sensor system meant to identify odors across changing conditions. Almost every electronic nose gets its selectivity from chemistry: to detect one more compound, add one more sensor tuned to it. That does not scale, and it is not how a biological nose works. In an animal nose the air is routed through a cavity whose bony turbinate structures govern how long odorant molecules linger near the olfactory receptors, so the anatomy is doing part of the sensing. My project asked whether that principle transfers to hardware: can the shape of the channel in front of a sensor do enough of the work that the same sensor array distinguishes more compounds? Airflow and odorant concentration inside a nasal cavity cannot practically be measured in place, which makes this a simulation problem first.',
     what: {
-      lead: 'I built a reproducible COMSOL-to-Python workflow that simulates coupled airflow and odorant mass transport across multiple nasal-cavity geometries and reduces each run to comparable metrics. The study is ongoing; [Add current headline finding].',
+      lead:
+        'I built a parametric CFD study in COMSOL that treats channel shape as the independent variable and the sensor signal as the output, together with a Python pipeline that reduces every transient run to the same set of comparable metrics. Rather than simulate one realistic nose, I stripped the geometry down to a single U-shaped channel with one free parameter — the bend angle θ — so that any change in the signal could be attributed to shape alone. Three sweeps build on each other, and a fourth study is now moving the same workflow onto CT-scanned animal airways.',
       build: [
-        'Multiple parametric sweep studies to isolate bend angle, inlet velocity, sniff period, and analyte type changes',
-        'Coupled airflow + mass-transport CFD models in COMSOL Multiphysics',        
-        'A set of multiple nasal-cavity geometries analyzed under identical physics',
-        'Automated transient simulation analysis using Python, Pandas, NumPy, and Matplotlib to extract flow and detection metrics and generate meaningful plots across all studies',
-        'Matplotlib visualizations for easycomparing metrics across geometries',
-        '[Add: mapping from CFD metrics to electronic-nose design parameters]',
+        'Parametric 2D U-channel in COMSOL — bend angle θ swept 0°–180° in 10° increments with channel width, arc length, and total flow path held constant',
+        'Coupled k-ε RANS flow and dilute-species transport, driven by a transient inhale–hold–exhale sniff cycle rather than a steady flow',
+        'Three parametric sweeps: bend angle (19 geometries), inlet velocity (6 speeds × 19 geometries), and analyte (10 alkanes, methane → decane, initial results)',
+        'Flow metrics (peak Reynolds number, peak vorticity magnitude) and detection metrics (peak concentration, concentration AUC, residence time τ₁₀%, signal linger time) extracted at a fixed sensor probe',
+        'Python post-processing (Pandas, NumPy, Matplotlib) that turns raw COMSOL transient exports into metric tables and comparison plots for every study automatically',
+        'A 100-point centreline probe array and place-map analysis locating where along the channel each compound peaks',
+        'CT-scanned animal skulls segmented in ITK-SNAP and cleaned into printable STL airway models for benchtop validation',
       ],
     },
     how: [
       {
-        title: 'Coupling airflow with odorant transport',
-        body: 'Odor detection depends on both how air flows through the cavity and how odorant molecules are carried within that flow, so I modeled the two as coupled physics rather than flow alone — the interaction is exactly what a flow-only model would miss. The tradeoff is heavier computation per run. [Add observed runtime or convergence tradeoffs.]',
+        title: 'Reducing a nose to one parameter',
+        body: 'A real nasal cavity has too many coupled features to attribute an effect to any one of them. I collapsed it to a U-shaped channel described by two straight legs (L₁, L₂) joined by an arc (S), with bend angle θ as the only free variable — the arc radius is derived from θ so that arc length, channel width, and total flow path stay constant as the bend opens and closes. Overall dimensions were scaled to a human nasal cavity: 15 mm wide, 100 mm total flow length, 45 mm out-of-plane. The cost of that simplification is realism, since a smooth 2D bend has none of the turbinate structure that makes a real nose interesting. What it buys is a clean causal claim: if the signal changes, θ is the only thing that changed.',
+        media: [
+          {
+            src: 'images/enose-u-channel-geometry.png',
+            alt: 'The U-channel at bend angles of 0, 90 and 180 degrees with the sensor probe marked',
+            caption: 'Bend angle θ is the only variable — legs, width, and total flow path are held constant while the channel opens from straight (0°) to a full U (180°). The sensor probe sits at the same point on the arc in every geometry.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-arc-parameterisation.png',
+            alt: 'Sketch deriving the arc radius from the bend angle and arc length',
+            caption: 'Deriving arc radius from θ — this is what holds arc length constant, so the sweep isolates shape rather than path length.',
+            fit: 'contain',
+          },
+        ],
       },
       {
-        title: 'Reducing large datasets reproducibly',
-        body: 'Each run produces large field datasets that must collapse to a few comparable metrics. I scripted the extraction in Python up front instead of post-processing by hand, which made every cross-geometry comparison reproducible and let the analysis scale as geometries were added — at the cost of building the pipeline before any result could be compared.',
+        title: 'Simulating a sniff, not a steady flow',
+        body: [
+          'Detection is a transient event, so a steady-state solve would have answered the wrong question. I drove the model with a stacked breathing cycle: 2 s inhale with flow and analyte on, 4 s hold with the flow off so the plume diffuses, repeated for three cycles to build signal cycle over cycle, then a 15 s clean flush with air only to simulate the exhale. That cycle is what makes recovery-time metrics meaningful at all.',
+          'I used a k-ε RANS closure rather than k-ω to keep run times manageable across a sweep this size, accepting weaker near-wall resolution as the tradeoff — peak Reynolds numbers here stay around 17–21, so the flow itself is firmly laminar. The walls are semi-permeable (mass-transfer coefficient 1×10⁻¹⁰ m/s) so analyte can be absorbed the way an olfactory epithelium would rather than perfectly reflected. The sensor is modelled as an ideal point probe, which means these results describe what reaches the sensor, not what a real transducer would report.',
+        ],
+        media: [
+          {
+            src: 'images/enose-comsol-parameters.png',
+            alt: 'COMSOL parameter table listing channel dimensions, bend angle, inlet velocity and analyte properties',
+            caption: 'Every geometric and physical quantity is a named COMSOL parameter, so a sweep is a parameter list rather than 19 hand-built models.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-u-channel-probe.png',
+            alt: 'Annotated U-channel showing inlet, outlet, bend angle and the fixed sensor probe location',
+            caption: 'Inlet, outlet, and a fixed probe on the arc — the same physical sensor location in every geometry, so the comparison is like for like.',
+            fit: 'contain',
+          },
+        ],
       },
       {
-        title: 'Parametric Sweeps across bend angle, inlet velocity, sniff period, and different analytes',
-        body: 'A universal nose must generalize across anatomy, so I simulated multiple geometries under identical physics to isolate the effect of geometry itself rather than optimizing around a single representative cavity. That means more simulations and more data to manage, but it is the only way to capture the anatomical variation the device has to handle.',
+        title: 'Study 1 — bend angle strongly changes the flow',
+        body: 'Sweeping θ from 0° to 180° produced a clean, near-linear rise in both flow metrics: peak Reynolds number went from 17.1 to 20.8 (0.023 per degree, R² = 0.97) and peak vorticity magnitude from essentially zero to 1.4 s⁻¹ (0.0081 s⁻¹ per degree, R² = 0.98). Sharper bends drive stronger swirl, exactly as expected. If mixing near the sensor were what governed detection, this is where an improvement in signal should have come from.',
+        media: [
+          {
+            src: 'images/enose-transport-theta20.mp4',
+            poster: 'images/enose-transport-theta20-poster.jpg',
+            alt: 'Simulated methane transport through a near-straight channel over one sniff cycle',
+            caption: 'θ = 20°, near-straight — methane transport through the sniff cycle.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-transport-theta180.mp4',
+            poster: 'images/enose-transport-theta180-poster.jpg',
+            alt: 'Simulated methane transport through a full U-bend over one sniff cycle',
+            caption: 'θ = 180°, full U — same physics and same inlet condition; only the bend differs.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-reynolds-vs-theta.png',
+            alt: 'Plot of peak Reynolds number against bend angle with a linear fit',
+            caption: 'Peak Reynolds number rises near-linearly with bend angle (R² = 0.97).',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-vorticity-vs-theta.png',
+            alt: 'Plot of peak vorticity magnitude against bend angle with a linear fit',
+            caption: 'Peak vorticity follows the same trend (R² = 0.98) — sharper bends, stronger swirl.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: '…but the sensor barely notices',
+        body: 'The detection metrics did not follow. Concentration-versus-time traces for all 19 geometries lie almost on top of one another, and total analyte exposure (concentration AUC) varies by roughly 4% across the entire sweep with no meaningful trend (R² = 0.34). Peak signal and residence time are equally flat. So a swing that more than doubles the swirl at the sensor buys about 4% in what the sensor actually sees — "more mixing" is not a design lever for sensitivity in this regime. That negative result was the most useful thing the sweep produced, and it redirected the project: if geometry cannot make a signal bigger, the question becomes whether it can make signals distinguishable.',
+        media: [
+          {
+            src: 'images/enose-concentration-vs-time.png',
+            alt: 'Concentration at the sensor probe over time for all bend angles, overlapping almost exactly',
+            caption: 'Nineteen bend angles, nearly overlapping — essentially the same amount of methane reaches the probe regardless of shape. The three steps are the stacked sniff cycles; the drop after 18 s is the flush.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-auc-vs-theta.png',
+            alt: 'Plot of concentration area under the curve against bend angle, showing a flat trend',
+            caption: 'Total exposure is flat within ~4% across the full sweep (R² = 0.34).',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'Study 2 — does sniffing harder change the answer?',
+        body: [
+          'A single inlet velocity is a single operating point, so I repeated all 19 geometries at six inlet speeds from 2.5 to 15 cm/s and collapsed the sweep onto a dimensionless group Π = U_in·T_sniff / L — the number of channel lengths flushed per sniff, and the reciprocal of the Strouhal number. Π < 1 means the channel cannot clear itself within one sniff; Π > 1 means it more than clears.',
+          'Velocity amplified geometry’s effect on the flow, as expected. On detection it did the opposite: the spread in peak concentration across all bend angles fell from 1.67 µmol/m³ at Π = 0.5 to 0.32 at Π = 3.0 — a downward trend, though not a monotonic one across only six points. Sniffing faster flushes the whole channel within a single cycle, so the bend has less chance to matter. Whatever influence geometry has on the signal is therefore largest at low Π, which implies a geometry-based nose would need to sniff slowly.',
+        ],
+        media: [
+          {
+            src: 'images/enose-velocity-pi-compare.mp4',
+            poster: 'images/enose-velocity-pi-compare-poster.jpg',
+            alt: 'Side-by-side simulated transport at low and high dimensionless number',
+            caption: 'Π = 0.5 against Π = 3 in the same geometry — at high Π the channel is flushed within one sniff.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-conc-range-vs-pi.png',
+            alt: 'Plot of peak-concentration spread across bend angles against the dimensionless number',
+            caption: 'The spread in peak concentration across all bend angles trends down as Π rises: faster flow leaves less room for geometry to influence the signal.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-auc-vs-pi.png',
+            alt: 'Plot of concentration AUC against the dimensionless number with the bend-angle range shaded',
+            caption: 'Total exposure climbs steeply with Π and begins to saturate above Π ≈ 2. The shaded band is the full 0–180° bend-angle range — thin at every speed, which is the same story as Study 1 seen from another angle.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'Study 3 — from one compound to ten',
+        body: [
+          'If geometry cannot amplify a signal, it may still sort one. Molecular weight rises down the alkane series while diffusivity and vapour pressure fall, so I simulated the full C₁–C₁₀ set — methane through decane, an 8.9× range in molecular weight and about four orders of magnitude in vapour pressure — under one geometry and one low inlet speed (2.5 cm/s), with a longer sniff than the earlier studies used (4 s inhale, 4 s hold, 10 s exhale).',
+          'Instead of one sensor I sampled 100 probe points along the channel centreline, computed a detection metric at every point, and located x*, the position where that metric is largest, for each compound. Plotting x* against carbon number produces a place map — the same trick the cochlea uses to encode pitch by position rather than by growing a separately tuned receptor for every frequency. Using signal linger time (the time the signal stays above 50% of its local peak), methane peaks at x*/L = 0.38 and decane at 0.28.',
+        ],
+        media: [
+          {
+            src: 'images/enose-transport-methane-decane.mp4',
+            poster: 'images/enose-transport-methane-decane-poster.jpg',
+            alt: 'Side-by-side simulated transport of methane and decane through the same channel',
+            caption: 'Methane and decane through identical geometry — the heavier compound does not travel the same way.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-place-map.png',
+            alt: 'Signal linger time along the centreline for each alkane, and peak position against carbon number, at 180 degrees',
+            caption: 'Signal linger time along the centreline at θ = 180°. Peak position shifts from x*/L = 0.38 for methane to 0.28 for decane.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'Reading the place map honestly',
+        body: [
+          'Two checks decide how much this result is worth. The first is whether the bend produces it: running the same analysis at θ = 0° gives x*(C1) = 0.37 and x*(C10) = 0.28, against 0.38 and 0.28 at θ = 180°. The separation is essentially unchanged by a full U-bend, so it comes from the compounds’ own transport properties rather than from channel shape — position encodes identity, but bend angle is not the knob that sets it.',
+          'The second is where the separation lives. The map is steep across the light end and then saturates: C1 through roughly C3 occupy distinguishable positions, while C4–C10 all sit inside a band about 0.03 x*/L wide. And it is metric-dependent — repeating the analysis with concentration AUC instead of linger time returns a flat map at x*/L = 0.10 for all ten compounds. The usable claim is narrower than "ten compounds, ten positions": one detection metric separates the first few alkanes by position, which is enough to justify testing probe placement and real anatomy, and not enough to claim a working discrimination scheme.',
+        ],
+        media: [
+          {
+            src: 'images/enose-place-map-theta0.png',
+            alt: 'The same place map computed at a bend angle of zero degrees, nearly identical to the 180 degree case',
+            caption: 'Same analysis at θ = 0°: x*(C1) = 0.37, x*(C10) = 0.28 — a full U-bend barely moves it, so the separation is not geometry-driven.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-place-map-auc.png',
+            alt: 'Place map computed with concentration AUC, flat at 0.10 for every compound',
+            caption: 'Swap linger time for concentration AUC and the map goes flat at x*/L = 0.10 for all ten compounds — the effect depends on which metric the sensor reports.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'Study 4 — taking the workflow to real anatomy (in progress)',
+        body: 'The smooth U-channel is a deliberate abstraction; real nasal cavities are dense with turbinate structure that should produce far stronger separation. I have been segmenting CT-scanned animal skulls in ITK-SNAP to extract the airway volume, cleaning the resulting meshes into watertight STLs, and 3D printing them as physical test geometries for benchtop validation of the simulated results. The metrics carry over unchanged, so artificial and biological geometries can be compared directly.',
+        media: [
+          {
+            src: 'images/enose-ct-segmentation.png',
+            alt: 'Rat skull CT scan in ITK-SNAP with the nasal airway volume segmented in red',
+            caption: 'Rat skull CT segmented in ITK-SNAP — the red volume is the extracted nasal airway, which becomes both the CFD domain and the printed test part.',
+            fit: 'contain',
+          },
+        ],
       },
     ],
+    results: {
+      delivered: [
+        'Parametric COMSOL model of the U-channel coupling flow and species transport under a transient sniff cycle',
+        'Two completed parametric sweeps (bend angle, inlet velocity) and initial results from a third (10-compound analyte sweep)',
+        'Python post-processing pipeline that reduces raw transient exports to flow and detection metrics and regenerates every plot on demand',
+        'Place-map analysis over a 100-point centreline probe array, cross-checked at two bend angles and two detection metrics',
+        'Segmented CT airway geometries and 3D-printed test parts for benchtop validation',
+        'Results presented to the Aizenberg Lab computational subgroup (July 2026)',
+      ],
+      body: [
+        'The sensitivity studies returned a clear negative. Doubling the swirl at the sensor by bending the channel from straight to a full U changes total analyte exposure by about 4%, and sniffing faster suppresses even that. "Shape the flow to boost the signal" is closed off as a design direction — worth establishing before anyone builds hardware around it.',
+        'The selectivity study is the more promising thread, with a narrower claim than it first appears. Position along the channel does encode compound identity: methane’s signal-linger-time peak sits at x*/L = 0.38 and decane’s at 0.28. But the separation is nearly identical at θ = 0° and θ = 180°, so it comes from the compounds’ transport properties rather than from the bend; it saturates after about C3; and it does not appear at all in the concentration-AUC metric. What that supports is a direction — discriminate by where the sensor sits rather than what it is made of — not a working scheme.',
+        'The work is ongoing. Next steps are extending the place-map analysis across probe locations and detection metrics, running CFD on the segmented animal airways, and comparing artificial against biological geometries on the same metrics — real turbinate structure is where a geometry-driven effect, if there is one, should actually show up.',
+      ],
+    },
   },
   {
     slug: 'solar-car-ballast-box',
