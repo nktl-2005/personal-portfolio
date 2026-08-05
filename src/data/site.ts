@@ -25,29 +25,29 @@ export const site = {
     // Short framing line — used on the home About preview and the top of the
     // About page. The project pages already cover the engineering; this is the rest.
     blurb:
-      'more than just an engineer',
+      'personal life and interersts',
 
     // Life outside engineering. Fill each category with your real activities;
     // text in [square brackets] renders as a visible "replace me" chip until you do.
     life: [
       {
-        label: 'Engineering Society',
-        items: ['LinkedIn Headshot events for engineering students', 'Puppies on Campus for mental health relief', 'Job Fair for engineering students'],
+        label: 'Intramural Sports',
+        items: ['Basketball', 'Soccer', 'Volleyball', 'Flag Football'],
       },
       {
-        label: 'Intramural sports',
-        items: ['Basketball', 'Soccer', 'Volleyball', 'Flag Football'],
+        label: 'Engineering Society',
+        items: ['LinkedIn Headshot events for engineering students', 'Puppies on Campus for mental health relief', 'Job Fair for engineering students'],
       },
       {
         label: 'Design Teams & Clubs',
         items: ['Midnight Sun Solar Car Team', 'Waterloo Automation Collective', 'UW Cooking Club'],
       },
       {
-        label: 'Leadership & community',
+        label: 'Leadership & Community',
         items: ['Engineering Orientation Leader'],
       },
       {
-        label: 'Interests & hobbies',
+        label: 'Interests & Hobbies',
         items: ['Sports, fitness, cars, and cooking'],
       },
     ],
