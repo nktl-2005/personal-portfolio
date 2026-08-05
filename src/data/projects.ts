@@ -29,11 +29,6 @@ export const projects: Project[] = [
     category: 'Simulation & Analysis',
     year: '2026',
     featured: true,
-    outcome:
-      'Investigating whether nasal geometry can be a design lever for sensitivity and selectivity in an adaptive electronic nose, using parametric CFD and a Python post-processing pipeline.',
-    role: 'Research Intern',
-    team: 'Aizenberg Lab, Harvard University (Cambridge, MA)',
-    duration: 'May 2026 – August 2026',
     tools: [
       'COMSOL Multiphysics',
       'Python (Pandas, NumPy, Matplotlib)',
@@ -267,9 +262,6 @@ export const projects: Project[] = [
     featured: true,
     outcome:
       'Static FEA-driven optimization cut enclosure weight 20% with structural integrity intact; the assembly is manufactured and entering the chassis.',
-    role: 'Mechanical Designer',
-    team: 'Midnight Sun Solar Car Team, University of Waterloo',
-    duration: 'Sept 2025 – Present',
     tools: [
       'SolidWorks (sheet metal)',
       'Static FEA',
@@ -320,9 +312,6 @@ export const projects: Project[] = [
     featured: false,
     outcome:
       'Stencils referenced to vehicle datums cut wheel-cover installation errors; FDM press-fit mounts cut camera-mount lead time from weeks to hours.',
-    role: 'Mechanical Designer',
-    team: 'Midnight Sun Solar Car Team',
-    duration: 'Sept 2025 – Present',
     tools: [
       'CAD modeling ([Add software])',
       'FDM 3D printing',
@@ -373,9 +362,6 @@ export const projects: Project[] = [
     featured: true,
     outcome:
       "Delivered parametric linkage CAD and milled prototype links for the clamp of the university's first desktop injection molder (in progress).",
-    role: 'Mechanical Team Member (founding member); owner of the clamping subsystem',
-    team: 'Waterloo Automation Collective',
-    duration: 'Jan 2026 – Present',
     tools: ['Onshape', 'Parametric CAD (variable-driven models)', 'Linkage design', 'Milling'],
     figure: 'molder',
     // Drop files at /public/images/… to fill these slots (see README).
@@ -420,9 +406,6 @@ export const projects: Project[] = [
     featured: false,
     outcome:
       'Multiple motor-driven gearbox demonstrators now run reliably in undergraduate lectures; parametric CAD reduced gear design cycle time.',
-    role: 'Undergraduate Research Assistant',
-    team: 'Multi-Scale Additive Manufacturing (MSAM) Lab, University of Waterloo',
-    duration: 'Jan – Apr 2026 (4-month term)',
     tools: [
       'SolidWorks (parametric CAD)',
       'nTop',
@@ -472,11 +455,6 @@ export const projects: Project[] = [
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
-    outcome:
-      'Redesigned a production-line pneumatic piston mounting assembly to integrate a replacement component and protect it from syrup contamination.',
-    role: 'Engineering Intern',
-    team: 'Refresco Beverages — production/maintenance/engineering team, Mississauga ON',
-    duration: 'July 2025, during internship',
     tools: [
       'SolidWorks',
       'Reverse engineering',
@@ -573,9 +551,6 @@ export const projects: Project[] = [
   //   featured: false,
   //   outcome:
   //     'The car navigated a figure-eight course and climbed an inclined ramp autonomously, tracking the line with light-sensor distance logic.',
-  //   role: 'Sole builder and programmer (personal project)',
-  //   team: 'None — personal project',
-  //   duration: '[Add duration] ([Add year])',
   //   tools: ['C++', 'Arduino IDE', 'Light sensors', 'Distance-logic line tracking'],
   //   figure: 'robocar',
   //   // Drop files at /public/images/… to fill these slots (see README).

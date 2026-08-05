@@ -46,13 +46,14 @@ export interface Project {
   year: string
   /** Shown in the "Selected work" section on the home page */
   featured: boolean
-  /** One-sentence outcome under the project-page title */
-  outcome: string
+  /**
+   * Optional one-sentence outcome shown under the project-page title.
+   * Leave it out and the page uses `summary` instead — which is usually what
+   * you want, since they say the same thing.
+   */
+  outcome?: string
 
-  // --- Metadata strip (kept from the original case-study format) ---
-  role: string
-  team: string
-  duration: string
+  // --- Metadata strip ---
   tools: string[]
 
   /** Built-in technical illustration used when no real image is provided */

@@ -54,7 +54,7 @@ export default function ProjectDetail() {
             {project.title}
           </h1>
           <p className="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-soft">
-            <RichText text={project.outcome} />
+            <RichText text={project.outcome ?? project.summary} />
           </p>
         </Reveal>
 
@@ -76,12 +76,9 @@ export default function ProjectDetail() {
 
         {/* Metadata strip */}
         <Reveal delay={150}>
-          <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
+          <dl className="mt-8 grid grid-cols-1 gap-x-8 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
             <MetaItem label="Year" value={project.year} />
-            <MetaItem label="Role" value={project.role} />
-            <MetaItem label="Team" value={project.team} />
-            <MetaItem label="Duration" value={project.duration} />
-            <div className="col-span-2 sm:col-span-4">
+            <div className="sm:col-span-3">
               <dt className="meta-label">Tools & methods</dt>
               <dd className="mt-2 font-mono text-[0.8125rem] leading-relaxed text-ink">
                 {project.tools.join('  ·  ')}
