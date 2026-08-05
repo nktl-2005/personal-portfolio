@@ -7,105 +7,83 @@ export type FigureId =
   | 'piston'
   | 'robocar'
 
-/** One engineering challenge / decision / tradeoff in the "How" section. */
-export interface HowItem {
-  title: string
-  body: string | string[]
-  /** Figures shown inline right after this block's text (1 = full width, 2 = side by side). */
-  media?: GalleryItem[]
-}
-
 /** One figure in a project — an image, or an .mp4/.webm animation. */
 export interface GalleryItem {
   /** Path under /public, e.g. "images/ballast-1.webp" or "images/clip.mp4". */
   src: string
-  /** What the image shows — guidance while the slot is empty, alt text once added. */
+  /** What the figure shows — guidance while the slot is empty, alt text once added. */
   alt: string
-  /** Optional caption shown under the image. */
+  /** One-line takeaway: what the reader should notice, not what the object is. */
   caption?: string
   /**
-   * How the image fills its 4:3 frame. 'cover' (default) crops to fill;
-   * use 'contain' for tall/portrait renders so the whole part stays visible.
+   * How the figure fills its 4:3 frame. 'cover' (default) crops to fill;
+   * use 'contain' for plots and tall renders that must stay whole.
    */
   fit?: 'cover' | 'contain'
   /**
-   * Still frame for a video `src` (.mp4/.webm). Shown while the video loads,
-   * and shown *instead* of it when the visitor prefers reduced motion.
+   * Still frame for a video `src`. Shown while the video loads, and shown
+   * *instead* of it when the visitor prefers reduced motion.
    */
   poster?: string
 }
 
+/** One block inside the collapsed "Technical details" section. */
+export interface DetailItem {
+  title: string
+  /** A string, or an array of strings for multiple paragraphs. */
+  body: string | string[]
+  /** Figures shown after this block (1 = full width, 2+ = two-column grid). */
+  media?: GalleryItem[]
+}
+
+/**
+ * A project case study.
+ *
+ * The page follows the MIT MechE Comm Lab portfolio structure — an inverted
+ * pyramid that front-loads what matters, because a reviewer gives each page
+ * 30–60 seconds:
+ *
+ *   title  →  outcome  →  skills  →  motivation  →  technical details
+ *
+ * Keep `outcome`, `skills`, and `motivation` short; that is the part that
+ * actually gets read. Everything a curious reader might want goes in
+ * `details`, which renders collapsed.
+ */
 export interface Project {
   /** URL segment: /projects/<slug>/ */
   slug: string
+  /** Impactful title — convey meaning to a broad audience, not a course code. */
   title: string
-  /** One sentence for previews (index + home) */
+  /** One sentence, used on the cards and under the page title. */
   summary: string
   /** Display category; filters are derived from categories with >= 2 projects */
   category: string
   year: string
   /** Shown in the "Selected work" section on the home page */
   featured: boolean
-  /**
-   * Optional one-sentence outcome shown under the project-page title.
-   * Leave it out and the page uses `summary` instead — which is usually what
-   * you want, since they say the same thing.
-   */
-  outcome?: string
-
-  // --- Metadata strip ---
   tools: string[]
 
   /** Built-in technical illustration used when no real image is provided */
   figure: FigureId
   /**
-   * Optional real image (path under /public, e.g. "images/ballast.webp").
-   * When set, it replaces the illustration in previews and the project hero.
+   * Optional real hero (path under /public). An image, or an .mp4/.webm that
+   * plays silently on loop. When set, it replaces the illustration in previews
+   * and at the top of the project page.
    */
   image?: string
   imageAlt?: string
+  /** Still frame for a video hero — also the preview-card image. */
+  imagePoster?: string
 
-  // --- Why / What / How case study ---
-  /** Why — the problem, who it affects, and why it is worth solving. */
-  why: string
-  /** What — what I built, led by concrete technical evidence. */
-  what: {
-    /** Short lead paragraph. */
-    lead: string
-    /** Concrete deliverables / evidence, shown as a scannable list. */
-    build: string[]
-    /** Figures shown inline after the list (1 = full width, 2 = side by side). */
-    media?: GalleryItem[]
-  }
-  /** How — the main engineering challenges, decisions, and tradeoffs. */
-  how: HowItem[]
-  /**
-   * Optional overrides for the case-study section headings, per project.
-   * Defaults: why "Why", what "What" (list "What I built"), how "How".
-   * Example (pneumatic piston): Problem → Design requirements → Design solution.
-   */
-  sectionTitles?: {
-    why?: string
-    what?: string
-    /** Heading shown above the `what.build` list */
-    whatList?: string
-    how?: string
-  }
-  /**
-   * Optional Results section rendered after How — use it when a project has
-   * an honest outcome story to tell (delivered items + status paragraphs).
-   */
-  results?: {
-    /** Paragraphs — what was delivered, what was validated, what remains. */
-    body: string[]
-    /** Optional list of concrete deliverables. */
-    delivered?: string[]
-    /** Figures shown inline after the paragraphs (1 = full width, 2 = side by side). */
-    media?: GalleryItem[]
-  }
-  /**
-   * Optional image gallery shown on the project detail page. Each slot shows
-   * its target path until you drop the file into /public and redeploy.
-   */
-  gallery?: GalleryItem[]
+  // --- Inverted pyramid ------------------------------------------------
+  /** 1. Outcome — what it is, how it performed, why it matters, what I did. */
+  outcome: string | string[]
+  outcomeMedia?: GalleryItem[]
+  /** 2. Experience, learning & skills — what I did, led by strong verbs. */
+  skills: string[]
+  /** 3. Motivation — the objective, why it matters, and the constraints. */
+  motivation: string | string[]
+  motivationMedia?: GalleryItem[]
+  /** 4. Technical details — collapsed by default; for the curious reader. */
+  details?: DetailItem[]
 }

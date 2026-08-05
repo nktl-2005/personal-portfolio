@@ -9,7 +9,16 @@ import Reveal from '../components/Reveal'
 import TiltFrame from '../components/TiltFrame'
 import NotFound from './NotFound'
 import { usePageMeta } from '../lib/usePageMeta'
+import { usePrefersReducedMotion } from '../lib/motion'
 
+const VIDEO_RE = /\.(mp4|webm)$/i
+
+/**
+ * Project case study, laid out as an inverted pyramid (MIT MechE Comm Lab):
+ * outcome first, then skills, then motivation, then optional technical
+ * details behind a disclosure. A reviewer who reads only the first screen
+ * should still get the point.
+ */
 export default function ProjectDetail() {
   const { slug } = useParams()
   const index = projects.findIndex((p) => p.slug === slug)
@@ -23,24 +32,16 @@ export default function ProjectDetail() {
   const prev = index > 0 ? projects[index - 1] : undefined
   const next = index < projects.length - 1 ? projects[index + 1] : undefined
 
-  // Section headings default to Why / What / How; projects can override them
-  // (e.g. Problem → Design requirements → Design solution → Results).
-  const titles = {
-    why: 'Why',
-    what: 'What',
-    whatList: 'What I built',
-    how: 'How',
-    ...project.sectionTitles,
-  }
-  const galleryNumber = project.results ? '05' : '04'
-
   return (
     <article className="mx-auto max-w-[1160px] px-6">
       {/* ------------------------------------------------------ Hero ---- */}
       <header className="py-12 md:py-16">
         <Reveal>
           <nav aria-label="Breadcrumb">
-            <Link to="/projects" className="arrow-link inline-flex min-h-11 items-center gap-2 py-2 text-sm text-ink-soft hover:text-ink">
+            <Link
+              to="/projects"
+              className="arrow-link inline-flex min-h-11 items-center gap-2 py-2 text-sm text-ink-soft hover:text-ink"
+            >
               <span className="arrow rotate-180" aria-hidden="true">
                 →
               </span>
@@ -54,22 +55,14 @@ export default function ProjectDetail() {
             {project.title}
           </h1>
           <p className="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-soft">
-            <RichText text={project.outcome ?? project.summary} />
+            <RichText text={project.summary} />
           </p>
         </Reveal>
 
         <Reveal delay={100}>
           <TiltFrame maxTilt={1.75} className="mt-10">
             <div className="overflow-hidden border border-line">
-              {project.image ? (
-                <img
-                  src={`${import.meta.env.BASE_URL}${project.image}`}
-                  alt={project.imageAlt ?? project.title}
-                  className="block aspect-[16/9] w-full bg-surface object-cover"
-                />
-              ) : (
-                <ProjectFigure id={project.figure} className="aspect-[16/9]" />
-              )}
+              <HeroMedia project={project} />
             </div>
           </TiltFrame>
         </Reveal>
@@ -77,9 +70,12 @@ export default function ProjectDetail() {
         {/* Metadata strip */}
         <Reveal delay={150}>
           <dl className="mt-8 grid grid-cols-1 gap-x-8 gap-y-6 border-t border-line pt-8 sm:grid-cols-4">
-            <MetaItem label="Year" value={project.year} />
+            <div>
+              <dt className="meta-label">Year</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-ink">{project.year}</dd>
+            </div>
             <div className="sm:col-span-3">
-              <dt className="meta-label">Tools & methods</dt>
+              <dt className="meta-label">Tools &amp; methods</dt>
               <dd className="mt-2 font-mono text-[0.8125rem] leading-relaxed text-ink">
                 {project.tools.join('  ·  ')}
               </dd>
@@ -88,92 +84,70 @@ export default function ProjectDetail() {
         </Reveal>
       </header>
 
-      {/* --------------------------------------------------- Why / What / How -- */}
-      <CaseSection number="01" title={titles.why}>
-        <p className="max-w-[68ch] text-lg leading-relaxed text-ink-soft">
-          <RichText text={project.why} />
-        </p>
-      </CaseSection>
-
-      <CaseSection number="02" title={titles.what}>
-        <div className="max-w-[68ch] space-y-8">
-          <p className="leading-relaxed text-ink-soft">
-            <RichText text={project.what.lead} />
-          </p>
-          <div>
-            <h3 className="meta-label">{titles.whatList}</h3>
-            <ul className="mt-4 divide-y divide-line border-y border-line">
-              {project.what.build.map((item) => (
-                <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
-                  <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
-                  <span>
-                    <RichText text={item} />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          {project.what.media && <MediaRow items={project.what.media} />}
+      {/* -------------------------------------------------- 01 Outcome -- */}
+      <CaseSection number="01" title="Outcome">
+        <div className="max-w-[68ch] space-y-5">
+          <Paragraphs text={project.outcome} lead />
         </div>
+        {project.outcomeMedia && <MediaRow items={project.outcomeMedia} />}
       </CaseSection>
 
-      <CaseSection number="03" title={titles.how}>
-        <div className="max-w-[68ch] space-y-10">
-          {project.how.map((item) => (
-            <div key={item.title} className="border-l-2 border-accent pl-5">
-              <h3 className="font-display font-semibold tracking-tight text-ink">{item.title}</h3>
-              {/* body accepts a single string or an array of paragraphs */}
-              {(Array.isArray(item.body) ? item.body : [item.body]).map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className="mt-2 leading-relaxed text-ink-soft">
-                  <RichText text={paragraph} />
-                </p>
-              ))}
-              {item.media && <MediaRow items={item.media} />}
-            </div>
+      {/* --------------------------------------------------- 02 Skills -- */}
+      <CaseSection number="02" title="What I did">
+        <ul className="max-w-[68ch] divide-y divide-line border-y border-line">
+          {project.skills.map((item) => (
+            <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
+              <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
+              <span>
+                <RichText text={item} />
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </CaseSection>
 
-      {project.results && (
-        <CaseSection number="04" title="Results">
-          <div className="max-w-[68ch] space-y-8">
-            {project.results.delivered && project.results.delivered.length > 0 && (
-              <div>
-                <h3 className="meta-label">Delivered</h3>
-                <ul className="mt-4 divide-y divide-line border-y border-line">
-                  {project.results.delivered.map((item) => (
-                    <li key={item} className="flex gap-3 py-3 leading-relaxed text-ink-soft">
-                      <span className="mt-[0.7em] h-px w-4 shrink-0 bg-accent" aria-hidden="true" />
-                      <span>
-                        <RichText text={item} />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {project.results.body.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)} className="leading-relaxed text-ink-soft">
-                <RichText text={paragraph} />
-              </p>
-            ))}
-            {project.results.media && <MediaRow items={project.results.media} />}
-          </div>
-        </CaseSection>
-      )}
+      {/* ----------------------------------------------- 03 Motivation -- */}
+      <CaseSection number="03" title="Why this project">
+        <div className="max-w-[68ch] space-y-5">
+          <Paragraphs text={project.motivation} />
+        </div>
+        {project.motivationMedia && <MediaRow items={project.motivationMedia} />}
+      </CaseSection>
 
-      {project.gallery && project.gallery.length > 0 && (
-        <CaseSection number={galleryNumber} title="Gallery">
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {project.gallery.map((img) => (
-              <ImageSlot key={img.src} src={img.src} alt={img.alt} caption={img.caption} fit={img.fit} poster={img.poster} />
-            ))}
-          </div>
+      {/* -------------------------------------------------- 04 Details -- */}
+      {project.details && project.details.length > 0 && (
+        <CaseSection number="04" title="Technical details">
+          <details className="group">
+            <summary className="flex min-h-11 max-w-[68ch] cursor-pointer list-none items-center gap-3 text-ink-soft transition-colors hover:text-ink [&::-webkit-details-marker]:hidden">
+              <span
+                className="font-mono text-xs transition-transform group-open:rotate-90"
+                aria-hidden="true"
+              >
+                ▸
+              </span>
+              <span className="text-sm">
+                Setup, method, and full results — {project.details.length} sections
+              </span>
+            </summary>
+            <div className="mt-8 space-y-12">
+              {project.details.map((item) => (
+                <DetailBlock
+                  key={item.title}
+                  title={item.title}
+                  body={item.body}
+                  media={item.media}
+                />
+              ))}
+            </div>
+          </details>
         </CaseSection>
       )}
 
       {/* -------------------------------------------- Project navigation -- */}
-      <nav aria-label="Project navigation" className="grid gap-px border-t border-line py-10 sm:grid-cols-3">
+      <nav
+        aria-label="Project navigation"
+        className="grid gap-px border-t border-line py-10 sm:grid-cols-3"
+      >
         <div className="sm:pr-6">
           {prev && (
             <Link to={`/projects/${prev.slug}`} className="group block min-h-11 py-2">
@@ -188,7 +162,10 @@ export default function ProjectDetail() {
           )}
         </div>
         <div className="flex items-center sm:justify-center">
-          <Link to="/projects" className="u-link inline-flex min-h-11 items-center py-2 text-sm font-medium text-ink-soft hover:text-ink">
+          <Link
+            to="/projects"
+            className="u-link inline-flex min-h-11 items-center py-2 text-sm font-medium text-ink-soft hover:text-ink"
+          >
             Back to all projects
           </Link>
         </div>
@@ -210,27 +187,89 @@ export default function ProjectDetail() {
   )
 }
 
+/** Hero image, or a silent looping video when `image` points at .mp4/.webm. */
+function HeroMedia({ project }: { project: (typeof projects)[number] }) {
+  const reduceMotion = usePrefersReducedMotion()
+  const base = import.meta.env.BASE_URL
+  const { image, imagePoster, imageAlt, title, figure } = project
+
+  if (!image) return <ProjectFigure id={figure} className="aspect-[16/9]" />
+
+  const isVideo = VIDEO_RE.test(image)
+  // Under reduced motion, show the still instead of animating.
+  if (isVideo && !(reduceMotion && imagePoster)) {
+    return (
+      <video
+        src={base + image}
+        poster={imagePoster ? base + imagePoster : undefined}
+        aria-label={imageAlt ?? title}
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="block aspect-[16/9] w-full bg-surface object-cover"
+      />
+    )
+  }
+  return (
+    <img
+      src={base + (isVideo && imagePoster ? imagePoster : image)}
+      alt={imageAlt ?? title}
+      className="block aspect-[16/9] w-full bg-surface object-cover"
+    />
+  )
+}
+
+/** Renders a string or an array of strings as paragraphs. */
+function Paragraphs({ text, lead = false }: { text: string | string[]; lead?: boolean }) {
+  const paragraphs = Array.isArray(text) ? text : [text]
+  return (
+    <>
+      {paragraphs.map((p, i) => (
+        <p
+          key={p.slice(0, 40)}
+          className={
+            lead && i === 0
+              ? 'text-lg leading-relaxed text-ink'
+              : 'leading-relaxed text-ink-soft'
+          }
+        >
+          <RichText text={p} />
+        </p>
+      ))}
+    </>
+  )
+}
+
+function DetailBlock({ title, body, media }: { title: string; body: string | string[]; media?: GalleryItem[] }) {
+  return (
+    <div className="border-l-2 border-accent pl-5">
+      <h3 className="font-display font-semibold tracking-tight text-ink">{title}</h3>
+      <div className="mt-2 max-w-[68ch] space-y-3">
+        <Paragraphs text={body} />
+      </div>
+      {media && <MediaRow items={media} />}
+    </div>
+  )
+}
+
 /**
- * Inline section figures: one image renders full content width, two render
- * side by side (stacking on mobile). Captions come from the data.
+ * Section figures: one renders full width, two or more render in a
+ * two-column grid (stacking on mobile). Captions come from the data.
  */
 function MediaRow({ items }: { items: GalleryItem[] }) {
   return (
     <div className={`mt-6 grid grid-cols-1 gap-5 ${items.length > 1 ? 'sm:grid-cols-2' : ''}`}>
       {items.map((m) => (
-        <ImageSlot key={m.src} src={m.src} alt={m.alt} caption={m.caption} fit={m.fit} poster={m.poster} />
+        <ImageSlot
+          key={m.src}
+          src={m.src}
+          alt={m.alt}
+          caption={m.caption}
+          fit={m.fit}
+          poster={m.poster}
+        />
       ))}
-    </div>
-  )
-}
-
-function MetaItem({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="meta-label">{label}</dt>
-      <dd className="mt-2 text-sm leading-relaxed text-ink">
-        <RichText text={value} />
-      </dd>
     </div>
   )
 }

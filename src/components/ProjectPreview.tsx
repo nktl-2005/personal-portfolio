@@ -17,13 +17,17 @@ interface ProjectPreviewProps {
  * is one link.
  */
 export default function ProjectPreview({ project, flip = false, size = 'lg' }: ProjectPreviewProps) {
+  // A video hero cannot go in an <img>, so cards fall back to its poster still.
+  const cardImage =
+    project.image && /\.(mp4|webm)$/i.test(project.image) ? project.imagePoster : project.image
+
   const visual = (
     <TiltFrame maxTilt={size === 'lg' ? 3 : 2.25}>
       <div className="overflow-hidden border border-line transition-colors duration-300 group-hover:border-line-strong">
         <div className="motion-safe:transition-transform motion-safe:duration-500 motion-safe:ease-out motion-safe:group-hover:scale-[1.02]">
-          {project.image ? (
+          {cardImage ? (
             <img
-              src={`${import.meta.env.BASE_URL}${project.image}`}
+              src={`${import.meta.env.BASE_URL}${cardImage}`}
               alt={project.imageAlt ?? project.title}
               loading="lazy"
               className="block aspect-[4/3] w-full bg-surface object-cover"

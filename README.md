@@ -36,12 +36,36 @@ public/
 ## Editing content
 
 - **Site copy** (hero, about, links): [src/data/site.ts](src/data/site.ts)
-- **Projects**: [src/data/projects.ts](src/data/projects.ts) — one object per project, following the structure in [src/data/types.ts](src/data/types.ts): metadata (year, tools) plus a short **Why → What → How** body (`why` string; `what` = a lead paragraph + a `build` list of concrete evidence; `how` = a list of challenge/decision/tradeoff blocks).
+- **Projects**: `src/data/projects.ts` — one object per project, following the
+  structure in `src/data/types.ts`.
+
+Each project page follows the [MIT MechE Comm Lab portfolio
+guide](https://mitcommlab.mit.edu/meche/commkit/portfolio/): an inverted
+pyramid that front-loads what matters, because a reviewer gives each page
+30-60 seconds.
+
+| Field | Section | What goes in it |
+| --- | --- | --- |
+| `title` | page heading | Impactful — convey meaning, not a course code |
+| `summary` | line under the title, and the cards | One sentence |
+| `outcome` | **01 Outcome** | What it is, how it performed, what it means. 1-2 short paragraphs — this is the part that actually gets read |
+| `skills` | **02 What I did** | Bullets led by strong verbs (designed, machined, analyzed) |
+| `motivation` | **03 Why this project** | The objective, why it matters, the constraints. Keep it short |
+| `details` | **04 Technical details** | Renders **collapsed**. Everything a curious reader might want — put the depth here, not above |
+
+`outcome` and `motivation` take a string or an array of strings (one per
+paragraph). `outcomeMedia`, `motivationMedia`, and each `details` block's
+`media` attach figures to the section they illustrate.
+
+**Rule of thumb:** if sections 01-03 run past ~500 words, move something into
+`details`.
 
 ## Adding a new project
 
 1. Add an entry to the `projects` array in `src/data/projects.ts` (copy an existing object as a template). The `slug` becomes the URL: `/projects/<slug>/`.
-2. Pick a `figure` (built-in illustration) or provide a real `image` (see below).
+2. Pick a `figure` (built-in illustration) or provide a real `image` — a photo,
+   a render, or an `.mp4` that plays silently on loop (set `imagePoster` too,
+   since cards and reduced-motion visitors use the still).
 3. Set `featured: true` if it should appear in "Selected work" on the home page.
 4. Add the new URL to [public/sitemap.xml](public/sitemap.xml).
 
