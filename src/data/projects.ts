@@ -23,24 +23,25 @@ import type { Project } from './types'
 export const projects: Project[] = [
   {
     slug: 'electronic-nose-cfd',
-    title: 'Separating Odors by Sensor Position, Not Sensor Chemistry',
+    title: 'Influence of Geometry on Sensor Detection for an Adaptive Electronic Nose',
     summary:
-      'Parametric CFD across 19 channel geometries, 6 flow speeds, and 10 hydrocarbons, testing whether the shape of a channel can do part of a chemical sensor’s job.',
+      'Investigating whether nasal geometry can be a design lever for sensitivity and selectivity in an adaptive electronic nose, using parametric CFD and a Python post-processing pipeline.',
     category: 'Simulation & Analysis',
     year: '2026',
     featured: true,
     outcome:
-      'Bend angle moves the flow strongly and the sensor signal by only ~4%, ruling out shape as a sensitivity lever — but the lightest alkanes peak at measurably different positions along the channel, pointing at sensor placement rather than sensor chemistry.',
-    role: 'Research Intern — computational subgroup',
+      'Investigating whether nasal geometry can be a design lever for sensitivity and selectivity in an adaptive electronic nose, using parametric CFD and a Python post-processing pipeline.',
+    role: 'Research Intern',
     team: 'Aizenberg Lab, Harvard University (Cambridge, MA)',
-    duration: 'May 2026 – Present',
+    duration: 'May 2026 – August 2026',
     tools: [
       'COMSOL Multiphysics',
       'Python (Pandas, NumPy, Matplotlib)',
       'CFD (k-ε turbulence)',
       'Dilute-species mass transport',
-      'ITK-SNAP',
       'FDM 3D printing',
+      'ITK-SNAP',
+      'MeshMixer',
     ],
     figure: 'enose',
     image: 'images/enose-hero.png',
