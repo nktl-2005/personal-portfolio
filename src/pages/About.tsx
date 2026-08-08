@@ -16,7 +16,7 @@ export default function About() {
         <Reveal>
           <p className="meta-label">About</p>
           <h1 className="mt-4 max-w-[20ch] font-display text-[clamp(2rem,5vw,3.25rem)] leading-tight font-semibold tracking-tight text-ink">
-            Beyond the projects
+            My Life
           </h1>
           <p className="mt-5 max-w-[54ch] text-lg leading-relaxed text-ink-soft">
             {site.about.blurb}

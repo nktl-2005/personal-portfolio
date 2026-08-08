@@ -57,6 +57,12 @@ export default function ProjectDetail() {
           <p className="mt-4 max-w-[58ch] text-lg leading-relaxed text-ink-soft">
             <RichText text={project.summary} />
           </p>
+          {project.status && (
+            <p className="mt-5 inline-flex items-center gap-2 border border-line px-3 py-1.5 text-sm text-ink-faint">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
+              {project.status}
+            </p>
+          )}
         </Reveal>
 
         <Reveal delay={100}>

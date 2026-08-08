@@ -58,6 +58,12 @@ export interface Project {
   summary: string
   /** Display category; filters are derived from categories with >= 2 projects */
   category: string
+  /**
+   * Optional short status note for work that is not finished, shown as a chip
+   * under the summary. Keep it to a few words, e.g. "Ongoing. Results
+   * preliminary." Leave it out for completed projects.
+   */
+  status?: string
   year: string
   /** Shown in the "Selected work" section on the home page */
   featured: boolean
