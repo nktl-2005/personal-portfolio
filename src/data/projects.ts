@@ -28,7 +28,6 @@ export const projects: Project[] = [
     summary:
       'This project is a subsystem of an adaptive electronic nose. I am investigating how nasal channel geometry affects sensor detection through CFD simulations and benchtop experiments. With this research, we can bias the e-nose toward a specific scent by adjusting the channel geometry rather than the sensor hardware.',
     category: 'Simulation & Analysis',
-    status: 'Ongoing. Results preliminary.',
     year: '2026',
     featured: true,
     tools: [
@@ -46,8 +45,9 @@ export const projects: Project[] = [
     outcome: [
       '**Shape does not amplify the signal.** Sweeping the channel angle from straight to a full U at fixed velocity and sniff period more than doubles vorticity at the sensor and tracks Reynolds number near-linearly, but peak concentration and linger time shift by only about 4%. The flow responds strongly to shape while the sensor barely does. This was a negative result, and it redirected the project halfway through.',
       '**Shape does separate compounds.** Probing 100 centerline points across 10 compounds, geometry pulls their signals apart spatially. Methane peaks at 38% of the channel length and decane at 28%, and a 180° bend separates them further than a straight channel does. Where a sensor sits encodes what it is smelling, and the effect is strongest for the lightest compounds.',
-      'The null result is bounded. A coupled velocity and angle sweep shows the slope of the angle effect on the flow rising with velocity, even though the spread in sensor signal narrows across the range actually tested. Shape may therefore become a usable lever in flow regimes above those tested.',
-      'Together these redirect the lab from sensor chemistry toward sensor placement, and they supply the flow-conditioning stage that shapes air before it reaches the sensor in the adaptive electronic nose we are building. The next steps are a log-spaced velocity sweep and varied sniff periods, to locate where the angle effect becomes usable.',
+      '**The null result is bounded.** A coupled velocity and angle sweep shows the slope of the angle effect rising with velocity, so shape may become a usable lever in flow regimes above those tested.',
+      '**Impact.** This redirects the lab from sensor chemistry toward sensor placement, and it supplies the flow-conditioning stage that shapes air before it reaches the sensor in the adaptive electronic nose we are building.',
+      '**Status.** Preliminary. The next steps are a log-spaced velocity sweep and varied sniff periods, to locate where the angle effect becomes usable.',
     ],
     outcomeMedia: [
       {
