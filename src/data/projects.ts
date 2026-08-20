@@ -230,9 +230,25 @@ export const projects: Project[] = [
       'Aluminum sheet-metal construction',
     ],
     figure: 'ballast',
+    image: 'images/ballast-box-cad.png',
+    imageAlt: 'SolidWorks model of the aluminum sheet-metal ballast box with vented walls and mounting tabs',
     outcome: [
       'Full design-to-manufacture ownership: an FEA-verified, 20% lighter sheet-metal enclosure that ended up on the competition vehicle.',
       'I owned the ballast box from first sheet-metal sketch through manufacture, and the finished assembly ended up on the competition vehicle. I designed it in SolidWorks as an aluminum sheet-metal enclosure to DFM/DFA principles, optimized the geometry for waterjet cutting, and ran static FEA to verify the ballast would not break the box under turning and braking. The final design is 20% lighter with structural integrity maintained.',
+    ],
+    outcomeMedia: [
+      {
+        src: 'images/ballast-box-fitted.jpg',
+        alt: 'The manufactured ballast box mounted in the competition vehicle chassis',
+        caption: 'The manufactured box, mounted in the competition vehicle chassis.',
+        fit: 'contain',
+      },
+      {
+        src: 'images/ballast-box-chassis-cad.png',
+        alt: 'CAD of the ballast box packaged into its confined space in the vehicle chassis',
+        caption: 'The box packaged into its confined space in the chassis CAD — the envelope the design had to fit.',
+        fit: 'contain',
+      },
     ],
     skills: [
       'Aluminum sheet-metal enclosure built with SolidWorks sheet-metal features, geometry optimized for waterjet cutting',
@@ -246,6 +262,14 @@ export const projects: Project[] = [
       {
         title: 'Strength vs. weight, resolved with FEA',
         body: 'Turning and braking throw 20+ kg of steel shot against the enclosure walls, while the enclosure’s own mass is overhead worth minimizing. Rather than conservatively over-build, I iterated the geometry against static FEA — material stayed on the load paths and came out where analysis showed margin — converging on a 20% weight reduction while verifying the ballast would not break the box in either load case.',
+        media: [
+          {
+            src: 'images/ballast-box-fea.png',
+            alt: 'Static FEA von Mises stress plot of the ballast box',
+            caption: 'Static von Mises stress results — peak stress of about 34 MPa stays below the 55 MPa yield strength.',
+            fit: 'contain',
+          },
+        ],
       },
       {
         title: 'Designed for manufacturability and assembly',
