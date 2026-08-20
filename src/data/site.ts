@@ -7,7 +7,7 @@ export const site = {
   name: 'Nicholas Lee',
   /** One-line professional descriptor under the name in the hero */
   descriptor:
-    'Research Intern @ Harvard.  Junior Mechatronics engineering student @ the University of Waterloo.',
+    'Mechatronics Engineering student at the University of Waterloo. Currently a Research Intern at Harvard\'s Aizenberg Lab.',
   /** Short hero introduction (1–2 sentences) */
   intro:
     'Welcome to my site! I enjoy combining mechanical design, electronics, programming, and data-driven thinking to develop practical, user-focused solutions.',
