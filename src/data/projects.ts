@@ -230,8 +230,8 @@ export const projects: Project[] = [
       'Aluminum sheet-metal construction',
     ],
     figure: 'ballast',
-    image: 'images/ballast-box-cad.png',
-    imageAlt: 'SolidWorks model of the aluminum sheet-metal ballast box with vented walls and mounting tabs',
+    image: 'images/ballast-box-hero.png',
+    imageAlt: 'SolidWorks model of the aluminum sheet-metal ballast box alongside its static FEA von Mises stress results',
     outcome: [
       'Full design-to-manufacture ownership: an FEA-verified, 20% lighter sheet-metal enclosure that ended up on the competition vehicle.',
       'I owned the ballast box from first sheet-metal sketch through manufacture, and the finished assembly ended up on the competition vehicle. I designed it in SolidWorks as an aluminum sheet-metal enclosure to DFM/DFA principles, optimized the geometry for waterjet cutting, and ran static FEA to verify the ballast would not break the box under turning and braking. The final design is 20% lighter with structural integrity maintained.',
