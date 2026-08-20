@@ -218,7 +218,7 @@ export const projects: Project[] = [
     slug: 'solar-car-ballast-box',
     title: 'Midnight Sun Solar Car Ballast Box',
     summary:
-      'Aluminum sheet-metal ballast box for Midnight Sun Solar Car Team (MS16) — owned from first sketch through manufacture, FEA-verified against turning and braking loads, and now on the competition vehicle.',
+      'Aluminum sheet-metal ballast box for Midnight Sun Solar Car Team (MS16), owned from first sketch through manufacture, FEA-verified against turning and braking loads, and now on the competition vehicle.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
@@ -246,27 +246,27 @@ export const projects: Project[] = [
       {
         src: 'images/ballast-box-chassis-cad.png',
         alt: 'CAD of the ballast box packaged into its confined space in the vehicle chassis',
-        caption: 'The box packaged into its confined space in the chassis CAD — the envelope the design had to fit.',
+        caption: 'The box packaged into its confined space in the chassis CAD, the envelope the design had to fit.',
         fit: 'contain',
       },
     ],
     skills: [
       'Aluminum sheet-metal enclosure built with SolidWorks sheet-metal features, geometry optimized for waterjet cutting',
-      'Ballast payload — minimum 20 kg of steel shot, packaged into a confined space on the chassis',
+      'Ballast payload of minimum 20 kg of steel shot, packaged into a confined space on the chassis',
       'Static FEA under turning and braking load cases to verify the shifting ballast would not break the box',
       'Mounting tabs with weld nuts for easy assembly onto the car',
       'Owned from design through manufacture; the manufactured box is on the competition vehicle',
     ],
-    motivation: "Midnight Sun's competition solar car must carry a minimum of 20 kg of steel-shot ballast, held secure and structurally intact through every driving load case — the shifting mass loads the enclosure hardest when the car turns and brakes. The ballast is mandated mass, but the enclosure around it is pure overhead, so its weight was worth driving down without compromising retention, all within a confined space on the chassis.",
+    motivation: "Midnight Sun's competition solar car must carry a minimum of 20 kg of steel-shot ballast, held secure and structurally intact through every driving load case. The shifting mass loads the enclosure hardest when the car turns and brakes. The ballast is mandated mass, but the enclosure around it is pure overhead, so its weight was worth driving down without compromising retention, all within a confined space on the chassis.",
     details: [
       {
         title: 'Strength vs. weight, resolved with FEA',
-        body: 'Turning and braking throw 20+ kg of steel shot against the enclosure walls, while the enclosure’s own mass is overhead worth minimizing. Rather than conservatively over-build, I iterated the geometry against static FEA — material stayed on the load paths and came out where analysis showed margin — converging on a 20% weight reduction while verifying the ballast would not break the box in either load case.',
+        body: 'Turning and braking throw 20+ kg of steel shot against the enclosure walls, while the enclosure’s own mass is overhead worth minimizing. Rather than conservatively over-build, I iterated the geometry against static FEA, keeping material on the load paths and removing it where analysis showed margin. The iterations converged on a 20% weight reduction while verifying the ballast would not break the box in either load case.',
         media: [
           {
             src: 'images/ballast-box-fea.png',
             alt: 'Static FEA von Mises stress plot of the ballast box',
-            caption: 'Static von Mises stress results — peak stress of about 34 MPa stays below the 55 MPa yield strength.',
+            caption: 'Static von Mises stress results. Peak stress of about 34 MPa stays below the 55 MPa yield strength.',
             fit: 'contain',
           },
         ],
@@ -277,7 +277,7 @@ export const projects: Project[] = [
       },
       {
         title: 'From CAD to the competition vehicle',
-        body: 'I carried the box through the full design-to-manufacture cycle: requirements (holding the required ballast volume inside a confined space on the chassis), sheet-metal design, FEA verification, and manufacturing — and the finished assembly ended up on the competition vehicle.',
+        body: 'I carried the box through the full design-to-manufacture cycle: requirements (holding the required ballast volume inside a confined space on the chassis), sheet-metal design, FEA verification, and manufacturing. The finished assembly ended up on the competition vehicle.',
       },
     ],
   },
@@ -308,30 +308,30 @@ export const projects: Project[] = [
       'FDM prototype series used to converge the press-fit dimensions',
       '[Add mount mating interface / interference values]',
     ],
-    motivation: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and camera mounts carried lead times of weeks. Both are cheap parts — the cost was in the process around them: rework from misaligned covers, and vehicle integration stalled waiting on mounts.',
+    motivation: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and camera mounts carried lead times of weeks. Both are cheap parts; the cost was in the process around them: rework from misaligned covers, and vehicle integration stalled waiting on mounts.',
     details: [
       {
         title: 'Following the curvature of the aerobody',
-        body: 'The wheel cover sits on the vehicle’s dynamic aerobody — a compound-curved surface a flat template cannot sit flush against. I designed the stencils using surface modeling, working from the aerobody’s own geometry so the stencil follows its curvature and the cutout lands exactly where the wheel cover needs it. The top part is angled 45° to make the cut itself easier to run.',
+        body: 'The wheel cover sits on the vehicle’s dynamic aerobody, a compound-curved surface that a flat template cannot sit flush against. I designed the stencils using surface modeling, working from the aerobody’s own geometry so the stencil follows its curvature and the cutout lands exactly where the wheel cover needs it. The top part is angled 45° to make the cut itself easier to run.',
       },
       {
         title: 'Registering cuts to vehicle datums',
-        body: 'The failure mode was alignment error at installation. I datumed the stencils to the ribs of the car — features that already control the vehicle’s geometry — which makes cut position a property of the tool, not the installer, so the cut lands consistently on every install. The stencil design was approved for use on the vehicle.',
+        body: 'The failure mode was alignment error at installation. I datumed the stencils to the ribs of the car, features that already control the vehicle’s geometry. That makes cut position a property of the tool, not the installer, so the cut lands consistently on every install. The stencil design was approved for use on the vehicle.',
       },
       {
         title: 'Press-fit mounts designed for FDM',
-        body: 'Press-fit retention keeps installation simple and pairs well with fast iteration — a printed prototype gives immediate pass/fail on fit. But FDM does not hold CAD-nominal dimensions, so I converged the interference physically: print, check, adjust, reprint. Because each cycle takes hours, that tuning was affordable and same-day. [Add designed interference values and iteration count.]',
+        body: 'Press-fit retention keeps installation simple and pairs well with fast iteration, since a printed prototype gives immediate pass/fail on fit. But FDM does not hold CAD-nominal dimensions, so I converged the interference physically: print, check, adjust, reprint. Because each cycle takes hours, that tuning was affordable and same-day. [Add designed interference values and iteration count.]',
       },
       {
         title: 'Collapsing lead time with in-house printing',
-        body: 'Lead time was the binding constraint — weeks per mount. Designing for FDM from the outset turns a design file into an installed part in hours and keeps revisions in the team’s hands, at the cost of constraining the design to what the process can hold dimensionally. [Add material / strength tradeoffs versus the previous mounts.]',
+        body: 'Lead time was the binding constraint, at weeks per mount. Designing for FDM from the outset turns a design file into an installed part in hours and keeps revisions in the team’s hands, at the cost of constraining the design to what the process can hold dimensionally. [Add material / strength tradeoffs versus the previous mounts.]',
       },
     ],
   },
   {
     slug: 'desktop-injection-molder',
     title: 'WAC-A-MOLD Desktop Injection Molder — Clamping Subsystem',
-    summary: "Clamping subsystem for the university's first desktop injection molder — parametrized clamping-unit linkages in Onshape and SolidWorks, now in the machining stages.",
+    summary: "Clamping subsystem for the university's first desktop injection molder: parametrized clamping-unit linkages in Onshape and SolidWorks, now in the machining stages.",
     category: 'Product Development',
     year: '2026',
     featured: true,
@@ -346,19 +346,19 @@ export const projects: Project[] = [
     figure: 'molder',
     outcome: [
       "Parametrized clamping-unit linkages carried from concept through CAD to early prototyping; the links are now in the machining stages for the university's first desktop injection molder.",
-      "I lead the clamping subsystem from concept through CAD development to early prototyping. I parametrized the clamping-unit linkages as fully variable-driven models in Onshape and SolidWorks — which accelerated iteration and centralized configuration management for the team — and the links are now being machined on a mill. The machine is early-stage; performance numbers will follow prototype testing.",
+      "I lead the clamping subsystem from concept through CAD development to early prototyping. I parametrized the clamping-unit linkages as fully variable-driven models in Onshape and SolidWorks, which accelerated iteration and centralized configuration management for the team. The links are now being machined on a mill. The machine is early-stage; performance numbers will follow prototype testing.",
     ],
     skills: [
       'Clamping-unit linkages parametrized as variable-driven models in Onshape and SolidWorks (my subsystem ownership)',
       'FEA performed on the links as they are designed, before geometry is committed to hardware',
       'Links being machined on a mill to carry the design into physical prototypes',
-      'Shared parametric workspace — centralized CAD and configuration management for the team',
+      'Shared parametric workspace for centralized CAD and configuration management across the team',
     ],
-    motivation: 'Students at the university lacked accessible injection molding; WAC-A-MOLD will be the first desktop injection molder on campus. As one of the core founding members of the Waterloo Automation Collective — a design team started with a group of 10 students — I own the clamping subsystem: the mechanism that closes the mold and holds it shut against injection pressure, which had to be designed while the rest of the machine was still taking shape.',
+    motivation: 'Students at the university lacked accessible injection molding; WAC-A-MOLD will be the first desktop injection molder on campus. As one of the core founding members of the Waterloo Automation Collective, a design team started with a group of 10 students, I own the clamping subsystem: the mechanism that closes the mold and holds it shut against injection pressure, which had to be designed while the rest of the machine was still taking shape.',
     details: [
       {
         title: 'Designing against moving requirements',
-        body: 'In an early-stage machine, loads, interfaces, and envelope are all provisional. I parametrized the linkages as fully variable-driven geometry so each change is an edit and a regenerate rather than a remodel — which let the design absorb churn cheaply and kept the whole team on one current model. Parametric structure costs more upfront modeling before it pays off.',
+        body: 'In an early-stage machine, loads, interfaces, and envelope are all provisional. I parametrized the linkages as fully variable-driven geometry so each change is an edit and a regenerate rather than a remodel. That let the design absorb churn cheaply and kept the whole team on one current model. Parametric structure costs more upfront modeling before it pays off.',
       },
       {
         title: 'Linkage-based clamping architecture',
@@ -366,7 +366,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Machining the first links',
-        body: 'The links are being machined on a mill to take the parametric CAD into physical hardware the team can evaluate, rather than models alone. Making the parts ourselves keeps manufacturability concrete — geometry trivial to model still has to be fixtured and cut.',
+        body: 'The links are being machined on a mill to take the parametric CAD into physical hardware the team can evaluate, rather than models alone. Making the parts ourselves keeps manufacturability concrete: geometry that is trivial to model still has to be fixtured and cut.',
       },
     ],
   },
@@ -396,19 +396,19 @@ export const projects: Project[] = [
       'DC-motor drive providing automated gear actuation for live demos',
       'Multiple gearbox variants delivered for undergraduate lectures [Add exact count]',
     ],
-    motivation: "The University of Waterloo's MSAM Lab needed two-stage gearbox demonstrators for undergraduate lectures: physical assemblies that operate reliably and actuate on their own in front of a class. The work had to fit a single four-month term, and every component was FDM 3D printed — a process that constrains how parts must be designed before they run reliably.",
+    motivation: "The University of Waterloo's MSAM Lab needed two-stage gearbox demonstrators for undergraduate lectures: physical assemblies that operate reliably and actuate on their own in front of a class. The work had to fit a single four-month term, and every component was FDM 3D printed, a process that constrains how parts must be designed before they run reliably.",
     details: [
       {
         title: 'Parametric CAD for a term of variants',
-        body: 'The term required multiple variants and repeated print-driven revisions, so I made the geometry — the helical gear especially — regenerate from parameters. Each change became a parameter edit and a regenerate instead of a remodel, which reduced gear design cycle time; the cost is front-loaded modeling effort before it pays back across variants.',
+        body: 'The term required multiple variants and repeated print-driven revisions, so I made the geometry regenerate from parameters, the helical gear especially. Each change became a parameter edit and a regenerate instead of a remodel, which reduced gear design cycle time; the cost is front-loaded modeling effort before it pays back across variants.',
       },
       {
         title: 'Making FDM assemblies run reliably',
-        body: 'The printed gearboxes were not reliable as first designed. I iterated the components against real prints — [Add specific DFM changes: clearances, tooth profiles, print orientations] — until assembled gearboxes operated consistently. The parametric models kept that print-and-revise loop cheap.',
+        body: 'The printed gearboxes were not reliable as first designed. I iterated the components against real prints ([Add specific DFM changes: clearances, tooth profiles, print orientations]) until assembled gearboxes operated consistently. The parametric models kept that print-and-revise loop cheap.',
       },
       {
         title: 'Two additive processes in one assembly',
-        body: 'While the components stayed FDM, I introduced metal AM techniques into the housing, designing it in nTop — a fit for a multi-scale additive manufacturing lab and a way to put two additive processes in one teaching assembly. [Add the nTop workflow, the metal AM process/material, and cost/lead-time tradeoffs versus an FDM housing.]',
+        body: 'While the components stayed FDM, I introduced metal AM techniques into the housing, designing it in nTop, a fit for a multi-scale additive manufacturing lab and a way to put two additive processes in one teaching assembly. [Add the nTop workflow, the metal AM process/material, and cost/lead-time tradeoffs versus an FDM housing.]',
       },
     ],
   },
@@ -416,7 +416,7 @@ export const projects: Project[] = [
     slug: 'pneumatic-piston-assembly',
     title: 'Pneumatic Piston Mounting Assembly Redesign',
     summary:
-      'Redesigned a production-line piston mount so a replacement component from a different vendor could drop into existing equipment — and stop failing from syrup contamination.',
+      'Redesigned a production-line piston mount so a replacement component from a different vendor could drop into existing equipment and stop failing from syrup contamination.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
@@ -428,29 +428,29 @@ export const projects: Project[] = [
     ],
     figure: 'piston',
     image: 'images/pneumatic-piston-full-assembly.png',
-    imageAlt: 'SolidWorks model of the full piston mounting assembly — plate, cover, and piston',
+    imageAlt: 'SolidWorks model of the full piston mounting assembly: plate, cover, and piston',
     outcome: [
       'A pneumatic piston that rejects underfilled cans was mistiming its kickouts: syrup splash built sugar residue on the exposed rod and delayed its actuation, forcing a maintenance cleanup every month. I redesigned the mounting plate and added a protective cover so a replacement piston from a different vendor could be installed in the existing equipment while shielding the rod from the splash that caused the problem in the first place.',
-      'I delivered the SolidWorks models and a complete fabrication package — dimensioned drawings, datum-based hole locations, tolerances, and thread callouts — before the end of my internship. The parts were not fabricated while I was there, so I was not able to do a physical fit check.',
+      'I delivered the SolidWorks models and a complete fabrication package (dimensioned drawings, datum-based hole locations, tolerances, and thread callouts) before the end of my internship. The parts were not fabricated while I was there, so I was not able to do a physical fit check.',
     ],
     outcomeMedia: [
       {
         src: 'images/pneumatic-piston-plate.png',
         alt: 'SolidWorks model of the redesigned mounting plate',
-        caption: 'Redesigned plate — the new piston’s mounting pattern plus the original airline holes, so the assembly drops into the existing equipment.',
+        caption: 'Redesigned plate: the new piston’s mounting pattern plus the original airline holes, so the assembly drops into the existing equipment.',
         fit: 'contain',
       },
       {
         src: 'images/pneumatic-piston-cover.png',
         alt: 'SolidWorks model of the protective cover',
-        caption: 'Protective cover, shaped around the assembly and fastened to side holes in the plate — it keeps syrup off the rod without blocking maintenance access.',
+        caption: 'Protective cover, shaped around the assembly and fastened to side holes in the plate. It keeps syrup off the rod without blocking maintenance access.',
       },
     ],
     skills: [
       'Reverse-engineered the original plate and cover, measuring hole locations, mating features, and the available installation envelope',
       'Redesigned the mounting plate in SolidWorks to accept the replacement piston’s hole pattern while preserving the original airline connections',
       'Designed a protective cover shaped around the assembly, with side-mounted fasteners that keep maintenance access open',
-      'Resolved three mechanical interfaces on one plate — countersunk piston fasteners, slotted bracket mounts for position adjustment, and tapped holes for the cover',
+      'Resolved three mechanical interfaces on one plate: countersunk piston fasteners, slotted bracket mounts for position adjustment, and tapped holes for the cover',
       'Produced dimensioned 2D fabrication drawings with datum-based hole locations, tolerances, slot geometry, and thread and countersink callouts',
     ],
     motivation:
@@ -458,7 +458,7 @@ export const projects: Project[] = [
     details: [
       {
         title: 'Adapting the mounting plate',
-        body: 'I measured the critical geometry of the original mounting plate and cover — hole locations, mating features, and the available installation envelope — and recreated the plate exactly in SolidWorks to establish what had to change. The replacement piston had a different mounting hole arrangement, so the original plate could not be reused directly. I measured the new piston’s interface and combined it with the original plate’s airline holes, which let the replacement component be installed without broader modifications to the surrounding equipment.',
+        body: 'I measured the critical geometry of the original mounting plate and cover (hole locations, mating features, and the available installation envelope) and recreated the plate exactly in SolidWorks to establish what had to change. The replacement piston had a different mounting hole arrangement, so the original plate could not be reused directly. I measured the new piston’s interface and combined it with the original plate’s airline holes, which let the replacement component be installed without broader modifications to the surrounding equipment.',
       },
       {
         title: 'Protecting the piston from contamination',
@@ -474,12 +474,12 @@ export const projects: Project[] = [
           {
             src: 'images/pneumatic-piston-plate-drawing.png',
             alt: 'Fabrication drawing of the mounting plate',
-            caption: 'Plate drawing — datum-based hole locations, slot geometry, and thread callouts.',
+            caption: 'Plate drawing: datum-based hole locations, slot geometry, and thread callouts.',
           },
           {
             src: 'images/pneumatic-piston-cover-drawing.png',
             alt: 'Fabrication drawing of the protective cover',
-            caption: 'Cover drawing — critical dimensions and manufacturing callouts for the shop.',
+            caption: 'Cover drawing: critical dimensions and manufacturing callouts for the shop.',
           },
         ],
       },
