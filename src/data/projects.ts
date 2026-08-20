@@ -356,17 +356,17 @@ export const projects: Project[] = [
       'SolidWorks',
       'Parametric CAD (variable-driven models)',
       'Linkage design',
-      'FEA',
       'Milling',
     ],
     figure: 'molder',
+    image: 'images/molder-clamping-unit.png',
+    imageAlt: 'SolidWorks model of the full clamping unit: platens, tie bars, lead screw, and toggle linkages',
     outcome: [
       "Parametrized clamping-unit linkages carried from concept through CAD to early prototyping; the links are now in the machining stages for the university's first desktop injection molder.",
       "I lead the clamping subsystem from concept through CAD development to early prototyping. I parametrized the clamping-unit linkages as fully variable-driven models in Onshape and SolidWorks, which accelerated iteration and centralized configuration management for the team. The links are now being machined on a mill. The machine is early-stage; performance numbers will follow prototype testing.",
     ],
     skills: [
       'Clamping-unit linkages parametrized as variable-driven models in Onshape and SolidWorks (my subsystem ownership)',
-      'FEA performed on the links as they are designed, before geometry is committed to hardware',
       'Links being machined on a mill to carry the design into physical prototypes',
       'Shared parametric workspace for centralized CAD and configuration management across the team',
     ],
@@ -378,7 +378,21 @@ export const projects: Project[] = [
       },
       {
         title: 'Linkage-based clamping architecture',
-        body: 'The clamp must generate and hold closing force against injection pressure on a desktop-scale machine, which drove a mechanical-linkage approach. Each link gets FEA as it is designed, so the geometry coming out of the parametric model is checked against load before it is committed to machining.',
+        body: 'The clamp must generate and hold closing force against injection pressure on a desktop-scale machine, which drove a mechanical-linkage approach.',
+        media: [
+          {
+            src: 'images/molder-clamping-unit.png',
+            alt: 'Full clamping unit assembly with platens, tie bars, lead screw, and toggle linkages',
+            caption: 'The full clamping unit. The lead screw drives the moving platen along the tie bars, and the toggle linkages hold the mold shut against injection pressure.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/molder-linkages.png',
+            alt: 'Close-up of the toggle linkages on the moving platen',
+            caption: 'The linkages on the moving platen, my subsystem. Every link is a variable-driven parametric model.',
+            fit: 'contain',
+          },
+        ],
       },
       {
         title: 'Machining the first links',
