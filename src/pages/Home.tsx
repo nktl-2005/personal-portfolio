@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { projects } from '../data/projects'
 import { site } from '../data/site'
-import HeroScene from '../components/HeroScene'
 import ProjectPreview from '../components/ProjectPreview'
 import Reveal from '../components/Reveal'
 import { usePageMeta } from '../lib/usePageMeta'
@@ -52,7 +51,11 @@ export default function Home() {
         </Reveal>
 
         <Reveal delay={120}>
-          <HeroScene />
+          <img
+            src={`${import.meta.env.BASE_URL}images/headshot.jpg`}
+            alt="Portrait of Nicholas Lee"
+            className="block aspect-[4/5] w-full max-w-md border border-line bg-surface object-cover justify-self-center lg:justify-self-end"
+          />
         </Reveal>
       </section>
 

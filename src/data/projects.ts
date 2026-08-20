@@ -253,12 +253,28 @@ export const projects: Project[] = [
     skills: [
       'Aluminum sheet-metal enclosure built with SolidWorks sheet-metal features, geometry optimized for waterjet cutting',
       'Ballast payload of minimum 20 kg of steel shot, packaged into a confined space on the chassis',
+      'Interior volume sized by hand calculation from steel-shot density, with a 1.5 volumetric factor of safety',
       'Static FEA under turning and braking load cases to verify the shifting ballast would not break the box',
       'Mounting tabs with weld nuts for easy assembly onto the car',
       'Owned from design through manufacture; the manufactured box is on the competition vehicle',
     ],
     motivation: "Midnight Sun's competition solar car must carry a minimum of 20 kg of steel-shot ballast, held secure and structurally intact through every driving load case. The shifting mass loads the enclosure hardest when the car turns and brakes. The ballast is mandated mass, but the enclosure around it is pure overhead, so its weight was worth driving down without compromising retention, all within a confined space on the chassis.",
     details: [
+      {
+        title: 'Sizing the box from first principles',
+        body: [
+          'The interior volume came from hand calculations rather than guesswork. Steel shot has a density of 290 lb/ft³ (4,645 kg/m³), so the required 20 kg of ballast, set by a 60 kg reference driver, occupies 4.31 L. Applying a 1.5 factor of safety on volume set the minimum capacity at 6.46 L.',
+          'From that target I sized the interior at 180 × 350 × 150 mm, which holds 9.45 L and clears the minimum comfortably. Those dimensions drove the sheet-metal flat pattern the walls were cut from.',
+        ],
+        media: [
+          {
+            src: 'images/ballast-box-calcs.png',
+            alt: 'Hand calculations sizing the ballast box volume from steel-shot density, required mass, and a 1.5 factor of safety',
+            caption: 'The sizing calcs: shot density to required volume for 20 kg, then a 1.5 volumetric factor of safety to set the minimum box capacity.',
+            fit: 'contain',
+          },
+        ],
+      },
       {
         title: 'Strength vs. weight, resolved with FEA',
         body: 'Turning and braking throw 20+ kg of steel shot against the enclosure walls, while the enclosure’s own mass is overhead worth minimizing. Rather than conservatively over-build, I iterated the geometry against static FEA, keeping material on the load paths and removing it where analysis showed margin. The iterations converged on a 20% weight reduction while verifying the ballast would not break the box in either load case.',
