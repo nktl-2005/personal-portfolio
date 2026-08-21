@@ -290,6 +290,14 @@ export const projects: Project[] = [
       {
         title: 'Designed for manufacturability and assembly',
         body: 'Aluminum sheet metal gave a closed enclosure for loose steel shot and a part the team could actually fabricate. Across many design iterations I used SolidWorks sheet-metal features to keep every FEA-driven geometry change formable, and optimized the geometry for waterjet cutting. Mounting tabs with weld nuts were designed in so the box assembles onto the car easily.',
+        media: [
+          {
+            src: 'images/ballast-box-cad.png',
+            alt: 'SolidWorks sheet-metal model of the ballast box enclosure',
+            caption: 'The sheet-metal design in SolidWorks. Every FEA-driven change stayed formable as a flat pattern.',
+            fit: 'contain',
+          },
+        ],
       },
       {
         title: 'From CAD to the competition vehicle',
@@ -321,8 +329,8 @@ export const projects: Project[] = [
       'Stencils datumed to the ribs of the car for accurate cut location, ensuring a proper cutout for the wheel cover',
       'Top part angled 45° for easier cutting; stencil design approved',
       'Press-fit camera mount system designed for FDM 3D printing',
-      'FDM prototype series used to converge the press-fit dimensions',
-      '[Add mount mating interface / interference values]',
+      'Mounts press-fit onto the inner edge of the rear windshield frame, sized about 2 mm under the edge for grip',
+      'Press-fit dimensions converged over 5 PLA print iterations',
     ],
     motivation: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and camera mounts carried lead times of weeks. Both are cheap parts; the cost was in the process around them: rework from misaligned covers, and vehicle integration stalled waiting on mounts.',
     details: [
@@ -336,11 +344,11 @@ export const projects: Project[] = [
       },
       {
         title: 'Press-fit mounts designed for FDM',
-        body: 'Press-fit retention keeps installation simple and pairs well with fast iteration, since a printed prototype gives immediate pass/fail on fit. But FDM does not hold CAD-nominal dimensions, so I converged the interference physically: print, check, adjust, reprint. Because each cycle takes hours, that tuning was affordable and same-day. [Add designed interference values and iteration count.]',
+        body: 'Press-fit retention keeps installation simple and pairs well with fast iteration, since a printed prototype gives immediate pass/fail on fit. But FDM does not hold CAD-nominal dimensions, so I converged the interference physically: print, check, adjust, reprint. Because each cycle takes hours, that tuning was affordable and same-day. The mounts grip the inner edge of the rear windshield frame, sized about 2 mm under the edge, and the fit converged after 5 iterations.',
       },
       {
         title: 'Collapsing lead time with in-house printing',
-        body: 'Lead time was the binding constraint, at weeks per mount. Designing for FDM from the outset turns a design file into an installed part in hours and keeps revisions in the team’s hands, at the cost of constraining the design to what the process can hold dimensionally. [Add material / strength tradeoffs versus the previous mounts.]',
+        body: 'Lead time was the binding constraint, at weeks per mount. Designing for FDM from the outset turns a design file into an installed part in hours and keeps revisions in the team’s hands, at the cost of constraining the design to what the process can hold dimensionally. The mounts are printed in PLA.',
       },
     ],
   },
@@ -411,20 +419,20 @@ export const projects: Project[] = [
       'SolidWorks (parametric CAD)',
       'nTop',
       'FDM 3D printing',
-      'Metal additive manufacturing',
+      'Lattice infill design',
       'DC motors',
     ],
     figure: 'gearbox',
     outcome: [
       'Multiple motor-driven gearbox demonstrators now run reliably in undergraduate lectures; parametric CAD reduced gear design cycle time.',
-      'Over the Jan–Apr 2026 term I designed and prototyped multiple motor-driven two-stage gearboxes as live lecture hardware. I built the CAD as fully parametric SolidWorks models (including a parametrically modeled helical gear), iterated the FDM-printed components until the assemblies ran reliably, introduced metal AM techniques into the housing via nTop, and integrated DC motors for automated actuation.',
+      'Over the Jan–Apr 2026 term I designed and prototyped multiple motor-driven two-stage gearboxes as live lecture hardware. I built the CAD as fully parametric SolidWorks models (including a parametrically modeled helical gear), iterated the FDM-printed components until the assemblies ran reliably, designed the housing in nTop with internal lattice infill, and integrated DC motors for automated actuation.',
     ],
     skills: [
       'Parametric SolidWorks models incl. a parametrically modeled helical gear',
       'Two-stage gear trains with components optimized for FDM 3D printing',
-      'Gearbox housing incorporating metal additive manufacturing techniques, designed in nTop',
+      'Gearbox housing designed in nTop with internal lattice infill, minimizing material while preserving structural strength',
       'DC-motor drive providing automated gear actuation for live demos',
-      'Multiple gearbox variants delivered for undergraduate lectures [Add exact count]',
+      'Multiple gearbox variants delivered for undergraduate lectures',
     ],
     motivation: "The University of Waterloo's MSAM Lab needed two-stage gearbox demonstrators for undergraduate lectures: physical assemblies that operate reliably and actuate on their own in front of a class. The work had to fit a single four-month term, and every component was FDM 3D printed, a process that constrains how parts must be designed before they run reliably.",
     details: [
@@ -434,11 +442,11 @@ export const projects: Project[] = [
       },
       {
         title: 'Making FDM assemblies run reliably',
-        body: 'The printed gearboxes were not reliable as first designed. I iterated the components against real prints ([Add specific DFM changes: clearances, tooth profiles, print orientations]) until assembled gearboxes operated consistently. The parametric models kept that print-and-revise loop cheap.',
+        body: 'The printed gearboxes were not reliable as first designed. I iterated the components against real prints, changing print orientations and tuning shaft and bore fits, until assembled gearboxes operated consistently. The parametric models kept that print-and-revise loop cheap.',
       },
       {
-        title: 'Two additive processes in one assembly',
-        body: 'While the components stayed FDM, I introduced metal AM techniques into the housing, designing it in nTop, a fit for a multi-scale additive manufacturing lab and a way to put two additive processes in one teaching assembly. [Add the nTop workflow, the metal AM process/material, and cost/lead-time tradeoffs versus an FDM housing.]',
+        title: 'A lattice-infill housing designed in nTop',
+        body: 'While the gears and shafts stayed in SolidWorks, I designed the housing in nTop with internal lattice infill structures, minimizing material use while preserving structural strength. The housing printed in PLA on the same FDM process as the rest of the assembly, bringing a design technique common in metal additive manufacturing into hardware the lab can print in-house.',
       },
     ],
   },

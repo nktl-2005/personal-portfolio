@@ -25,7 +25,7 @@ export const site = {
     // Short framing line — used on the home About preview and the top of the
     // About page. The project pages already cover the engineering; this is the rest.
     blurb:
-      'personal life and interersts',
+      'personal life and interests',
 
     // Life outside engineering. Fill each category with your real activities;
     // text in [square brackets] renders as a visible "replace me" chip until you do.
