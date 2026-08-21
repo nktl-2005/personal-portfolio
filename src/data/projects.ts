@@ -307,8 +307,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'vehicle-fixtures',
-    title: 'Rapid-Turnaround Solar Car Assembly Fixtures',
-    summary: "Two solar car assembly fixtures: surface-modeled wheel-cover stencils that follow the aerobody's curvature, and FDM press-fit camera mounts with hours, not weeks, of lead time.",
+    title: 'Midnight Sun Solar Car Projects: Stencils and Camera Mount',
+    summary: "Two solar car assembly fixtures: surface-modeled wheel-cover stencils that follow the aerobody's curvature, and tool-free press-fit camera mounts that replaced the bolted-in mounts of previous years.",
     category: 'Mechanical Design',
     year: '2025',
     featured: false,
@@ -321,18 +321,18 @@ export const projects: Project[] = [
     ],
     figure: 'fixtures',
     outcome: [
-      'Surface-modeled stencils registered to vehicle datums standardized wheel-cover alignment; FDM press-fit mounts cut camera-mount lead time from weeks to hours.',
-      "I treated both as fixture problems built for fast turnaround. I surface-modeled wheel-cover cutting stencils to follow the curvature of the dynamic aerobody, datumed to the ribs of the car, and designed a press-fit camera mount system for FDM 3D printing. Installation accuracy improved and camera-mount lead time dropped from weeks to hours.",
+      'Surface-modeled stencils registered to vehicle datums standardized wheel-cover alignment; tool-free press-fit mounts made the rear-view camera quick to install and easy to access, replacing the bolted-in mounts of previous years.',
+      "I treated both as fixture problems. I surface-modeled wheel-cover cutting stencils to follow the curvature of the dynamic aerobody, datumed to the ribs of the car, and designed a tool-free press-fit camera mount system for FDM 3D printing. Installation accuracy improved, and the camera now installs and comes out by hand instead of being bolted in, keeping it accessible for maintenance.",
     ],
     skills: [
       'Wheel-cover cutting stencils designed with surface modeling to follow the curvature of the dynamic aerobody',
       'Stencils datumed to the ribs of the car for accurate cut location, ensuring a proper cutout for the wheel cover',
       'Top part angled 45° for easier cutting; stencil design approved',
-      'Press-fit camera mount system designed for FDM 3D printing',
+      'Tool-free press-fit camera mount system designed for FDM 3D printing, replacing the bolted-in mounts of previous years',
       'Mounts press-fit onto the inner edge of the rear windshield frame, sized about 2 mm under the edge for grip',
       'Press-fit dimensions converged over 5 PLA print iterations',
     ],
-    motivation: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and camera mounts carried lead times of weeks. Both are cheap parts; the cost was in the process around them: rework from misaligned covers, and vehicle integration stalled waiting on mounts.',
+    motivation: 'Solar car assembly was losing time to two small parts. Wheel covers went on with recurring alignment and installation errors, and the rear-view camera was bolted into the vehicle, making every install and removal slow and leaving the camera hard to access. Both are cheap parts; the cost was in the process around them: rework from misaligned covers, and tools and time spent every time the camera came on or off.',
     details: [
       {
         title: 'Following the curvature of the aerobody',
@@ -347,8 +347,8 @@ export const projects: Project[] = [
         body: 'Press-fit retention keeps installation simple and pairs well with fast iteration, since a printed prototype gives immediate pass/fail on fit. But FDM does not hold CAD-nominal dimensions, so I converged the interference physically: print, check, adjust, reprint. Because each cycle takes hours, that tuning was affordable and same-day. The mounts grip the inner edge of the rear windshield frame, sized about 2 mm under the edge, and the fit converged after 5 iterations.',
       },
       {
-        title: 'Collapsing lead time with in-house printing',
-        body: 'Lead time was the binding constraint, at weeks per mount. Designing for FDM from the outset turns a design file into an installed part in hours and keeps revisions in the team’s hands, at the cost of constraining the design to what the process can hold dimensionally. The mounts are printed in PLA.',
+        title: 'Press-fit instead of bolts',
+        body: 'In previous years the camera was bolted into the vehicle, so every install or removal meant tools and fasteners, and the camera stayed hard to get at. The press-fit mount replaces that: it presses onto the inner edge of the rear windshield frame by hand, and the camera comes out the same way, staying accessible for inspection or replacement. The tradeoff is that retention now depends on the interference fit alone, which is why the fit was converged across print iterations. The mounts are printed in PLA.',
       },
     ],
   },
