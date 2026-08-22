@@ -28,6 +28,7 @@ export const projects: Project[] = [
     summary:
       'This project is a subsystem of an adaptive electronic nose. I am investigating how nasal channel geometry affects sensor detection through CFD simulations and benchtop experiments. With this research, we can bias the e-nose toward a specific scent by adjusting the channel geometry rather than the sensor hardware.',
     category: 'Simulation & Analysis',
+    status: 'In progress.',
     year: '2026',
     featured: true,
     tools: [
@@ -43,23 +44,23 @@ export const projects: Project[] = [
     imagePoster: 'images/enose-transport-methane-decane-poster.jpg',
     imageAlt: 'Simulated transport of methane and decane through identical channels, side by side',
     outcome: [
-      '**Shape does not amplify the signal.** Sweeping the channel angle from straight to a full U at fixed velocity and sniff period more than doubles vorticity at the sensor and tracks Reynolds number near-linearly, but peak concentration and linger time shift by only about 4%. The flow responds strongly to shape while the sensor barely does. This was a negative result, and it redirected the project halfway through.',
-      '**Shape does separate compounds.** Probing 100 centerline points across 10 compounds, geometry pulls their signals apart spatially. Methane peaks at 38% of the channel length and decane at 28%, and a 180° bend separates them further than a straight channel does. Where a sensor sits encodes what it is smelling, and the effect is strongest for the lightest compounds.',
-      '**The null result is bounded.** A coupled velocity and angle sweep shows the slope of the angle effect rising with velocity, so shape may become a usable lever in flow regimes above those tested.',
-      '**Impact.** This redirects the lab from sensor chemistry toward sensor placement, and it supplies the flow-conditioning stage that shapes air before it reaches the sensor in the adaptive electronic nose we are building.',
-      '**Status.** Preliminary. The next steps are a log-spaced velocity sweep and varied sniff periods, to locate where the angle effect becomes usable.',
+      '**Study in progress.** No conclusions are being drawn yet. The first parametric sweeps mapped the initial relationships between channel shape, flow, and sensor response, and those relationships are now refining the simulation and testing parameters for the next round of studies.',
+      '**What the first sweeps showed.** Sweeping the channel from straight to a full U at one fixed velocity and sniff period more than doubled vorticity at the sensor and tracked Reynolds number near-linearly, while peak concentration and linger time shifted by about 4%. The flow responds to shape much more strongly than the sensor does at that operating point, and mapping where that changes is what the current studies target.',
+      '**Early signs that position matters.** Probing 100 centerline points across 10 compounds, each compound’s signal peaks at a different point along the channel, from 38% of the length for methane down to 28% for decane. Whether that spatial separation holds up across operating conditions is one of the open questions.',
+      '**How the parameters were refined.** A coupled velocity and angle sweep showed the spread across geometries narrowing as flow speeds up, which pointed the study toward low flushing numbers and set the operating ranges for the runs now underway.',
+      '**Currently running.** Simulations sweeping velocity through log space, alongside varied sniff periods, with the analysis to follow.',
     ],
     outcomeMedia: [
       {
         src: 'images/enose-auc-vs-theta.png',
         alt: 'Total odorant exposure at the sensor plotted against bend angle, showing a flat trend',
-        caption: 'The negative result. Total odorant reaching the sensor is flat within about 4% across all 19 bend angles.',
+        caption: 'From the first angle sweep: total odorant reaching the sensor stays within about 4% across all 19 bend angles at the operating point tested so far.',
         fit: 'contain',
       },
       {
         src: 'images/enose-place-map.png',
         alt: 'Signal peak position along the channel for each alkane, and the resulting place map',
-        caption: 'The useful one. Each compound’s signal peaks at a different point along the channel, from 38% of its length for methane down to 28% for decane.',
+        caption: 'From the early multi-compound runs: each compound’s signal peaks at a different point along the channel, from 38% of its length for methane down to 28% for decane.',
         fit: 'contain',
       },
     ],
@@ -67,13 +68,14 @@ export const projects: Project[] = [
       'Built a parametric COMSOL model of a nasal-inspired channel, driven by a transient inhale–hold–exhale sniff cycle rather than a steady flow',
       'Designed and ran three parametric sweeps under matched conditions, covering 19 bend angles, 6 inlet speeds, and 10 hydrocarbons',
       'Automated the analysis in Python (Pandas, NumPy, Matplotlib), turning raw transient exports into metrics and plots for every run',
-      'Recognised that the sensitivity result was a dead end and redirected the study toward telling compounds apart',
-      'Ran the control case that showed the discrimination effect is independent of bend angle, before reporting it',
+      'Used the initial shape and velocity relationships to refine the simulation and testing parameters for the next round of sweeps',
+      'Ran control cases to separate geometry-driven effects from the compounds’ own transport properties',
+      'Currently running log-spaced velocity sweeps with varied sniff periods, ahead of the next analysis pass',
       'Segmented CT-scanned animal airways in ITK-SNAP and 3D printed them as test geometries for benchtop validation',
       'Presented the work to the lab’s computational subgroup',
     ],
     motivation:
-      'Electronic noses usually buy selectivity with chemistry: one more compound to detect means one more sensor tuned to it. A biological nose does it differently. Air is routed through a cavity whose bony turbinates control how long odorant molecules linger near the receptors, so the anatomy is doing part of the sensing. The Aizenberg Lab is building an adaptive electronic nose, and my project tested whether that principle transfers to hardware. Concentrations inside a nasal cavity cannot be measured in place, so the question starts as a simulation problem.',
+      'Electronic noses usually buy selectivity with chemistry: one more compound to detect means one more sensor tuned to it. A biological nose does it differently. Air is routed through a cavity whose bony turbinates control how long odorant molecules linger near the receptors, so the anatomy is doing part of the sensing. The Aizenberg Lab is building an adaptive electronic nose, and my project is testing whether that principle transfers to hardware. Concentrations inside a nasal cavity cannot be measured in place, so the question starts as a simulation problem.',
     motivationMedia: [
       {
         src: 'images/enose-u-channel-geometry.png',
@@ -131,8 +133,8 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Bend angle: strong on flow, flat on detection',
-        body: 'Sweeping θ from 0° to 180° raised peak Reynolds number from 17.1 to 20.8 and peak vorticity from essentially zero to 1.4 s⁻¹, both near-linearly (R² = 0.97 and 0.98). The detection metrics did not follow. Concentration traces for all 19 geometries nearly overlap, total exposure varies by about 4% with no trend (R² = 0.34), and peak signal and residence time are equally flat. A swing that more than doubles the swirl at the sensor buys roughly 4% in what the sensor sees.',
+        title: 'Bend angle: strong on flow, small on detection so far',
+        body: 'Sweeping θ from 0° to 180° raised peak Reynolds number from 17.1 to 20.8 and peak vorticity from essentially zero to 1.4 s⁻¹, both near-linearly (R² = 0.97 and 0.98). The detection metrics did not follow at this operating point. Concentration traces for all 19 geometries nearly overlap, total exposure varies by about 4% with no trend (R² = 0.34), and peak signal and residence time are equally flat. That gap between how strongly the flow responds and how little the sensor does is the initial relationship the ongoing studies are built around.',
         media: [
           {
             src: 'images/enose-reynolds-vs-theta.png',
@@ -155,8 +157,8 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Sniffing harder erases what little is left',
-        body: 'One inlet velocity is one operating point, so I repeated all 19 geometries at six speeds from 2.5 to 15 cm/s and collapsed the sweep onto Π = U_in·T_sniff / L, the number of channel lengths flushed per sniff. Faster sniffing amplified geometry’s effect on the flow and suppressed it on detection: the spread in peak concentration across all bend angles trended down from 1.67 to 0.32 µmol/m³ as Π rose from 0.5 to 3.0. Once the channel clears within a single sniff, the bend has less chance to matter, so whatever influence geometry has is largest at low Π.',
+        title: 'Coupling velocity and bend angle',
+        body: 'One inlet velocity is one operating point, so I repeated all 19 geometries at six speeds from 2.5 to 15 cm/s and collapsed the sweep onto Π = U_in·T_sniff / L, the number of channel lengths flushed per sniff. Faster sniffing amplified geometry’s effect on the flow and suppressed it on detection: the spread in peak concentration across all bend angles trended down from 1.67 to 0.32 µmol/m³ as Π rose from 0.5 to 3.0. Once the channel clears within a single sniff, the bend has less chance to matter, so geometry’s influence looks largest at low Π. That relationship is what set the velocity ranges for the log-spaced sweeps now running.',
         media: [
           {
             src: 'images/enose-velocity-pi-compare.mp4',
@@ -211,6 +213,10 @@ export const projects: Project[] = [
             fit: 'contain',
           },
         ],
+      },
+      {
+        title: 'Current work',
+        body: 'The study is ongoing and no conclusions are being drawn yet. The initial relationships above refined the simulation and testing parameters, and I am now running velocity sweeps spaced through log space together with varied sniff periods. The analysis of those runs is next, to map where in the operating space channel geometry becomes a usable lever.',
       },
     ],
   },
@@ -408,6 +414,8 @@ export const projects: Project[] = [
       },
     ],
   },
+  // Hidden for now: not strong enough to feature. Uncomment to restore.
+  /*
   {
     slug: 'educational-gearboxes',
     title: 'Two-Stage Educational Gearboxes',
@@ -450,6 +458,7 @@ export const projects: Project[] = [
       },
     ],
   },
+  */
   {
     slug: 'pneumatic-piston-assembly',
     title: 'Pneumatic Piston Mounting Assembly Redesign',
