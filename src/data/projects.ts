@@ -359,9 +359,9 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: 'desktop-injection-molder',
-    title: 'WAC-A-MOLD Desktop Injection Molder — Clamping Subsystem',
-    summary: "Clamping subsystem for the university's first desktop injection molder: parametrized clamping-unit linkages in Onshape and SolidWorks, now in the machining stages.",
+    slug: 'injection-molder',
+    title: 'WAC-A-MOLD Injection Molder — Clamping Subsystem',
+    summary: 'Clamping subsystem for the WAC-A-MOLD injection molder: parametrized clamping-unit linkages in Onshape and SolidWorks, now in the machining stages.',
     category: 'Product Development',
     year: '2026',
     featured: true,
@@ -376,7 +376,7 @@ export const projects: Project[] = [
     image: 'images/molder-clamping-unit.png',
     imageAlt: 'SolidWorks model of the full clamping unit: platens, tie bars, lead screw, and toggle linkages',
     outcome: [
-      "Parametrized clamping-unit linkages carried from concept through CAD to early prototyping; the links are now in the machining stages for the university's first desktop injection molder.",
+      'Parametrized clamping-unit linkages carried from concept through CAD to early prototyping; the links are now in the machining stages for the WAC-A-MOLD injection molder.',
       "I lead the clamping subsystem from concept through CAD development to early prototyping. I parametrized the clamping-unit linkages as fully variable-driven models in Onshape and SolidWorks, which accelerated iteration and centralized configuration management for the team. The links are now being machined on a mill. The machine is early-stage; performance numbers will follow prototype testing.",
     ],
     skills: [
@@ -384,7 +384,7 @@ export const projects: Project[] = [
       'Links being machined on a mill to carry the design into physical prototypes',
       'Shared parametric workspace for centralized CAD and configuration management across the team',
     ],
-    motivation: 'Students at the university lacked accessible injection molding; WAC-A-MOLD will be the first desktop injection molder on campus. As one of the core founding members of the Waterloo Automation Collective, a design team started with a group of 10 students, I own the clamping subsystem: the mechanism that closes the mold and holds it shut against injection pressure, which had to be designed while the rest of the machine was still taking shape.',
+    motivation: 'Students at the university lacked accessible injection molding, and WAC-A-MOLD is being built to change that. As one of the core founding members of the Waterloo Automation Collective, a design team started with a group of 10 students, I own the clamping subsystem: the mechanism that closes the mold and holds it shut against injection pressure, which had to be designed while the rest of the machine was still taking shape.',
     details: [
       {
         title: 'Designing against moving requirements',
@@ -392,7 +392,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Linkage-based clamping architecture',
-        body: 'The clamp must generate and hold closing force against injection pressure on a desktop-scale machine, which drove a mechanical-linkage approach.',
+        body: 'The clamp must generate and hold closing force against injection pressure, which drove a mechanical-linkage approach.',
         media: [
           {
             src: 'images/molder-clamping-unit.png',
