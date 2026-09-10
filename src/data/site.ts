@@ -7,10 +7,10 @@ export const site = {
   name: 'Nicholas Lee',
   /** One-line professional descriptor under the name in the hero */
   descriptor:
-    'Mechatronics Engineering student at the University of Waterloo. Currently a Research Intern at Harvard\'s Aizenberg Lab.',
+    'Mechatronics Engineering student at the University of Waterloo. Recently a Research Intern at Harvard\'s Aizenberg Lab.',
   /** Short hero introduction (1–2 sentences) */
   intro:
-    'Welcome to my site! I enjoy combining mechanical design, electronics, programming, and data-driven thinking to develop practical, user-focused solutions.',
+    'Welcome to my site! I like carrying mechanical designs the whole way, from hand calcs and CAD through FEA, prototyping, and manufacturing, and most of the projects below ended up as physical hardware.',
 
   email: 'n9lee@uwaterloo.ca',
   linkedin: 'https://www.linkedin.com/in/nicholaslee---/',
@@ -35,16 +35,16 @@ export const site = {
         items: ['Basketball', 'Soccer', 'Volleyball', 'Flag Football'],
       },
       {
+        label: 'Leadership & Community',
+        items: ['F26 Engineering Orientation Leader'],
+      },
+      {
         label: 'Engineering Society',
         items: ['LinkedIn Headshot events for engineering students', 'Puppies on Campus for mental health relief', 'Job Fair for engineering students'],
       },
       {
-        label: 'Design Teams & Clubs',
-        items: ['Midnight Sun Solar Car Team', 'Waterloo Automation Collective', 'UW Cooking Club'],
-      },
-      {
-        label: 'Leadership & Community',
-        items: ['Engineering Orientation Leader'],
+        label: 'Clubs',
+        items: ['SERVE Volleyball Club', 'UW Cooking Club'],
       },
       {
         label: 'Interests & Hobbies',

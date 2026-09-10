@@ -7,7 +7,7 @@ import { usePageMeta } from '../lib/usePageMeta'
 export default function About() {
   usePageMeta(
     'About',
-    'Beyond the projects — the activities, teams, and interests of Nicholas Lee outside of engineering at the University of Waterloo.',
+    'Extracurricular activities outside of engineering projects',
   )
 
   return (

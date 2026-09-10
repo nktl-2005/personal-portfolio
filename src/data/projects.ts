@@ -37,7 +37,7 @@ export const projects: Project[] = [
       'CFD',
       'Mass transport modelling',
       'ITK-SNAP',
-      'FDM 3D printing',
+      'MeshLab / Meshmixer',
     ],
     figure: 'enose',
     image: 'images/enose-transport-methane-decane.mp4',
@@ -70,7 +70,7 @@ export const projects: Project[] = [
       'Automated the analysis in Python (Pandas, NumPy, Matplotlib), turning 200K+ rows of raw exports into 11 sensitivity and selectivity metrics, 80+ figures, and 16 tables in one scripted step',
       'Stress-tested the headline result with a velocity-collapse falsification test, and cross-validated the stroke-ratio scaling through independent velocity and duration sweeps',
       'Ran control cases to separate geometry-driven effects from the compounds’ own transport properties',
-      'Segmented CT-scanned animal airways in ITK-SNAP and 3D printed them as test geometries for benchtop validation',
+      'Segmented CT-scanned animal airways in ITK-SNAP and repaired the meshes into watertight STLs as test geometries for benchtop validation',
       'Presented the work to the lab’s computational subgroup',
     ],
     motivation:
@@ -215,7 +215,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Moving to real anatomy',
-        body: 'A smooth channel is a deliberate abstraction; real nasal cavities are dense with turbinate structure, which is where a geometry-driven effect should actually show up if there is one. I have been segmenting CT-scanned animal skulls in ITK-SNAP to extract the airway volume, cleaning the meshes into watertight STLs, and 3D printing them as physical test geometries. The metrics carry over unchanged, so artificial and biological geometries can be compared directly.',
+        body: 'A smooth channel is a deliberate abstraction; real nasal cavities are dense with turbinate structure, which is where a geometry-driven effect should actually show up if there is one. I segmented CT-scanned animal skulls in ITK-SNAP to extract the airway volume and cleaned the meshes into watertight STLs to serve as test geometries. The metrics carry over unchanged, so artificial and biological geometries can be compared directly.',
         media: [
           {
             src: 'images/enose-ct-segmentation.png',
@@ -328,7 +328,7 @@ export const projects: Project[] = [
     summary: "Two solar car assembly fixtures: surface-modeled wheel-cover stencils that follow the aerobody's curvature, and tool-free press-fit camera mounts that replaced the bolted-in mounts of previous years.",
     category: 'Mechanical Design',
     year: '2025',
-    featured: false,
+    featured: true,
     tools: [
       'Surface modeling',
       'Datum-referenced fixturing',
@@ -337,6 +337,8 @@ export const projects: Project[] = [
       'Rapid prototyping',
     ],
     figure: 'fixtures',
+    image: 'images/fixtures-stencil-cad.png',
+    imageAlt: 'CAD render of the wheel-cover cutting stencil seated on the aerobody around the wheel cutout',
     outcome: [
       'Surface-modeled stencils registered to vehicle datums standardized wheel-cover alignment; tool-free press-fit mounts made the rear-view camera quick to install and easy to access, replacing the bolted-in mounts of previous years.',
       "I treated both as fixture problems. I surface-modeled wheel-cover cutting stencils to follow the curvature of the dynamic aerobody, datumed to the ribs of the car, and designed a tool-free press-fit camera mount system for FDM 3D printing. Installation accuracy improved, and the camera now installs and comes out by hand instead of being bolted in, keeping it accessible for maintenance.",
@@ -366,6 +368,14 @@ export const projects: Project[] = [
       {
         title: 'Press-fit instead of bolts',
         body: 'In previous years the camera was bolted into the vehicle, so every install or removal meant tools and fasteners, and the camera stayed hard to get at. The press-fit mount replaces that: it presses onto the inner edge of the rear windshield frame by hand, and the camera comes out the same way, staying accessible for inspection or replacement. The tradeoff is that retention now depends on the interference fit alone, which is why the fit was converged across print iterations. The mounts are printed in PLA.',
+        media: [
+          {
+            src: 'images/fixtures-camera-mount-cad.png',
+            alt: 'CAD render of the teal press-fit camera mount seated on the rear canopy of the solar car',
+            caption: 'The camera mount (teal) positioned on the rear canopy CAD. The apparent interference is an artifact of the canopy model: the canopy manufactured in April came out larger than the CAD, so on the real car the mount grips the inner edge of the rear windshield frame, with the fit converged over print iterations against the vehicle itself.',
+            fit: 'contain',
+          },
+        ],
       },
     ],
   },
