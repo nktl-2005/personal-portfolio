@@ -18,5 +18,8 @@ Thumbs.db
 # Local tooling (machine-specific dev server config)
 .claude/
 
+# Files Claude delivered in chat (saved locally by the desktop app)
+Claude outputs/
+
 # Env
 *.local
