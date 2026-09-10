@@ -26,9 +26,9 @@ export const projects: Project[] = [
     slug: 'electronic-nose-cfd',
     title: 'Influence of Geometry on Sensor Detection for an Adaptive Electronic Nose',
     summary:
-      'This project is a subsystem of an adaptive electronic nose. I am investigating how nasal channel geometry affects sensor detection through CFD simulations and benchtop experiments. With this research, we can bias the e-nose toward a specific scent by adjusting the channel geometry rather than the sensor hardware.',
+      'This project is a subsystem of an adaptive electronic nose. I investigated how nasal channel geometry affects sensor detection through CFD simulations and benchtop experiments. The parametric campaign showed that geometry is a real detection lever, but a conditional one: it acts only when the sniff is matched to the channel, and compound identity is carried by the signal’s timing rather than by sensor position.',
     category: 'Simulation & Analysis',
-    status: 'In progress.',
+    status: 'Simulation campaign complete. Benchtop validation ongoing.',
     year: '2026',
     featured: true,
     tools: [
@@ -44,38 +44,37 @@ export const projects: Project[] = [
     imagePoster: 'images/enose-transport-methane-decane-poster.jpg',
     imageAlt: 'Simulated transport of methane and decane through identical channels, side by side',
     outcome: [
-      '**Study in progress.** No conclusions are being drawn yet. The first parametric sweeps mapped the initial relationships between channel shape, flow, and sensor response, and those relationships are now refining the simulation and testing parameters for the next round of studies.',
-      '**What the first sweeps showed.** Sweeping the channel from straight to a full U at one fixed velocity and sniff period more than doubled vorticity at the sensor and tracked Reynolds number near-linearly, while peak concentration and linger time shifted by about 4%. The flow responds to shape much more strongly than the sensor does at that operating point, and mapping where that changes is what the current studies target.',
-      '**Early signs that position matters.** Probing 100 centerline points across 10 compounds, each compound’s signal peaks at a different point along the channel, from 38% of the length for methane down to 28% for decane. Whether that spatial separation holds up across operating conditions is one of the open questions.',
-      '**How the parameters were refined.** A coupled velocity and angle sweep showed the spread across geometries narrowing as flow speeds up, which pointed the study toward low flushing numbers and set the operating ranges for the runs now underway.',
-      '**Currently running.** Simulations sweeping velocity through log space, alongside varied sniff periods, with the analysis to follow.',
+      '**Geometry is a conditional lever.** Across a 247-case grid (19 bend angles × 13 stroke ratios), bending the channel matters only when the sniff stroke roughly matches the channel length (stroke ratio Λs ≈ 0.8–3.5). Inside that band a full U-bend delivers up to 31% more odorant exposure and a 42% higher peak signal than a straight channel. Below the band, bending is a penalty of up to 69%; above it, the sensor saturates and shape stops mattering.',
+      '**One number sets the regime.** Reaching the same stroke ratio with a fast short sniff or a slow long one produces near-identical detection, agreeing within about 11% everywhere the two sweeps can be cleanly compared. The stroke ratio, not velocity or duration separately, is the design variable.',
+      '**The effect is geometry, not an artifact.** Local probe velocity rises 19% across the sweep and correlates with every detection metric at r > 0.98, which is exactly what a sampling artifact would look like. A time-rescaling test ruled that out: all 19 waveforms collapse onto one curve with a residual of 0.33% of range, and the fitted front sweep rate matches an independent traverse check within 1%.',
+      '**Repeated sniffing spends the effect rather than accumulating it.** Over a four-sniff bout, each successive sniff shifts the geometry-sensitive band toward shorter strokes and shrinks it; by the fourth sniff the single-sniff optimum has reversed sign, and the best whole-bout gain is 5.5% against 31% for one matched sniff. The stroke ratio should therefore be matched to the bout, not to a single sniff.',
+      '**The early place map did not survive scrutiny, and that is a finding.** Judged with distribution-level statistics over 10 compounds and 100 probe positions, every compound shares one optimal sensor location just inside the inlet, and what separates species is the rise and washout of the transient waveform, not where the signal peaks. Curvature shifts that separability by at most 11% end to end, so a single well-placed sensor reading timing is robust to geometry. The heaviest alkanes (C8–C10) remain near the noise floor, a limit any scheme built on this mechanism inherits.',
     ],
     outcomeMedia: [
       {
-        src: 'images/enose-auc-vs-theta.png',
-        alt: 'Total odorant exposure at the sensor plotted against bend angle, showing a flat trend',
-        caption: 'From the first angle sweep: total odorant reaching the sensor stays within about 4% across all 19 bend angles at the operating point tested so far.',
+        src: 'images/enose-theta-lambda-map.png',
+        alt: 'Four-panel map of the bend-angle effect on exposure across stroke ratios, showing penalty, benefit and null regimes',
+        caption: 'The campaign in one map: bending the channel hurts exposure at short strokes (blue), helps near matched strokes (red), and vanishes once the sensor saturates. The sign flips at a stroke ratio of about 0.8.',
         fit: 'contain',
       },
       {
-        src: 'images/enose-place-map.png',
-        alt: 'Signal peak position along the channel for each alkane, and the resulting place map',
-        caption: 'From the early multi-compound runs: each compound’s signal peaks at a different point along the channel, from 38% of its length for methane down to 28% for decane.',
+        src: 'images/enose-selectivity-vs-position.png',
+        alt: 'Species separability along the channel for four bend angles, peaking at the first probe inside the inlet',
+        caption: 'Where to put the sensor: species separability peaks at the first probe inside the inlet at every bend angle tested, so the placement rule survives geometry changes.',
         fit: 'contain',
       },
     ],
     skills: [
-      'Built a parametric COMSOL model of a nasal-inspired channel, driven by a transient inhale–hold–exhale sniff cycle rather than a steady flow',
-      'Designed and ran three parametric sweeps under matched conditions, covering 19 bend angles, 6 inlet speeds, and 10 hydrocarbons',
-      'Automated the analysis in Python (Pandas, NumPy, Matplotlib), turning raw transient exports into metrics and plots for every run',
-      'Used the initial shape and velocity relationships to refine the simulation and testing parameters for the next round of sweeps',
+      'Built a parametric COMSOL model of a nasal-inspired channel, driven by transient sniff waveforms rather than a steady flow',
+      'Designed and ran six parametric studies under matched conditions: 700+ transient cases covering 19 bend angles, 13 stroke ratios, 9 sniff durations, four-sniff trains, and 10 hydrocarbons',
+      'Automated the analysis in Python (Pandas, NumPy, Matplotlib), turning 200K+ rows of raw exports into 11 sensitivity and selectivity metrics, 80+ figures, and 16 tables in one scripted step',
+      'Stress-tested the headline result with a velocity-collapse falsification test, and cross-validated the stroke-ratio scaling through independent velocity and duration sweeps',
       'Ran control cases to separate geometry-driven effects from the compounds’ own transport properties',
-      'Currently running log-spaced velocity sweeps with varied sniff periods, ahead of the next analysis pass',
       'Segmented CT-scanned animal airways in ITK-SNAP and 3D printed them as test geometries for benchtop validation',
       'Presented the work to the lab’s computational subgroup',
     ],
     motivation:
-      'Electronic noses usually buy selectivity with chemistry: one more compound to detect means one more sensor tuned to it. A biological nose does it differently. Air is routed through a cavity whose bony turbinates control how long odorant molecules linger near the receptors, so the anatomy is doing part of the sensing. The Aizenberg Lab is building an adaptive electronic nose, and my project is testing whether that principle transfers to hardware. Concentrations inside a nasal cavity cannot be measured in place, so the question starts as a simulation problem.',
+      'Electronic noses usually buy selectivity with chemistry: one more compound to detect means one more sensor tuned to it. A biological nose does it differently. Air is routed through a cavity whose bony turbinates control how long odorant molecules linger near the receptors, so the anatomy is doing part of the sensing. The Aizenberg Lab is building an adaptive electronic nose, and my project tested whether that principle transfers to hardware. Concentrations inside a nasal cavity cannot be measured in place, so the question starts as a simulation problem.',
     motivationMedia: [
       {
         src: 'images/enose-u-channel-geometry.png',
@@ -89,7 +88,7 @@ export const projects: Project[] = [
         title: 'How the model was set up',
         body: [
           'The channel is two straight legs joined by an arc, with bend angle θ as the only free variable. The arc radius is derived from θ so that arc length, width, and total flow path stay constant as the bend opens. Dimensions are scaled to a human nasal cavity: 15 mm wide, 100 mm total flow length, 45 mm out of plane.',
-          'The sniff is three stacked cycles of a 2 s inhale and a 4 s hold, followed by a 15 s flush. Walls are semi-permeable (mass-transfer coefficient 1×10⁻¹⁰ m/s) so analyte is absorbed the way an olfactory epithelium would absorb it, and the sensor is an ideal point probe. I used a k-ε RANS closure to keep run times manageable across a sweep this size; peak Reynolds numbers stay around 17–21, so the flow itself is laminar.',
+          'The sniff protocol depends on the study: a single 2 s inhalation stroke for the main sweeps, four-stroke trains with 2 s strokes and 2 s pauses for the accumulation study, and stacked inhale-and-hold cycles in the earliest runs. Walls are semi-permeable (mass-transfer coefficient 1×10⁻¹⁰ m/s) so analyte is absorbed the way an olfactory epithelium would absorb it, and the sensor is an ideal point probe. I used a k-ε RANS closure to keep run times manageable across sweeps this size; peak Reynolds numbers stay around 17–21, so the flow itself is laminar.',
         ],
         media: [
           {
@@ -127,14 +126,14 @@ export const projects: Project[] = [
             src: 'images/enose-transport-theta180.mp4',
             poster: 'images/enose-transport-theta180-poster.jpg',
             alt: 'Simulated methane transport through a full U-bend over one sniff cycle',
-            caption: 'θ = 180°, a full U. Visibly more swirl, and almost the same signal at the probe.',
+            caption: 'θ = 180°, a full U. Visibly more swirl; at this operating point, almost the same signal at the probe.',
             fit: 'contain',
           },
         ],
       },
       {
-        title: 'Bend angle: strong on flow, small on detection so far',
-        body: 'Sweeping θ from 0° to 180° raised peak Reynolds number from 17.1 to 20.8 and peak vorticity from essentially zero to 1.4 s⁻¹, both near-linearly (R² = 0.97 and 0.98). The detection metrics did not follow at this operating point. Concentration traces for all 19 geometries nearly overlap, total exposure varies by about 4% with no trend (R² = 0.34), and peak signal and residence time are equally flat. That gap between how strongly the flow responds and how little the sensor does is the initial relationship the ongoing studies are built around.',
+        title: 'One operating point nearly hid the effect',
+        body: 'The first sweep held one velocity and one sniff period and varied only θ. The flow responded strongly: peak Reynolds number rose from 17.1 to 20.8 and peak vorticity from essentially zero to 1.4 s⁻¹, both near-linearly (R² = 0.97 and 0.98). Detection barely moved: the 19 concentration traces nearly overlap and total exposure varied by about 4% with no trend. Read alone, that says shape does not matter. The full grid says something more specific: this operating point, integrated over a multi-sniff record, sits where the geometry effect is weakest, and a single matched sniff behaves very differently.',
         media: [
           {
             src: 'images/enose-reynolds-vs-theta.png',
@@ -151,53 +150,65 @@ export const projects: Project[] = [
           {
             src: 'images/enose-concentration-vs-time.png',
             alt: 'Concentration at the sensor over time for all bend angles, nearly overlapping',
-            caption: 'Nineteen bend angles, nearly one curve. The three steps are the stacked sniff cycles; the drop after 18 s is the flush.',
+            caption: 'Nineteen bend angles, nearly one curve, at the original operating point. The full grid shows where this stops being true.',
             fit: 'contain',
           },
         ],
       },
       {
-        title: 'Coupling velocity and bend angle',
-        body: 'One inlet velocity is one operating point, so I repeated all 19 geometries at six speeds from 2.5 to 15 cm/s and collapsed the sweep onto Π = U_in·T_sniff / L, the number of channel lengths flushed per sniff. Faster sniffing amplified geometry’s effect on the flow and suppressed it on detection: the spread in peak concentration across all bend angles trended down from 1.67 to 0.32 µmol/m³ as Π rose from 0.5 to 3.0. Once the channel clears within a single sniff, the bend has less chance to matter, so geometry’s influence looks largest at low Π. That relationship is what set the velocity ranges for the log-spaced sweeps now running.',
-        media: [
-          {
-            src: 'images/enose-velocity-pi-compare.mp4',
-            poster: 'images/enose-velocity-pi-compare-poster.jpg',
-            alt: 'Side-by-side simulated transport at low and high dimensionless number',
-            caption: 'Π = 0.5 against Π = 3. At high Π the channel is flushed within a single sniff.',
-            fit: 'contain',
-          },
-          {
-            src: 'images/enose-conc-range-vs-pi.png',
-            alt: 'Plot of peak-concentration spread across bend angles against the dimensionless number',
-            caption: 'The spread across all bend angles trends down as Π rises, because faster flow leaves less room for geometry to matter.',
-            fit: 'contain',
-          },
-          {
-            src: 'images/enose-auc-vs-pi.png',
-            alt: 'Plot of concentration AUC against the dimensionless number with the bend-angle range shaded',
-            caption: 'Total exposure climbs with Π and saturates above Π ≈ 2. The shaded band is the full 0 to 180° range, which stays thin at every speed.',
-            fit: 'contain',
-          },
-        ],
+        title: 'Geometry acts as a band-pass filter',
+        body: 'Repeating all 19 geometries across 13 stroke ratios, log-spaced from 0.1 to 100, turned that flat early result into the map at the top of the page, and the map has three regimes. When the stroke is too short (Λs below about 0.6) the odorant packet never reaches the probe convectively, so bending only adds path: exposure at a full U falls 36 to 69% below straight. When the stroke roughly matches the channel (Λs of about 0.8 to 3.5) the sign flips: a full U gains 31% exposure and 42% peak signal, and the front even arrives slightly earlier. When the stroke overruns the channel (Λs above about 10) the probe saturates and every geometry reads the same to within 1%. The crossover sits at Λs ≈ 0.8, stroke length equal to channel length, which points at the mechanism: geometry matters when delivery is marginal. The practical consequence is that quoting a curvature effect without stating the stroke ratio is meaningless.',
       },
       {
-        title: 'The place map, and what it does not show',
+        title: 'Two checks that could have killed the result',
         body: [
-          'Molecular weight rises down the alkane series while diffusivity and vapour pressure fall, so I ran the full C₁–C₁₀ set under one geometry and one low inlet speed. Instead of a single sensor I sampled 100 points along the centreline and located x*, the position where signal linger time peaks, for each compound. Plotting x* against carbon number gives a place map, the same trick the cochlea uses to encode pitch by position rather than by tuning a separate receptor to every frequency.',
-          'Two checks bound the claim. The bend helps but only marginally: a full U spreads methane and decane across 0.10 of the channel length against 0.09 for a straight channel, which is one probe spacing on a 100-point grid, so most of the separation comes from the compounds’ own transport properties. The effect is also metric-dependent, since repeating the analysis with concentration AUC returns a flat map for all ten compounds. And the map is steep only across the light end, with C1 to about C3 separating clearly while C4 through C10 sit inside a band roughly 0.03 x*/L wide. That is enough to justify testing probe placement and real anatomy, and not enough to claim a working discrimination scheme.',
+          'Is the stroke ratio really the variable? The same Λs can be reached with a fast short sniff or a slow long one, and those are different flows: Reynolds number scales with one, diffusion time with the other. I reran the sweep along a fixed-velocity duration arm and compared it against the fixed-duration velocity arm. The two arms collapse onto one curve per bend angle, agreeing within about 11% everywhere the comparison is cleanly resolvable, so Λs is the controlling number to first order.',
+          'Is the curvature effect just the probe sampling a faster streamline? Local probe velocity rises 19% across the sweep and correlates with every metric at r > 0.98, which is exactly what an artifact would look like. Velocity acts on a signal as a time scale, so the right test is whether the 19 waveforms collapse under a time rescaling. They do, to a residual of 0.33% of range, and the fitted front sweep rate matches a fit-free traverse check within 1% while the local-velocity null hypothesis misses it badly. The effect is transport through the geometry, not probe placement.',
         ],
         media: [
           {
-            src: 'images/enose-place-map-theta0.png',
-            alt: 'The same place map computed at a bend angle of zero degrees, nearly identical to the 180 degree case',
-            caption: 'The same analysis at θ = 0°. A full U-bend widens the C1 to C10 spread only from 0.09 to 0.10 of the channel length, so most of the separation is not geometry-driven.',
+            src: 'images/enose-lambda-collapse.png',
+            alt: 'Detection metrics against stroke ratio for the velocity sweep and the duration sweep, landing on the same curves',
+            caption: 'Two ways of reaching the same stroke ratio, a velocity sweep and a duration sweep, land on the same response curves.',
             fit: 'contain',
           },
           {
-            src: 'images/enose-place-map-auc.png',
-            alt: 'Place map computed with concentration AUC, flat for every compound',
-            caption: 'Swap linger time for concentration AUC and the map goes flat, so the effect depends on which metric the sensor reports.',
+            src: 'images/enose-velocity-collapse.png',
+            alt: 'Raw waveforms for all bend angles, the same waveforms collapsed onto one curve, and the fitted sweep rate against the velocity null hypothesis',
+            caption: 'The artifact check: 19 raw waveforms (left) collapse onto one curve (right, residual 0.33% of range) under a rescaling set by channel traverse, not by local probe velocity.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'Repeated sniffing spends the advantage',
+        body: 'Real sniffing is a bout, not a single stroke, so the full grid was rerun under four 2 s dosing strokes separated by 2 s pauses. The first sniff reproduces the single-sniff map almost exactly, as it must, since it has no memory of the protocol. From the second stroke on, tracer left behind by earlier strokes pre-loads the channel, so each sniff needs less stroke to finish the delivery, and the band where bending helps slides toward shorter strokes, roughly as the single-sniff band divided by the number of sniffs. By the fourth stroke the original optimum has reversed sign: the curved channels spent their advantage early and sit closer to saturation. Integrated over the whole bout, the best gain is 5.5% at θ = 160°, against 31% for one matched sniff. For the e-nose that sets the rule of matching the stroke ratio to the bout; for biology it is a transport-level argument for why sniff rate and count should co-tune with airway geometry.',
+        media: [
+          {
+            src: 'images/enose-sniff-accumulation.png',
+            alt: 'Heatmaps of the geometry effect on the first stroke, the last dosing stroke, and the change across the sniff train',
+            caption: 'The geometry effect over a four-sniff bout: the benefit band (red) sits at matched strokes on sniff 1, slides to shorter strokes by sniff 4, and the sniff-1 optimum turns into a penalty.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        title: 'From place map to waveform',
+        body: [
+          'The early place map read as if each compound peaked at its own position along the channel. Held to distribution-level statistics, Jensen–Shannon distance between area-normalized signals across all 10 alkanes and 100 centerline probes, it does not survive: the spatial centroids of C1 through C10 sit on top of one another, and only the distribution widths order by carbon number, a broadening effect rather than a position code. Keeping that negative result visible matters, because it redirects the design.',
+          'Where the species signature does live is timing. Every compound shares one optimal sensor position just inside the inlet, where the diffusive rise and washout edges of the dose pulse differ most between light and heavy species, and that optimum does not move with curvature. The separability is real but small, a mean pairwise distance of about 0.02 on a 0 to 1 scale, and curvature trims it by about 11% from straight to a full U. Adjacent heavy pairs like nonane and decane sit near the noise floor, so any claimed discrimination there would need noise modelling first. The design implication stands: one sensor at the inlet, reading the full transient.',
+        ],
+        media: [
+          {
+            src: 'images/enose-waveforms-optimal-probe.png',
+            alt: 'Area-normalized waveforms for all ten alkanes at the optimal probe, for straight and fully bent channels',
+            caption: 'All ten alkanes at the optimal probe. The species signature hides in the rise and washout edges, which is why distribution-level metrics, not the eye, had to judge separability.',
+            fit: 'contain',
+          },
+          {
+            src: 'images/enose-spatial-centroid-width.png',
+            alt: 'Spatial centroid and width over time for all ten alkanes, at straight and fully bent geometries',
+            caption: 'Spatial centroids for C1 to C10 overlap (top) while distribution widths order by carbon number (bottom): compounds separate by spread, not by position, and the bend barely changes either.',
             fit: 'contain',
           },
         ],
@@ -215,8 +226,8 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Current work',
-        body: 'The study is ongoing and no conclusions are being drawn yet. The initial relationships above refined the simulation and testing parameters, and I am now running velocity sweeps spaced through log space together with varied sniff periods. The analysis of those runs is next, to map where in the operating space channel geometry becomes a usable lever.',
+        title: 'Where it lands',
+        body: 'The campaign closes with three design rules for the e-nose. Operate in the matched band: choose the sniff stroke so Λs lands between roughly 0.8 and 3.5, and match it to the bout length when sniffing repeatedly. Place the sensor just inside the inlet and read the whole transient, since timing, not position, carries compound identity in a smooth channel. Treat geometry as a sensitivity lever rather than a selectivity lever until the channel has internal structure. Whether turbinate-scale anatomy changes that last verdict is the open question the benchtop rig and the CT-derived geometries are built to answer.',
       },
     ],
   },
