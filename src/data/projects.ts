@@ -22,6 +22,7 @@ import type { Project } from './types'
 
 export const projects: Project[] = [
   // project 1
+  /*
   {
     slug: 'electronic-nose-cfd',
     title: 'Influence of Geometry on Sensor Detection for an Adaptive Electronic Nose',
@@ -231,6 +232,7 @@ export const projects: Project[] = [
       },
     ],
   },
+  */
   {
     slug: 'solar-car-ballast-box',
     title: 'Midnight Sun Solar Car Ballast Box',
