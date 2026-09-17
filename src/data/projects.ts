@@ -237,23 +237,23 @@ export const projects: Project[] = [
     slug: 'solar-car-ballast-box',
     title: 'Midnight Sun Solar Car Ballast Box',
     summary:
-      'Aluminum sheet-metal ballast box for Midnight Sun Solar Car Team (MS16), owned from first sketch through manufacture, FEA-verified against turning and braking loads, and now on the competition vehicle.',
+      'Aluminum sheet-metal ballast box for Midnight Sun Solar Car Team (MS16), owned from first sketch through manufacture, sized from hand calculations, cut 20% lighter with a slot pattern, and now on the competition vehicle.',
     category: 'Mechanical Design',
     year: '2025',
     featured: true,
     tools: [
       'SolidWorks (sheet metal)',
-      'Static FEA',
+      'SolidWorks Simulation (design verification)',
       'DFM/DFA principles',
       'Waterjet cutting',
       'Aluminum sheet-metal construction',
     ],
     figure: 'ballast',
     image: 'images/ballast-box-hero.png',
-    imageAlt: 'SolidWorks model of the aluminum sheet-metal ballast box alongside its static FEA von Mises stress results',
+    imageAlt: 'SolidWorks model of the aluminum sheet-metal ballast box',
     outcome: [
-      'Full design-to-manufacture ownership: an FEA-verified, 20% lighter sheet-metal enclosure that ended up on the competition vehicle.',
-      'I owned the ballast box from first sheet-metal sketch through manufacture, and the finished assembly ended up on the competition vehicle. I designed it in SolidWorks as an aluminum sheet-metal enclosure to DFM/DFA principles, optimized the geometry for waterjet cutting, and ran static FEA to verify the ballast would not break the box under turning and braking. The final design is 20% lighter with structural integrity maintained.',
+      'Full design-to-manufacture ownership: a hand-calc-sized, 20% lighter sheet-metal enclosure that ended up on the competition vehicle.',
+      'I owned the ballast box from first sheet-metal sketch through manufacture, and the finished assembly ended up on the competition vehicle. I designed it in SolidWorks as an aluminum sheet-metal enclosure to DFM/DFA principles, sized the interior from hand calculations, optimized the geometry for waterjet cutting, and cut enclosure weight by 20% from the initial design with a pattern of slots, comparing mass properties in SolidWorks before and after.',
     ],
     outcomeMedia: [
       {
@@ -273,7 +273,8 @@ export const projects: Project[] = [
       'Aluminum sheet-metal enclosure built with SolidWorks sheet-metal features, geometry optimized for waterjet cutting',
       'Ballast payload of minimum 20 kg of steel shot, packaged into a confined space on the chassis',
       'Interior volume sized by hand calculation from steel-shot density, with a 1.5 volumetric factor of safety',
-      'Static FEA under turning and braking load cases to verify the shifting ballast would not break the box',
+      'Enclosure weight cut 20% from the initial design with a pattern of slots, comparing mass properties in SolidWorks before and after',
+      'Braking load case checked in SolidWorks Simulation: a 10g load on the front face, with peak von Mises stress below the aluminum yield strength',
       'Mounting tabs with weld nuts for easy assembly onto the car',
       'Owned from design through manufacture; the manufactured box is on the competition vehicle',
     ],
@@ -295,32 +296,28 @@ export const projects: Project[] = [
         ],
       },
       {
-        title: 'Strength vs. weight, resolved with FEA',
-        body: 'Turning and braking throw 20+ kg of steel shot against the enclosure walls, while the enclosure’s own mass is overhead worth minimizing. Rather than conservatively over-build, I iterated the geometry against static FEA, keeping material on the load paths and removing it where analysis showed margin. The iterations converged on a 20% weight reduction while verifying the ballast would not break the box in either load case.',
-        media: [
-          {
-            src: 'images/ballast-box-fea.png',
-            alt: 'Static FEA von Mises stress plot of the ballast box',
-            caption: 'Static von Mises stress results. Peak stress of about 34 MPa stays below the 55 MPa yield strength.',
-            fit: 'contain',
-          },
-        ],
+        title: 'Cutting weight with a slot pattern',
+        body: 'The ballast is mandated mass, but the enclosure around it is pure overhead worth minimizing. I cut enclosure weight by 20% from the initial design with a pattern of slots in the walls and faces, comparing mass properties in SolidWorks before and after each revision while keeping the enclosure closed enough to retain the loose steel shot.',
       },
       {
         title: 'Designed for manufacturability and assembly',
-        body: 'Aluminum sheet metal gave a closed enclosure for loose steel shot and a part the team could actually fabricate. Across many design iterations I used SolidWorks sheet-metal features to keep every FEA-driven geometry change formable, and optimized the geometry for waterjet cutting. Mounting tabs with weld nuts were designed in so the box assembles onto the car easily.',
+        body: 'Aluminum sheet metal gave a closed enclosure for loose steel shot and a part the team could actually fabricate. Across many design iterations I used SolidWorks sheet-metal features to keep every geometry change formable, and optimized the geometry for waterjet cutting. Mounting tabs with weld nuts were designed in so the box assembles onto the car easily.',
+      },
+      {
+        title: 'Verifying the braking load case',
+        body: 'Simulation did not drive the design; the geometry came from hand calculations and sheet-metal constraints. I used SolidWorks Simulation as a final check on the worst load case, hard braking, where the steel shot slams against the front face of the box. Applying a 10g load to the front face kept peak von Mises stress below the yield strength of the aluminum, verifying the design as sized.',
         media: [
           {
-            src: 'images/ballast-box-cad.png',
-            alt: 'SolidWorks sheet-metal model of the ballast box enclosure',
-            caption: 'The sheet-metal design in SolidWorks. Every FEA-driven change stayed formable as a flat pattern.',
+            src: 'images/ballast-box-fea-braking.png',
+            alt: 'SolidWorks Simulation von Mises stress plot of the ballast box under a 10g braking load on the front face',
+            caption: 'The braking check in SolidWorks Simulation: a 10g load applied to the front face, with peak von Mises stress below the aluminum yield strength.',
             fit: 'contain',
           },
         ],
       },
       {
         title: 'From CAD to the competition vehicle',
-        body: 'I carried the box through the full design-to-manufacture cycle: requirements (holding the required ballast volume inside a confined space on the chassis), sheet-metal design, FEA verification, and manufacturing. The finished assembly ended up on the competition vehicle.',
+        body: 'I carried the box through the full design-to-manufacture cycle: requirements (holding the required ballast volume inside a confined space on the chassis), sheet-metal design, and manufacturing. The finished assembly ended up on the competition vehicle.',
       },
     ],
   },

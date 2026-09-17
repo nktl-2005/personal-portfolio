@@ -10,7 +10,7 @@ export const site = {
     'Mechatronics Engineering student at the University of Waterloo. Recently a Research Intern at Harvard\'s Aizenberg Lab.',
   /** Short hero introduction (1–2 sentences) */
   intro:
-    'Welcome to my site! I like carrying mechanical designs the whole way, from hand calcs and CAD through FEA, prototyping, and manufacturing, and most of the projects below ended up as physical hardware.',
+    'Welcome to my site! I like carrying mechanical designs the whole way, from hand calcs and CAD through prototyping and manufacturing, and most of the projects below ended up as physical hardware.',
 
   email: 'n9lee@uwaterloo.ca',
   linkedin: 'https://www.linkedin.com/in/nicholaslee---/',
